@@ -1,0 +1,15 @@
+version: '3'
+services:
+
+  postgres:
+    build: ./postgres
+    restart: always
+      ports:
+        - 5432:5432
+      env_file:
+        - postgres/db.env
+        
+  php:
+    build: ./php
+    ports:
+        - 80:80

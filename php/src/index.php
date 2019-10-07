@@ -8,6 +8,8 @@
     <link rel='stylesheet' type='text/css' media='screen' href='css/simple-grid.css'>
 </head>
 <body>
+    <?php include_once("navbar.php");?>
+    
     <div class="row">
         <div class="col-1"></div>
         <div class="col-10" style="height:100vh;">

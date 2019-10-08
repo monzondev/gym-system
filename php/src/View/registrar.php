@@ -2,10 +2,10 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Miembros</title>
+    <title>Registrar Miembro</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/reset.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/simple-grid.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='Style/css/reset.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='Style/css/simple-grid.css'>
 </head>
 <body>
     <?php include_once("navbar.php");?>
@@ -15,7 +15,7 @@
             <h1>En Desarrollo</h1>
         </div>
         <div class="col-1"></div>
-    </div>    
+    </div>
     
 </body>
 </html>

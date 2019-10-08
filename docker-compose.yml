@@ -1,15 +1,19 @@
 version: '3'
 services:
-
   postgres:
     build: ./postgres
     restart: always
-      ports:
-        - 5432:5432
-      env_file:
-        - postgres/db.env
-        
-  php:
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - postgres/db.env
+  web:
     build: ./php
     ports:
-        - 80:80
+      - "80:80"
+    depends_on:
+      - postgres
+volumes:
+  db-data:

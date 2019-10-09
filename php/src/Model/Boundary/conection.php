@@ -19,6 +19,7 @@
             $datos_bd="host='$this->host' dbname='$this->bd' user='$this->usuario' password='$this->password'";
             //establecemos el link
             $this->link=pg_connect($datos_bd);
+            return $this->link;
         }
 
         //funcion que ejecuta una consulta en la base de datos
@@ -31,7 +32,7 @@
 
         //destructor: aca elimino la conexion con postgres
         function __destruct(){
-            pg_close($this->link);
+            //pg_close($this->link);
         }
         //funcion que devuelve el estado de la conexion
         function comprobar(){

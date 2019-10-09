@@ -1,117 +1,22 @@
 <?php
+include_once 'conection.php';
 //clase  para la entidad Empleado
-class empleado {
+class empleado extends conector_pg
+{
+    private $conexion = null;
 
-    //propiedades de la entidad
-    private $id_empleado;
-    private $id_tipo_empleado;
-    private $nombres;
-    private $apellidos;
-    private $usuario;
-    private $password;
-    private $correo;
-    private $genero;
-    private $telefono;
-    private $activo;
-    private $fecha_nacimiento;
     //consultas sql para la entidad empleado
     private $Querys  = array(
-        "create" => "INSERT INTO empleado(id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES (?,?,?,?,?,?,?,?,?,?)",
-        "delete" => "DELETE empleado WHERE id_empleado = ?",
-        "update"  => "UPDATE empleado SET  id_tipo_empleado = ?, nombres =?, apellidos = ?, usuarios = ?, password = ?, correo = ?, genero = ?, telefono = ?, activo= ?, fecha_nacimiento= ? WHERE id_empleado = ?",
+        "create" => "INSERT INTO empleado(id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
+        "delete" => "DELETE empleado WHERE id_empleado = $1",
+        "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, nombres =$2, apellidos = $3, usuarios = $4, password = $5, correo = $6, genero = $7, telefono = $8, activo= $9, fecha_nacimiento= $10 WHERE id_empleado = $11",
         "findAll" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
-        "findById" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= ? ",
-        "count" => "SELECT COUNT(id_empleado) FROM empleado");
-
-    //Metodos get para las propiedades
-
-    public function getIdEmpleado(){
-        return $this->id_empleado;
+        "findById" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
+        "count" => "SELECT COUNT(id_empleado) FROM empleado"
+    );
+    public function __construct()
+    {
+        $this->conexion = parent::__construct();
     }
 
-    public function getIdTipoEmpleado(){
-        return $this->id_tipo_empleado;
-    }
-
-    public function getNombres(){
-        return $this->nombres;
-    }
-
-    public function getApellidos(){
-        return $this->apellidos;
-    }
-
-    public function getUsuario(){
-        return $this->usuario;
-    }
-
-    public function getPassword(){
-        return $this->password;
-    }
-
-    public function getCorreo(){
-        return $this->correo;
-    }
-
-    public function getGenero(){
-        return $this->genero;
-    }
-
-    public function getTelefono(){
-        return $this->telefono;
-    }
-
-    public function getActivo(){
-        return $this->activo;
-    }
-
-    public function getFechaNacimiento(){
-        return $this->fecha_nacimiento;
-    }
-
-    //Metodos set para las propiedades
-
-    public function setIdEmpleado($idEmpleado){
-       $this->id_empleado = $idEmpleado;
-    }
-
-    public function setIdTipoEmpleado($idTipoEmpleado){
-        $this->id_tipo_empleado = $idTipoEmpleado;
-    }
-
-    public function setNombres($nombres){
-       $this->nombres = $nombres;
-    }
-
-    public function setApellidos($apellidos){
-        $this->apellidos = $apellidos;
-    }
-
-    public function setUsuario($usuario){
-       $this->usuario = $usuario;
-    }
-
-    public function setPassword($password){
-       $this->password = $password;
-    }
-
-    public function setCorreo($correo){
-        $this->correo = $correo;
-    }
-
-    public function setGenero($genero){
-        $this->genero = $genero;
-    }
-
-    public function setTelefono($telefono){
-        $this->telefono = $telefono;
-    }
-
-    public function setActivo($activo){
-        $this->activo = $activo;
-    }
-
-    public function setFechaNacimiento($fechaNacimiento){
-        $this->fecha_nacimiento = $fechaNacimiento;
-    }
 }

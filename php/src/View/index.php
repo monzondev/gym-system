@@ -16,7 +16,7 @@
         <div class="col-10" style="height:100vh;">
             <h1>En Desarrollo</h1>
             <h2> <?php
-                    include_once '../Model/Database/conection.php';
+                    include_once '../Model/Boundary/conection.php';
                     $conexion = new conector_pg();
                     $conexion->comprobar();
                     ?>

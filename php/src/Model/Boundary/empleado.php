@@ -12,11 +12,27 @@ class empleado extends conector_pg
         "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, nombres =$2, apellidos = $3, usuarios = $4, password = $5, correo = $6, genero = $7, telefono = $8, activo= $9, fecha_nacimiento= $10 WHERE id_empleado = $11",
         "findAll" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
         "findById" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
-        "count" => "SELECT COUNT(id_empleado) FROM empleado"
+        "count" => "SELECT COUNT(id_empleado) FROM empleado",
+        "findByUser" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE usuario=  $1 "
     );
     public function __construct()
     {
         $this->conexion = parent::__construct();
     }
 
+    /*********************************************************************/
+    
+    //Metodo para validar que el usuario igresado este en la base de datos
+    public function getUserbyUser($name)
+    {
+        $query = $this->Querys['findByUser'];
+        $result = pg_query_params($this->conexion,$query, array($name));
+        if (pg_num_rows($result)) {
+            $row = pg_fetch_assoc($result);
+        }else{
+            $row =null;
+        }
+        //devuelve el usuario logeado si se encuentra
+        return $row;
+    }
 }

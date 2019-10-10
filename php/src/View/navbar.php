@@ -27,7 +27,7 @@ if ($_SESSION['tipoEmpleado'] == 1) {
                     } ?>
             </strong>
         </div>
-        <div class="col-2" style="cursor: pointer;" onclick= "accion();" >
+        <div class="col-2" style="cursor: pointer;" onclick="location.href='../Controller/loginController.php?close=1';">
         Cerrar Sessión
         </div>
 
@@ -48,16 +48,9 @@ if ($_SESSION['tipoEmpleado'] == 1) {
                     } ?>
             </strong>
         </div>
-        <div class="col-2" style="cursor: pointer;" onclick= "accion();" >
+        <div class="col-2" style="cursor: pointer;"onclick="location.href='../Controller/logout.php';">
         Cerrar Sessión
         </div>
 
     </div>
 <?php }  ?>
-<script>
-    function accion()
-    {
-        document.write('<?php $empleado->CerrarSesion() ?>');
-        location.href="login.php";
-    }
-</script>

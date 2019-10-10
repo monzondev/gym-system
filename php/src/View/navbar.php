@@ -1,56 +1,51 @@
-<?php
-include_once '../Model/Boundary/tipo_empleado.php';
-include_once '../Model/Boundary/empleado.php';
-$empleado = new empleado();
-$tipoEmpleado =  new tipo_empleado();
-$tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
-if ($_SESSION['tipoEmpleado'] == 1) {
-    ?>
-    <div class="row" style="background-color: #aab7b8;">
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='index.php';">
+<ul class="nav nav-pills">
+    <li role="presentation" class="active">
+        <a href="#">
             DashBoard
-        </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='miembros.php';">
-            Miembros
-        </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='empleados.php';">
-            Empleados
-        </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='estadisticas.php';">
+        </a>
+    </li>
+    <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false">
+            Miembros <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="registrar.php">
+                    Registrar
+                </a>
+            </li>
+            <li>
+                <a href="miembros.php">
+                    Ver Todos
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">
+                Empleados <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="registrar.php">
+                        Registrar
+                    </a>
+                </li>
+                <li>
+                    <a href="empleados.php">
+                        Ver Todos
+                    </a>
+                </li>
+            </ul>
+        </li>
+    <li role="presentation">
+        <a href="estadisticas.php">
             Estadisticas
-        </div>
-        <div class="col-2">
-            <strong>
-                <?php
-                    if (isset($_SESSION['usuario'])) {
-                        echo strtoupper($_SESSION['usuario']) . ' - ' . $tipo['nombre'];
-                    } ?>
-            </strong>
-        </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='../Controller/loginController.php?close=1';">
-        Cerrar Sessión
-        </div>
-
-    </div>
-<?php } else { ?>
-    <div class="row" style="background-color: #aab7b8;">
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='index.php';">
-            DashBoard
-        </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='miembros.php';">
-            Miembros
-        </div>
-        <div class="col-2">
-            <strong>
-                <?php
-                    if (isset($_SESSION['usuario'])) {
-                        echo strtoupper($_SESSION['usuario']) . ' - ' . $tipo['nombre'];
-                    } ?>
-            </strong>
-        </div>
-        <div class="col-2" style="cursor: pointer;"onclick="location.href='../Controller/logout.php';">
-        Cerrar Sessión
-        </div>
-
-    </div>
-<?php }  ?>
+        </a>
+    </li>
+    <li role="presentation">
+        <a href="#">
+            Cerrar Session
+        </a>
+    </li>
+</ul>

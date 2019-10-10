@@ -18,12 +18,14 @@ $login->ValidateSession();
 <body>
     <?php include_once("navbar.php"); ?>
     <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10" style="height:100vh;">
-            <h1>En Desarrollo</h1>
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h1>En Desarrrolo</h1>
         </div>
-        <div class="col-1"></div>
+        <div class="col-md-1"></div>
     </div>
+    <script src="bootstrap/jquery-1.12.4.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
 
 </body>
 

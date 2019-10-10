@@ -11,6 +11,8 @@ services:
       - postgres/db.env
   web:
     build: ./php
+    volumes:
+      - ./php/src/:/var/www/html
     ports:
       - "80:80"
     depends_on:

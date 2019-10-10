@@ -3,7 +3,7 @@
     class conector_pg
     {
         //direccion ip del host donde nos conectamos a la bd
-        var $host = '172.23.0.2'; //direccion ip del contenedor de postgresql en docker
+        var $host = '172.17.0.1'; //direccion ip del contenedor de postgresql en docker
         //nombre de la base de datos
         var $bd='gym';
         //usuario de conexion

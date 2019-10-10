@@ -64,13 +64,17 @@
 						toastr.options.closeButton = true;
 
 						if (datos.success === '1') {
+							toastr.clear()
 							toastr.success('Logeo Correcto');
 							window.location.href = "index.php";
 						} else if (datos.success === '2') {
+							toastr.clear()
 							toastr.error('Contraseña incorrecta');
 						} else if (datos.success === '3') {
+							toastr.clear()
 							toastr.error('Usuario incorrecto');
 						} else if (datos.success === '4') {
+							toastr.clear()
 							toastr.warning('Campos vacios');
 							limpiar();
 						}
@@ -79,7 +83,7 @@
 				});
 
 			});
-			
+
 		});
 
 		function limpiar() {

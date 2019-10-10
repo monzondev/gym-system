@@ -1,5 +1,7 @@
 <?php
 include_once 'conection.php';
+//metodo que habilita el uso de sesiones en este archivo
+session_start();
 //clase  para la entidad Empleado
 class empleado extends conector_pg
 {
@@ -35,4 +37,14 @@ class empleado extends conector_pg
         //devuelve el usuario logeado si se encuentra
         return $row;
     }
+
+    /*********************************************************************/
+    
+    //Metodo para crear una sesion por empleado
+    public function createSessionByUser($user){
+        $_SESSION['idEmpleado']= $user['id_empleado'];
+        $_SESSION['tipoEmpleado']= $user['id_tipo_empleado'];
+        $_SESSION['usuario']= $user['usuario'];        
+    }
+
 }

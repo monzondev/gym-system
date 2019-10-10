@@ -7,6 +7,7 @@ if ( isset($_POST['usuario']) && isset($_POST['clave']) && $_POST['usuario'] !="
         $user_input = $_POST['clave'];
         if (password_verify($_POST['clave'], $user['password'])) {
             $response = ['success' => '1'];
+            $Empleado->createSessionByUser($user);
         }else{
             $response = ['success' => '2'];
         }

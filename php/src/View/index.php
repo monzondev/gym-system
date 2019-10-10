@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <html>
 
 <head>
@@ -19,6 +23,15 @@
                     include_once '../Model/Boundary/conection.php';
                     $conexion = new conector_pg();
                     $conexion->comprobar();
+                    
+                    ?>
+            </h2>
+            <h2> <?php
+                    if (isset($_SESSION["usuario"])) {
+                        echo 'Bienvenido '. $_SESSION["usuario"];
+                    } else {
+                        echo 'incia sesion';
+                    }
                     ?>
             </h2>
         </div>

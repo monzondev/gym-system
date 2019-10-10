@@ -1,5 +1,7 @@
 <?php
 include_once '../Model/Boundary/tipo_empleado.php';
+include_once '../Model/Boundary/empleado.php';
+$empleado = new empleado();
 $tipoEmpleado =  new tipo_empleado();
 $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
 if ($_SESSION['tipoEmpleado'] == 1) {
@@ -25,8 +27,8 @@ if ($_SESSION['tipoEmpleado'] == 1) {
                     } ?>
             </strong>
         </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='login.php';">
-            Cerrar Sessión
+        <div class="col-2" style="cursor: pointer;" onclick= "accion();" >
+        Cerrar Sessión
         </div>
 
     </div>
@@ -46,9 +48,16 @@ if ($_SESSION['tipoEmpleado'] == 1) {
                     } ?>
             </strong>
         </div>
-        <div class="col-2" style="cursor: pointer;" onclick="location.href='login.php';">
-            Cerrar Sessión
+        <div class="col-2" style="cursor: pointer;" onclick= "accion();" >
+        Cerrar Sessión
         </div>
 
     </div>
 <?php }  ?>
+<script>
+    function accion()
+    {
+        document.write('<?php $empleado->CerrarSesion() ?>');
+        location.href="login.php";
+    }
+</script>

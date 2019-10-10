@@ -67,4 +67,12 @@ class empleado extends conector_pg
             exit();
         }
     }
+    
+     //Metodo para cerrar la sesion actual
+     public function CerrarSesion()
+     {
+         if (isset($_SESSION['idEmpleado'])) {
+            session_destroy();
+         }
+     }
 }

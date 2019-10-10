@@ -23,28 +23,48 @@ class empleado extends conector_pg
     }
 
     /*********************************************************************/
-    
     //Metodo para validar que el usuario igresado este en la base de datos
     public function getUserbyUser($name)
     {
         $query = $this->Querys['findByUser'];
-        $result = pg_query_params($this->conexion,$query, array($name));
+        $result = pg_query_params($this->conexion, $query, array($name));
         if (pg_num_rows($result)) {
             $row = pg_fetch_assoc($result);
-        }else{
-            $row =null;
+        } else {
+            $row = null;
         }
         //devuelve el usuario logeado si se encuentra
         return $row;
     }
 
     /*********************************************************************/
-    
     //Metodo para crear una sesion por empleado
-    public function createSessionByUser($user){
-        $_SESSION['idEmpleado']= $user['id_empleado'];
-        $_SESSION['tipoEmpleado']= $user['id_tipo_empleado'];
-        $_SESSION['usuario']= $user['usuario'];        
+    public function createSessionByUser($user)
+    {
+
+        $_SESSION['idEmpleado'] = $user['id_empleado'];
+        $_SESSION['tipoEmpleado'] = $user['id_tipo_empleado'];
+        $_SESSION['usuario'] = $user['usuario'];
     }
 
+    /*********************************************************************/
+    //Metodo para verificar el estado de la sesion
+    public function ValidateSession()
+    {
+
+        if (!isset($_SESSION['idEmpleado'])) {
+            header("Location: login.php");
+            exit();
+        }
+    }
+
+    //Metodo para verificar el estado de la sesion en la interfaz login
+    public function ValidateSessionLogin()
+    {
+
+        if (isset($_SESSION['idEmpleado'])) {
+            header("Location: index.php");
+            exit();
+        }
+    }
 }

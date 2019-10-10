@@ -18,6 +18,3 @@ if ( isset($_POST['usuario']) && isset($_POST['clave']) && $_POST['usuario'] !="
     $response = ['success' => '4'];
 }
 exit(json_encode($response));
-
-
-?>

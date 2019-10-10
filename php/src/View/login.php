@@ -1,3 +1,9 @@
+<?php
+session_start();
+include_once '../Model/Boundary/empleado.php';
+$login = new empleado();
+$login->ValidateSessionLogin();
+?>
 <html>
 
 <head>
@@ -44,6 +50,9 @@
 	<script src="Scripts/Toast/toastr.js"></script>
 	<script>
 		$(document).ready(function() {
+			toastr.options.timeOut = 1500; //1.5s
+			toastr.options.closeButton = true;
+			toastr.info('Debes iniciar sesión');
 			limpiar();
 			$('#login').click(function() {
 				var username = $.trim($("#usuario").val());
@@ -64,17 +73,17 @@
 						toastr.options.closeButton = true;
 
 						if (datos.success === '1') {
-							toastr.clear()
+							toastr.remove();
 							toastr.success('Logeo Correcto');
 							window.location.href = "index.php";
 						} else if (datos.success === '2') {
-							toastr.clear()
+							toastr.remove();
 							toastr.error('Contraseña incorrecta');
 						} else if (datos.success === '3') {
-							toastr.clear()
+							toastr.remove();
 							toastr.error('Usuario incorrecto');
 						} else if (datos.success === '4') {
-							toastr.clear()
+							toastr.remove();
 							toastr.warning('Campos vacios');
 							limpiar();
 						}

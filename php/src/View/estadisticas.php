@@ -1,3 +1,13 @@
+<?php
+session_start();
+include_once '../Model/Boundary/empleado.php';
+$login = new empleado();
+$login->ValidateSession();
+if ($_SESSION['tipoEmpleado']!=1) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <html>
 <head>
     <meta charset='utf-8'>

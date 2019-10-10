@@ -27,7 +27,7 @@ $login->ValidateSessionLogin();
 					</center>
 					<br>
 					<center>
-						<h4 class="form-signin-heading">Inciar Session</h4>
+						<h4 class="form-signin-heading">Iniciar Sesión</h4>
 					</center>
 					<br>
 					<label for="inputEmail" class="sr-only">Usuario</label>

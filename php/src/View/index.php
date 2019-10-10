@@ -19,7 +19,51 @@ $login->ValidateSession();
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-            <h1>En Desarrrolo</h1>
+        <div class="row">
+            <div class="col-md-1"></div>            
+            <div class="col-md-10">
+                <h3>Miembros Proximos a Pagar:</h3>
+                <input type="text" class="form-control" placeholder="Nombre del miembro">
+            </div>
+            <div class="col-md-1"></div>            
+        </div>
+        <br><br>
+        <table class="table" style="widht: 50%">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo mensualidad</th>
+                        <th scope="col">Fecha de Incio</th>
+                        <th scope="col">Fecha de Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Juan Pleitez</td>
+                        <td>quicenal</td>
+                        <td>2000-01-01</td>
+                        <td>2000-01-01</td>
+                    </tr>
+                    <tr>
+                        <td>Roberto Carlos</td>
+                        <td>mensual</td>
+                        <td>2000-01-01</td>
+                        <td>2000-01-01</td>
+                    </tr>
+                    <tr>
+                        <td>Alexander Monzon</td>
+                        <td>semanal</td>
+                        <td>2000-01-01</td>
+                        <td>2000-01-01</td>
+                    </tr>
+                    <tr>
+                        <td>Diana Magaña</td>
+                        <td>mensual</td>
+                        <td>2000-01-01</td>
+                        <td>2000-01-01</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-md-1"></div>
     </div>

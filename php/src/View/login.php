@@ -22,9 +22,13 @@ $login->ValidateSessionLogin();
 			<div class="col-md-4" style="height: 100vh"></div>
 			<div class="col-md-4" style="height: 100vh">
 				<form style="margin-top: 20vh">
-					<center><h2 class="form-signin-heading">Body Master Gym</h2></center>
+					<center>
+						<h2 class="form-signin-heading">Body Master Gym</h2>
+					</center>
 					<br>
-					<center><h4 class="form-signin-heading">Inciar Session</h4></center>
+					<center>
+						<h4 class="form-signin-heading">Inciar Session</h4>
+					</center>
 					<br>
 					<label for="inputEmail" class="sr-only">Usuario</label>
 					<input class="form-control" placeholder="Usuario" maxlength="15" name="usuario" required id="usuario" type="text" autofocus="">
@@ -33,7 +37,12 @@ $login->ValidateSessionLogin();
 					<input class="form-control" placeholder="Contraseña" maxlength="15" name="clave" required id="clave" type="password" value="">
 					<br>
 					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-primary btn-block" type="button" style="width: 50%">Iniciar</button></center>
-					
+					<br><br>
+					<center>
+						<input id="salida" style="border: 0; font-size: 17px; width: 50%; font-weight:bold;">
+					</center>
+
+
 				</form>
 
 			</div>
@@ -75,22 +84,35 @@ $login->ValidateSessionLogin();
 						*/
 
 						if (datos.success === '1') {
+							$("#salida").css("color", "#27ae60");
+							$("#salida").val('Logeo Correcto');
+							byeNotify()
 							/*
 							toastr.success('Logeo Correcto');
 							*/
 							window.location.href = "index.php";
-						/*
-						} else if (datos.success === '2') {							
-							toastr.remove();
-							toastr.error('Contraseña incorrecta');
+
+						} else if (datos.success === '2') {
+							$("#salida").css("color", "#c0392b");
+							$("#salida").val('Contraseña incorrecta');
+							byeNotify()
+							/*toastr.remove();
+							toastr.error('Contraseña incorrecta');*/
 						} else if (datos.success === '3') {
-							toastr.remove();
-							toastr.error('Usuario incorrecto');
+							$("#salida").css("color", "#c0392b");
+							$("#salida").val('Usuario incorrecto');
+							byeNotify()
+							/*toastr.remove();
+							toastr.error('Usuario incorrecto');*/
 						} else if (datos.success === '4') {
-							toastr.remove();
-							toastr.warning('Campos vacios');
+
+							$("#salida").css("color", "#f1c40f");
+							$("#salida").val('Campos vacios');
+							byeNotify()
+							/*toastr.remove();
+							toastr.warning('Campos vacios');*/
 							limpiar();
-						*/
+
 						}
 
 					}
@@ -103,6 +125,13 @@ $login->ValidateSessionLogin();
 		function limpiar() {
 			$("#usuario").val('');
 			$("#clave").val('');
+		}
+
+		function byeNotify() {
+			setTimeout(function() {
+				$("#salida").val('');
+			}, 1500);
+
 		}
 	</script>
 </body>

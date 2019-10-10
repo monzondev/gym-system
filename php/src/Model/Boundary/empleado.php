@@ -67,12 +67,23 @@ class empleado extends conector_pg
             exit();
         }
     }
-    
      //Metodo para cerrar la sesion actual
      public function CerrarSesion()
      {
          if (isset($_SESSION['idEmpleado'])) {
             session_destroy();
          }
+     }
+
+     //Metodo para encriptar la contraseña de un empleado
+     public function EncryptPassword($userpassword)
+     {
+         if (isset($userpassword) && $userpassword != "") {
+            $passwordHash = password_hash($userpassword, PASSWORD_DEFAULT);
+         }else {
+             $passwordHash=null;
+         }
+         return $passwordHash;
+
      }
 }

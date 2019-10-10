@@ -1,4 +1,8 @@
 <?php
+session_start();
+include_once '../Model/Boundary/empleado.php';
+$login = new empleado();
+$login->ValidateSession();
 ?>
 <html>
 

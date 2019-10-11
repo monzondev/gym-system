@@ -46,12 +46,12 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
             </li>
         </ul>
     </li>
-<?php } ?>    
     <li>
         <a href="estadisticas.php">
             Estadisticas
         </a>
     </li>
+<?php } ?>
     <li class="dropdown" style="float:right; right:5vw;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class=""></i>

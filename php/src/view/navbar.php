@@ -1,13 +1,13 @@
 <?php
-include_once '../Model/Boundary/tipo_empleado.php';
-include_once '../Model/Boundary/empleado.php';
+include_once '../boundary/tipo_empleado.php';
+include_once '../boundary/empleado.php';
 $empleado = new empleado();
 $tipoEmpleado =  new tipo_empleado();
 $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
 ?>
 <ul class="nav nav-tabs">
     <li class="active">
-        <a href="#">
+        <a href="index.php">
             DashBoard
         </a>
     </li>
@@ -17,7 +17,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
             Miembros <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="registrar.php">
+            <li><a href="registrar-miembro.php">
                     Registrar
                 </a>
             </li>
@@ -35,7 +35,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
             Empleados <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="registrar.php">
+            <li><a href="registrar-empleado.php">
                     Registrar
                 </a>
             </li>
@@ -77,7 +77,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                     ?>
                 </a></li>
                 <li class="divider"></li>
-                <li><a style="cursor: pointer;" onclick="location.href='../Controller/loginController.php?close=1';">
+                <li><a style="cursor: pointer;" onclick="location.href='../controller/loginController.php?close=1';">
                     Salir
                 </a></li>
             </ul>

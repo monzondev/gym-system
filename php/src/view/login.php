@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../Model/Boundary/empleado.php';
+include_once '../boundary/empleado.php';
 $login = new empleado();
 $login->ValidateSessionLogin();
 ?>
@@ -11,8 +11,8 @@ $login->ValidateSessionLogin();
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<title>Inicio de Session</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-	<!--link href="Style/toastr/toastr.css" rel="stylesheet" /-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!--link href="css/toastr.css" rel="stylesheet" /-->
 </head>
 
 <body>
@@ -52,9 +52,9 @@ $login->ValidateSessionLogin();
 
 
 
-	<script src="bootstrap/jquery-1.12.4.min.js"></script>
-	<script src="bootstrap/bootstrap.min.js"></script>
-	<!--script src="Scripts/Toast/toastr.js"></script-->
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!--script src="js/toastr.js"></script-->
 	<script>
 		$(document).ready(function() {
 			/*
@@ -69,7 +69,7 @@ $login->ValidateSessionLogin();
 				var dataString = 'usuario=' + username + '&clave=' + password;
 				$.ajax({
 					type: "POST",
-					url: "../Controller/loginController.php",
+					url: "../controller/loginController.php",
 					data: dataString,
 					beforeSend: function() {
 						$("#login").val('Validando...');

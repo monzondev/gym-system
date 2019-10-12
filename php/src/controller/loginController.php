@@ -1,5 +1,5 @@
 <?php
-include_once '../Model/Boundary/empleado.php';
+include_once '../boundary/empleado.php';
 $Empleado = new empleado();
 
 //Metodo para cerrar la sesion actual
@@ -7,7 +7,7 @@ if(isset($_GET['close']) && $_GET['close']==1){
     if (isset($_SESSION['idEmpleado'])) {
         session_start();
         session_destroy();
-        header('Location: ../View/login.php');
+        header('Location: ../view/login.php');
         exit();
       }
 

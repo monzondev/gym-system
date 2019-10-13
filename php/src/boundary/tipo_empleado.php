@@ -35,4 +35,23 @@ class tipo_empleado  extends conector_pg
         //devuelve el usuario logeado si se encuentra
         return $row;
     }
+
+    /*********************************************************************/
+    //Metodo que obtiene todos los tipos de empleado
+    public function getAllTipoEmpleado()
+    {
+        $query = $this->Querys['findAll'];
+        $result = pg_query($this->conexion, $query);
+        if (pg_num_rows($result)) {
+
+            while ($row = pg_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+        } else {
+            $rows = null;
+        }
+        //devuelve lista de tipos de empleado
+        return $rows;
+    }
 }
+

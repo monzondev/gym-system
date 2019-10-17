@@ -130,7 +130,6 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
         </div>
         <div class="card-footer">
         </div>
-        <button onclick="test();">Tester</button>
 
     </div>
 

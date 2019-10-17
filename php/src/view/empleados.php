@@ -25,7 +25,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
         </div>
         <div class="col-md-1"></div>
     </div>
-    <script src="js/jquery-1.12.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>    
+    <script src="js/jQuery-3-4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -52,8 +52,8 @@ $login->ValidateSessionLogin();
 
 
 
-	<script src="js/jquery-1.12.4.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+    <script src="js/jQuery-3-4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 	<!--script src="js/toastr.js"></script-->
 	<script>
 		$(document).ready(function() {

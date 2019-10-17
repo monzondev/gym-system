@@ -21,7 +21,36 @@ if ($_SESSION['tipoEmpleado']!=1) {
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-            <h1>En Desarrrolo</h1>
+            <br>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo Empleado</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $empleados = $login->getAllEmpleados();
+                        if(!is_null($empleados)){
+                            foreach($empleados as $empleado){
+                                echo "
+                                    <tr>
+                                        <td>".$empleado["id_tipo_empleado"]."</td>
+                                        <td>".$empleado["nombres"]."</td>
+                                        <td>".$empleado["apellidos"]."</td>
+                                        <td>".$empleado["usuario"]."</td>
+                                    </tr>
+                                ";
+                            }
+                        }else{
+                            echo "<tr><td>No se encontraron Empleados</td></tr>";
+                        }                        
+                    ?>                    
+                </tbody>
+            </table>
         </div>
         <div class="col-md-1"></div>
     </div>

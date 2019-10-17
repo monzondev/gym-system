@@ -15,6 +15,6 @@ echo $_POST['telefono'];
 echo '<br>';
 echo $_POST['fecha'];
 echo '<br>';
-echo $_POST['genero'];
+echo $_POST['radio-stacked'];
 
 ?>

@@ -38,6 +38,21 @@ class empleado extends conector_pg
     }
 
     /*********************************************************************/
+    //Metodos que devuelve a todos los empleados
+    public function getAllEmpleados()
+    {
+        $query = $this->Querys['findAll'];
+        $result = pg_query($this->conexion, $query);
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+        } else {
+            $allRows = null;
+        }
+        //devuelve todos los empleados
+        return $allRows;
+    }
+
+    /*********************************************************************/
     //Metodo para crear una sesion por empleado
     public function createSessionByUser($user)
     {

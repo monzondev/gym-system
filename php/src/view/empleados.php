@@ -134,7 +134,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" placeholder="Telefono..." required>
+                                <input type="text" class="form-control" id="telefono" maxlength="8" placeholder="Telefono..." required>
                                 <div class="invalid-feedback">
                                     Ingrese Telefono
                                 </div>
@@ -205,6 +205,29 @@ if ($_SESSION['tipoEmpleado']!=1) {
                 }, false);
             });
         }, false);
+
+        // Validaciones con JS
+        $(function() {
+            $('#usuario').on('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+            $('#correo').on('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+            $('#password').on('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+            $('#telefono').on('keypress', function(e) {
+                var charCode = (e.which) ? e.which : e.keyCode
+                if (charCode != 43 && charCode > 31 && (charCode < 48 || charCode > 57)){
+                    return false;
+                }
+                return true;
+            });
+        });
         
     </script>
 </body>

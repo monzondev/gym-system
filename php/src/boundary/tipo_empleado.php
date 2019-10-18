@@ -42,16 +42,13 @@ class tipo_empleado  extends conector_pg
     {
         $query = $this->Querys['findAll'];
         $result = pg_query($this->conexion, $query);
-        if (pg_num_rows($result)) {
-
-            while ($row = pg_fetch_assoc($result)) {
-                $rows[] = $row;
-            }
+        if ($result) {
+            $allRows = pg_fetch_all($result);
         } else {
-            $rows = null;
+            $allRows = null;
         }
-        //devuelve lista de tipos de empleado
-        return $rows;
+        //devuelve todos los tipos de empleados
+        return $allRows;
     }
 }
 

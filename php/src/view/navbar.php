@@ -40,7 +40,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                     </div>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="estadisticas.php" style="padding-right: 450px" ;>Estadisticas</a>
+                    <a class="nav-link" href="estadisticas.php" style="padding-right: 25vw" ;>Estadisticas</a>
                 </li>
             <?php } ?>
 
@@ -48,7 +48,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="float: left;" "role=" button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Cuenta
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item">Nombre</a>
                     <a class="dropdown-item" style="cursor: pointer;" onclick="location.href='../controller/loginController.php?close=1';">Cerrar Sesi&oacute;n</a>
                 </div>

@@ -22,14 +22,13 @@ if ($_SESSION['tipoEmpleado']!=1) {
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <br>
-            <button id="btn_editar" type="button" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
+            <button id="btn_editar" type="button" data-target="#editarModal" data-toggle="modal" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Tipo Empleado</th>
-                        <th scope="col">Nombres</th>
-                        <th scope="col">Apellidos</th>
                         <th scope="col">Usuario</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>                        
                     </tr>
                 </thead>
                 <tbody id="table_body">
@@ -38,31 +37,196 @@ if ($_SESSION['tipoEmpleado']!=1) {
                         if(!is_null($empleados)){
                             foreach($empleados as $empleado){
                                 echo "
-                                    <tr data-id_empleado='".$empleado["id_empleado"]."'>
-                                        <td>".$empleado["id_tipo_empleado"]."</td>
-                                        <td>".$empleado["nombres"]."</td>
-                                        <td>".$empleado["apellidos"]."</td>
+                                    <tr data-empleado='".json_encode($empleado)."'>
                                         <td>".$empleado["usuario"]."</td>
+                                        <td>".$empleado["nombres"]."</td>
+                                        <td>".$empleado["apellidos"]."</td>                                        
                                     </tr>
                                 ";
                             }
                         }else{
                             echo "<tr><td>No se encontraron Empleados</td></tr>";
                         }
-                    ?>                    
+                    ?>
                 </tbody>
             </table>
         </div>
         <div class="col-md-1"></div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="form_editar" class="needs-validation" autocomplete="off" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Trabajador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="tipoEmpleado" class="col-sm-4 col-form-label">Tipo Empleado:</label>
+                            <div class="col-sm-8">
+                                <select id="tipoEmpleado" class="form-control" required>
+                                    <!--option>EJEMPLO</option-->
+                                    <?php
+                                        include_once '../boundary/tipo_empleado.php';
+                                        $te = new tipo_empleado();
+                                        $tiposEmpleados = $te->getAllTipoEmpleado();
+                                        if(!is_null($tiposEmpleados)){
+                                            foreach($tiposEmpleados as $tipoEmpleado){
+                                                echo "<option value='".$tipoEmpleado["id_tipo_empleado"]."'>".$tipoEmpleado["nombre"]."</option>";
+                                            }
+                                        }else{
+                                            echo "<option disabled>No se encontraron resultados</option>";
+                                        }
+                                    ?>
+                                </select>                                
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="usuario" placeholder="Usuario..." required>
+                                <div class="invalid-feedback">
+                                    Ingrese usuario
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nombres" class="col-sm-4 col-form-label">Nombres:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="nombres" placeholder="Nombres..." required>
+                                <div class="invalid-feedback">
+                                    Ingrese Nombres
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos..." required>
+                                <div class="invalid-feedback">
+                                    Ingrese Apellidos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" id="correo" placeholder="Correo..." required>
+                                <div class="invalid-feedback">
+                                    Ingrese Correo
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="password" placeholder="Contraseña..." required>
+                                <div class="invalid-feedback">
+                                    Ingrese Contraseña
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="telefono" maxlength="8" placeholder="Telefono..." required>
+                                <div class="invalid-feedback">
+                                    Ingrese Telefono
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fecha_nacimiento" class="col-sm-4 col-form-label">Fecha Nacimiendo:</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="date" value="" id="fecha_nacimiento" required>
+                                <div class="invalid-feedback">
+                                    Ingrese Fecha Nacimiento
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button id="btn_guardar" type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
+        var selectedEmpleado = null;
+
         $("#table_body tr").click(function(){
             $(this).addClass('table-info').siblings().removeClass('table-info');    
-            var idEmpleado=$(this).attr("data-id_empleado");
-            //alert("La referencia del empleado es id_empleado="+idEmpleado);
+            selectedEmpleado=jQuery.parseJSON($(this).attr("data-empleado"));            
             $("#btn_editar").prop('disabled', false);
+            if(selectedEmpleado !== null){
+                $("#tipoEmpleado").val(selectedEmpleado.id_tipo_empleado);
+                $("#usuario").val(selectedEmpleado.usuario);
+                $("#nombres").val(selectedEmpleado.nombres);
+                $("#apellidos").val(selectedEmpleado.apellidos);
+                $("#correo").val(selectedEmpleado.correo);
+                $("#password").val("");
+                $("#telefono").val(selectedEmpleado.telefono);
+                $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
+            }
+        });
+        $("#btn_guardar").click(function(){
+            if(selectedEmpleado !== null){
+                $("#form_editar").validate({
+                    debug: true
+                });
+            }else{
+                alert("No se ha seleccionado un empleado");
+            }
+        });
+
+
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, 
+            function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+
+        // Validaciones con JS
+        $(function() {
+            $('#usuario').on('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+            $('#correo').on('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+            $('#password').on('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+            $('#telefono').on('keypress', function(e) {
+                var charCode = (e.which) ? e.which : e.keyCode
+                if (charCode != 43 && charCode > 31 && (charCode < 48 || charCode > 57)){
+                    return false;
+                }
+                return true;
+            });
         });
         
     </script>

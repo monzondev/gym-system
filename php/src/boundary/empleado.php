@@ -83,15 +83,14 @@ class empleado extends conector_pg
         }
     }
 
-     //Metodo para encriptar la contraseña de un empleado
-     public function EncryptPassword($userpassword)
-     {
-         if (isset($userpassword) && $userpassword != "") {
+    //Metodo para encriptar la contraseña de un empleado
+    public function EncryptPassword($userpassword)
+    {
+        if (isset($userpassword) && $userpassword != "") {
             $passwordHash = password_hash($userpassword, PASSWORD_DEFAULT);
-         }else {
-             $passwordHash=null;
-         }
-         return $passwordHash;
-
-     }
+        } else {
+            $passwordHash = null;
+        }
+        return $passwordHash;
+    }
 }

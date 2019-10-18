@@ -22,7 +22,8 @@ if ($_SESSION['tipoEmpleado']!=1) {
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <br>
-            <table class="table table-hover">
+            <button id="btn_editar" type="button" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
+            <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Tipo Empleado</th>
@@ -31,13 +32,13 @@ if ($_SESSION['tipoEmpleado']!=1) {
                         <th scope="col">Usuario</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table_body">
                     <?php
                         $empleados = $login->getAllEmpleados();
                         if(!is_null($empleados)){
                             foreach($empleados as $empleado){
                                 echo "
-                                    <tr>
+                                    <tr data-id_empleado='".$empleado["id_empleado"]."'>
                                         <td>".$empleado["id_tipo_empleado"]."</td>
                                         <td>".$empleado["nombres"]."</td>
                                         <td>".$empleado["apellidos"]."</td>
@@ -47,7 +48,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
                             }
                         }else{
                             echo "<tr><td>No se encontraron Empleados</td></tr>";
-                        }                        
+                        }
                     ?>                    
                 </tbody>
             </table>
@@ -56,5 +57,14 @@ if ($_SESSION['tipoEmpleado']!=1) {
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        $("#table_body tr").click(function(){
+            $(this).addClass('table-info').siblings().removeClass('table-info');    
+            var idEmpleado=$(this).attr("data-id_empleado");
+            //alert("La referencia del empleado es id_empleado="+idEmpleado);
+            $("#btn_editar").prop('disabled', false);
+        });
+        
+    </script>
 </body>
 </html>

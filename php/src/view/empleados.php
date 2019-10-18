@@ -22,6 +22,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <br>
+            <button id="btn_editar" type="button" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -60,7 +61,8 @@ if ($_SESSION['tipoEmpleado']!=1) {
         $("#table_body tr").click(function(){
             $(this).addClass('table-info').siblings().removeClass('table-info');    
             var idEmpleado=$(this).attr("data-id_empleado");
-            alert("La referencia del empleado es id_empleado="+idEmpleado);
+            //alert("La referencia del empleado es id_empleado="+idEmpleado);
+            $("#btn_editar").prop('disabled', false);
         });
         
     </script>

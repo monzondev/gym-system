@@ -6,7 +6,7 @@ $tipoEmpleado =  new tipo_empleado();
 $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php" style="padding-right: 30px;  "><img src="img/logo2.png" width="65px" style="padding-right: 15px;" srcset="">Body Master Gym</a>
+    <a class="navbar-brand" href="index.php" style="padding-right: 30px;  "><img src="img/logotipo.png" width="70px" style="padding-right: 15px;" srcset="">Body Master Gym</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

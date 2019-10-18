@@ -15,6 +15,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     <title>Registrar Empleado</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/toastr.css">
     <style>
     .error{
         font-size: 17px;
@@ -123,7 +124,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                 </div>
                 <br>
                 <center>
-                    <button class="btn btn-info btn-lg" style="width: 150px; height: 45px;" name="agregarEmpleado" type="button" onclick="validar();">Registrar</button>
+                    <input class="btn btn-info btn-lg" style="width: 150px; height: 45px;" name="agregarEmpleado" id="registrarE" type="button"  value ="Registrar" >
                     <input class="btn btn-secondary btn-lg" style="width: 150px; height: 45px;" type="button" onclick=" location.href='index.php'" value="Cancelar" />
                 </center>
             </form>
@@ -136,10 +137,27 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-validate.js"></script>
+    <script src="js/toastr.js"></script>
     <script src="js/validaciones.js"></script>
     <script>
     </script>
     <script>
+         
+         //valueDefecto()
+
+        function valueDefecto(){
+        $("#nombres").val('Alexander');
+        $("#apellidos").val('Monzon');
+        $("#usuario").val('alex');
+        $("#password").val('monzon');
+        $("#email").val('alexandermm2011@gmail.com');
+        $("#telefono").val('75523179');
+        $("#fecha").val('2018-01-01');
+        $("#tipoempleado").val('1');
+        $("#R1M").prop('checked',true);
+
+        }
+
         function justNumbers(e) {
             var keynum = window.event ? window.event.keyCode : e.which;
             if ((keynum == 8) || (keynum == 46))

@@ -11,7 +11,7 @@ $login->ValidateSessionLogin();
 	<title>Inicio de Session</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!--link href="css/toastr.css" rel="stylesheet" /-->
+	<link href="css/toastr.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -53,7 +53,7 @@ $login->ValidateSessionLogin();
 
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<!--script src="js/toastr.js"></script-->
+	<script src="js/toastr.js"></script>
 	<script>
 		$('#clave').keypress(function (e) {
   			if (e.which == 13) {
@@ -61,11 +61,6 @@ $login->ValidateSessionLogin();
   		}
 		});
 		$(document).ready(function() {
-			/*
-			toastr.options.timeOut = 1500; //1.5s
-			toastr.options.closeButton = true;
-			toastr.info('Debes iniciar sesión');
-			*/
 			limpiar();
 			$('#login').click(function() {
 				var username = $.trim($("#usuario").val());
@@ -79,42 +74,29 @@ $login->ValidateSessionLogin();
 						$("#login").val('Validando...');
 					},
 					success: function(response) {
+						console.log(response);
 						$("#login").val('Iniciar');
 						var datos = JSON.parse(response);
 
-						/*
 						toastr.options.timeOut = 1500; //1.5s
 						toastr.options.closeButton = true;
-						*/
 
 						if (datos.success === '1') {
-							$("#salida").css("color", "#27ae60");
-							$("#salida").val('Logeo Correcto');
-							byeNotify()
-							/*
 							toastr.success('Logeo Correcto');
-							*/
 							window.location.href = "index.php";
 
 						} else if (datos.success === '2') {
-							$("#salida").css("color", "#c0392b");
-							$("#salida").val('Contraseña incorrecta');
-							byeNotify()
-							/*toastr.remove();
-							toastr.error('Contraseña incorrecta');*/
+
+							toastr.remove();
+							toastr.error('Contraseña incorrecta');
 						} else if (datos.success === '3') {
-							$("#salida").css("color", "#c0392b");
-							$("#salida").val('Usuario incorrecto');
-							byeNotify()
-							/*toastr.remove();
-							toastr.error('Usuario incorrecto');*/
+
+							toastr.remove();
+							toastr.error('Usuario incorrecto');
 						} else if (datos.success === '4') {
 
-							$("#salida").css("color", "#f1c40f");
-							$("#salida").val('Campos vacios');
-							byeNotify()
-							/*toastr.remove();
-							toastr.warning('Campos vacios');*/
+							toastr.remove();
+							toastr.warning('Campos vacios');
 							limpiar();
 
 						}
@@ -131,12 +113,7 @@ $login->ValidateSessionLogin();
 			$("#clave").val('');
 		}
 
-		function byeNotify() {
-			setTimeout(function() {
-				$("#salida").val('');
-			}, 1500);
-
-		}
+		
 	</script>
 </body>
 

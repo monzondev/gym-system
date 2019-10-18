@@ -1,20 +1,18 @@
 <?php
-echo $_POST['nombres'];
-echo '<br>';
-echo $_POST['apellidos'];
-echo '<br>';
-echo $_POST['usuario'];
-echo '<br>';
-echo $_POST['password'];
-echo '<br>';
-echo $_POST['tipoempleado'];
-echo '<br>';
-echo $_POST['email'];
-echo '<br>';
-echo $_POST['telefono'];
-echo '<br>';
-echo $_POST['fecha'];
-echo '<br>';
-echo $_POST['genero'];
+include_once '../boundary/empleado.php';
+$Empleado = new empleado();
 
-?>
+
+
+if (isset($_POST['usuario'])  && $_POST['usuario'] != "") {
+    $user = $Empleado->validateUser($_POST['usuario']);
+    if ($user != null) {
+        $response = ['success' => '2'];
+    } else {
+        $response = ['success' => '1'];
+    }
+} else {
+    $response = ['success' => '3'];
+}
+
+exit(json_encode($response));

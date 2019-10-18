@@ -93,4 +93,17 @@ class empleado extends conector_pg
         }
         return $passwordHash;
     }
+
+    public function validateUser($name)
+    {
+        $query = $this->Querys['findByUser'];
+        $result = pg_query_params($this->conexion, $query, array($name));
+        if (pg_num_rows($result)) {
+            $userFound = true;
+        } else {
+            $userFound = false;
+        }
+        //devuelve el estado de la busqueda
+        return $userFound;
+    }
 }

@@ -21,7 +21,7 @@ $login->ValidateSessionLogin();
 		<div class="row">
 			<div class="col-md-4" style="height: 100vh"></div>
 			<div class="col-md-4" style="height: 100vh">
-				<form style="margin-top: 20vh">
+				<form id="form" style="margin-top: 20vh">
 					<center>
 						<h2 class="form-signin-heading">Body Master Gym</h2>
 					</center>
@@ -56,6 +56,11 @@ $login->ValidateSessionLogin();
     <script src="js/bootstrap.min.js"></script>
 	<!--script src="js/toastr.js"></script-->
 	<script>
+		$('#clave').keypress(function (e) {
+  			if (e.which == 13) {
+    			$('#login').click();
+  		}
+		});
 		$(document).ready(function() {
 			/*
 			toastr.options.timeOut = 1500; //1.5s

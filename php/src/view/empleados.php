@@ -22,7 +22,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <br>
-            <button id="btn_editar" type="button" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
+            <button id="btn_editar" type="button" data-target="#editarModal" data-toggle="modal" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -49,12 +49,95 @@ if ($_SESSION['tipoEmpleado']!=1) {
                         }else{
                             echo "<tr><td>No se encontraron Empleados</td></tr>";
                         }
-                    ?>                    
+                    ?>
                 </tbody>
             </table>
         </div>
         <div class="col-md-1"></div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Trabajador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="tipoEmpleado" class="col-sm-4 col-form-label">Tipo Empleado:</label>
+                        <div class="col-sm-8">
+                            <select id="tipoEmpleado" class="form-control">
+                                <!--option>EJEMPLO</option-->
+                                <?php
+                                    include_once '../boundary/tipo_empleado.php';
+                                    $te = new tipo_empleado();
+                                    $tiposEmpleados = $te->getAllTipoEmpleado();
+                                    if(!is_null($tiposEmpleados)){
+                                        foreach($tiposEmpleados as $tipoEmpleado){
+                                            echo "<option value='".$tipoEmpleado["id_tipo_empleado"]."'>".$tipoEmpleado["nombre"]."</option>";
+                                        }
+                                    }else{
+                                        echo "<option disabled>No se encontraron resultados</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="usuario" placeholder="Usuario...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nombres" class="col-sm-4 col-form-label">Nombres:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nombres" placeholder="Nombres...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="apellidos" placeholder="Apellidos...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="correo" placeholder="Correo...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="password" placeholder="Contraseña...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="telefono" placeholder="Telefono...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fecha_nacimiento" class="col-sm-4 col-form-label">Fecha Nacimiendo:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="fecha_nacimiento" placeholder="Fecha Nacimiendo...">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>

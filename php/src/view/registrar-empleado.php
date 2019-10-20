@@ -6,6 +6,8 @@ $tipoEmpleado =  new tipo_empleado();
 $login = new empleado();
 $login->ValidateSession();
 $tipos =  $tipoEmpleado->getAllTipoEmpleado();
+
+
 ?>
 <html>
 
@@ -17,9 +19,9 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
     <style>
-    .error{
-        font-size: 17px;
-    }
+        .error {
+            font-size: 17px;
+        }
     </style>
 </head>
 
@@ -33,53 +35,55 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
         <div class="card-body">
             <form class="needs-validation" novalidate id="form" method="post" action="../controller/empleadoController.php">
                 <div class="form-row">
+
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label>Nombres</label>
-                            <input id="nombres" name="nombres" onkeypress="return notNumbers(event);" maxlength="30" placeholder="Nombre" required class="form-control">
+                            <input id="nombres" name="nombres" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" maxlength="30" placeholder="Nombre" required class="form-control">
                             <p id="error1" class="text-danger error"> </p>
                         </div>
                     </div>
+
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label>Apellidos</label>
-                            <input class="form-control" name="apellidos" onkeypress="return notNumbers(event);" required id="apellidos" maxlength="30" placeholder="Apellidos" value="">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="apellidos" onkeypress="return notNumbers(event);" required id="apellidos" maxlength="30" placeholder="Apellidos" value="">
                             <p id="error2" class="text-danger error"> </p>
                         </div>
                     </div>
+
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label>Usuario</label>
-                            <input class="form-control" name="usuario" required id="usuario" maxlength="15" placeholder="Nombre de usuario">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="usuario" required id="usuario" maxlength="15" placeholder="Nombre de usuario">
                             <p id="error3" class="text-danger error"> </p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="form-row">
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="password" class="form-control" name="password" required id="password" maxlength="15" placeholder="Contraseña">
+                            <input type="password" class="form-control"  autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="password" required id="password" maxlength="15" placeholder="Contraseña">
                             <p id="error4" class="text-danger error"> </p>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label>Correo</label>
-                            <input type="email" class="form-control" name="email" required id="email" maxlength="50" placeholder="Correo Electronico">
+                            <input type="email" class="form-control" name="email" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required id="email" maxlength="50" placeholder="Correo Electronico">
                             <p id="error5" class="text-danger error"> </p>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Telefono</label>
-                            <input type="tel" class="form-control" required id="telefono" name="telefono" onkeypress="return justNumbers(event);" minlength="8" maxlength="8" placeholder="Telefono">
+                            <input type="tel" class="form-control" autocomplete="off" required id="telefono" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="telefono" onkeypress="return justNumbers(event);" minlength="8" maxlength="8" placeholder="Telefono">
                             <p id="error6" class="text-danger error"> </p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
@@ -88,7 +92,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                             <p id="error7" class="text-danger error"> </p>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label class="control-label">Tipo de empleado:</label>
@@ -106,25 +110,25 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                         </div>
                     </div>
                     <div class="col-md-4 mb-3  " style="padding-left: 30px;">
-                    
+
                         <label class="control-label">Genero:</label>
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="radio"  id="R1M" value="1" name="genero" required>
-                                <label class="control-label" >Masculino</label>
+                                <input type="radio" id="R1M" value="1" name="genero" required>
+                                <label class="control-label">Masculino</label>
                             </div>
                             <div class=" col-md-6 ">
                                 <input type="radio" class="form-control-input" id="R1F" value="0" name="genero" required>
-                                <label class="form-label" >Femenino</label>
+                                <label class="form-label">Femenino</label>
                             </div>
                         </div>
                         <p id="error9" class="text-danger error"> </p>
-                    
                     </div>
+                    <input type="text" name="agregarEmpleado" hidden>
                 </div>
                 <br>
                 <center>
-                    <input class="btn btn-info btn-lg" style="width: 150px; height: 45px;" name="agregarEmpleado" id="registrarE" type="button"  value ="Registrar" >
+                    <input class="btn btn-info btn-lg" style="width: 150px; height: 45px;" name="agregarEmpleado" id="registrarE" type="button" value="Registrar">
                     <input class="btn btn-secondary btn-lg" style="width: 150px; height: 45px;" type="button" onclick=" location.href='index.php'" value="Cancelar" />
                 </center>
             </form>
@@ -139,22 +143,21 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     <script src="js/bootstrap-validate.js"></script>
     <script src="js/toastr.js"></script>
     <script src="js/validaciones.js"></script>
-    <script>
-    </script>
-    <script>
-         
-         //valueDefecto()
+    
 
-        function valueDefecto(){
-        $("#nombres").val('Alexander');
-        $("#apellidos").val('Monzon');
-        $("#usuario").val('alex');
-        $("#password").val('monzon');
-        $("#email").val('alexandermm2011@gmail.com');
-        $("#telefono").val('75523179');
-        $("#fecha").val('2018-01-01');
-        $("#tipoempleado").val('1');
-        $("#R1M").prop('checked',true);
+    <script>
+        //valueDefecto()
+
+        function valueDefecto() {
+            $("#nombres").val('Alexander');
+            $("#apellidos").val('Monzon');
+            $("#usuario").val('alex');
+            $("#password").val('monzon');
+            $("#email").val('alexandermm2011@gmail.com');
+            $("#telefono").val('75523179');
+            $("#fecha").val('2018-01-01');
+            $("#tipoempleado").val('1');
+            $("#R1M").prop('checked', true);
 
         }
 

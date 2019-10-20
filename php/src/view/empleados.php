@@ -3,19 +3,22 @@ session_start();
 include_once '../boundary/empleado.php';
 $login = new empleado();
 $login->ValidateSession();
-if ($_SESSION['tipoEmpleado']!=1) {
+if ($_SESSION['tipoEmpleado'] != 1) {
     header("Location: index.php");
     exit();
 }
 ?>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Empleados</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/toastr.css">
 </head>
+
 <body>
     <?php include_once("navbar.php"); ?>
     <div class="row">
@@ -28,25 +31,25 @@ if ($_SESSION['tipoEmpleado']!=1) {
                     <tr>
                         <th scope="col">Usuario</th>
                         <th scope="col">Nombres</th>
-                        <th scope="col">Apellidos</th>                        
+                        <th scope="col">Apellidos</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
                     <?php
-                        $empleados = $login->getAllEmpleados();
-                        if(!is_null($empleados)){
-                            foreach($empleados as $empleado){
-                                echo "
-                                    <tr data-empleado='".json_encode($empleado)."'>
-                                        <td>".$empleado["usuario"]."</td>
-                                        <td>".$empleado["nombres"]."</td>
-                                        <td>".$empleado["apellidos"]."</td>                                        
+                    $empleados = $login->getAllEmpleados();
+                    if (!is_null($empleados)) {
+                        foreach ($empleados as $empleado) {
+                            echo "
+                                    <tr data-empleado='" . json_encode($empleado) . "'>
+                                        <td>" . $empleado["usuario"] . "</td>
+                                        <td>" . $empleado["nombres"] . "</td>
+                                        <td>" . $empleado["apellidos"] . "</td>                                        
                                     </tr>
                                 ";
-                            }
-                        }else{
-                            echo "<tr><td>No se encontraron Empleados</td></tr>";
                         }
+                    } else {
+                        echo "<tr><td>No se encontraron Empleados</td></tr>";
+                    }
                     ?>
                 </tbody>
             </table>
@@ -72,18 +75,18 @@ if ($_SESSION['tipoEmpleado']!=1) {
                                 <select id="tipoEmpleado" class="form-control" required>
                                     <!--option>EJEMPLO</option-->
                                     <?php
-                                        include_once '../boundary/tipo_empleado.php';
-                                        $te = new tipo_empleado();
-                                        $tiposEmpleados = $te->getAllTipoEmpleado();
-                                        if(!is_null($tiposEmpleados)){
-                                            foreach($tiposEmpleados as $tipoEmpleado){
-                                                echo "<option value='".$tipoEmpleado["id_tipo_empleado"]."'>".$tipoEmpleado["nombre"]."</option>";
-                                            }
-                                        }else{
-                                            echo "<option disabled>No se encontraron resultados</option>";
+                                    include_once '../boundary/tipo_empleado.php';
+                                    $te = new tipo_empleado();
+                                    $tiposEmpleados = $te->getAllTipoEmpleado();
+                                    if (!is_null($tiposEmpleados)) {
+                                        foreach ($tiposEmpleados as $tipoEmpleado) {
+                                            echo "<option value='" . $tipoEmpleado["id_tipo_empleado"] . "'>" . $tipoEmpleado["nombre"] . "</option>";
                                         }
+                                    } else {
+                                        echo "<option disabled>No se encontraron resultados</option>";
+                                    }
                                     ?>
-                                </select>                                
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -161,14 +164,38 @@ if ($_SESSION['tipoEmpleado']!=1) {
 
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/toastr.js"></script>
+    <?php
+    if (isset($_SESSION['AE'])) {
+        if ($_SESSION['AE'] == 1) { ?>
+            <script>
+                toastr.options.timeOut = 2000; //1.5s
+                toastr.options.closeButton = true;
+                toastr.remove();
+                toastr.success('El empleado fue registrado con exito!');
+            </script>
+        <?php
+                unset($_SESSION['AE']);
+            } else if ($_SESSION['AE'] == 2) { ?>
+            <script>
+                toastr.options.timeOut = 2000; //1.5s
+                toastr.options.closeButton = true;
+                toastr.remove();
+                toastr.error('Ah ocurrido unError al registrar el empleado');
+            </script>
+    <?php
+            unset($_SESSION['AE']);
+        }
+    }
+    ?>
     <script>
         var selectedEmpleado = null;
 
-        $("#table_body tr").click(function(){
-            $(this).addClass('table-info').siblings().removeClass('table-info');    
-            selectedEmpleado=jQuery.parseJSON($(this).attr("data-empleado"));            
+        $("#table_body tr").click(function() {
+            $(this).addClass('table-info').siblings().removeClass('table-info');
+            selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
             $("#btn_editar").prop('disabled', false);
-            if(selectedEmpleado !== null){
+            if (selectedEmpleado !== null) {
                 $("#tipoEmpleado").val(selectedEmpleado.id_tipo_empleado);
                 $("#usuario").val(selectedEmpleado.usuario);
                 $("#nombres").val(selectedEmpleado.nombres);
@@ -179,31 +206,29 @@ if ($_SESSION['tipoEmpleado']!=1) {
                 $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
             }
         });
-        $("#btn_guardar").click(function(){
-            if(selectedEmpleado !== null){
+        $("#btn_guardar").click(function() {
+            if (selectedEmpleado !== null) {
                 $("#form_editar").validate({
                     debug: true
                 });
-            }else{
+            } else {
                 alert("No se ha seleccionado un empleado");
             }
         });
 
 
         window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, 
-            function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
+            var validation = Array.prototype.filter.call(forms,
+                function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
         }, false);
 
         // Validaciones con JS
@@ -222,13 +247,13 @@ if ($_SESSION['tipoEmpleado']!=1) {
             });
             $('#telefono').on('keypress', function(e) {
                 var charCode = (e.which) ? e.which : e.keyCode
-                if (charCode != 43 && charCode > 31 && (charCode < 48 || charCode > 57)){
+                if (charCode != 43 && charCode > 31 && (charCode < 48 || charCode > 57)) {
                     return false;
                 }
                 return true;
             });
         });
-        
     </script>
 </body>
+
 </html>

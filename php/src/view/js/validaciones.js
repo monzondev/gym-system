@@ -151,11 +151,9 @@ $(document).ready(function () {
         //VALIDACION DE ESTADOS DE LOS CAMPOS
         if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9) {
 
-            //document.getElementById("form").submit();
-
             var username = $.trim($("#usuario").val());
 
-            var dataString = 'usuario=' + username;
+            var dataString = 'usuario=' + username + '&userValidate=1';
             $.ajax({
                 type: "POST",
                 url: "../controller/empleadoController.php",
@@ -167,14 +165,12 @@ $(document).ready(function () {
                     console.log(response);
                     $("#registrarE").val('Registrar');
                     var datos = JSON.parse(response);
-
                      toastr.options.timeOut = 1500; //1.5s
                      toastr.options.closeButton = true;
                      if (datos.success === '1') {
-                         toastr.success('Usuario Disponible');
-                         toastr.success('Proceso de registro empleado');
+                         document.getElementById("form").submit();
                      } else if (datos.success === '2') {
-                         toastr.remove();
+                        toastr.remove();
                          toastr.error('El usuario ya existe, prueba con otro!');
                          user.focus();
                      }else if (datos.success === '3') {

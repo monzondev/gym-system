@@ -94,6 +94,7 @@ class empleado extends conector_pg
         return $passwordHash;
     }
 
+    //Metodo para validar que el usuario este o no este en la base de datos
     public function validateUser($name)
     {
         $query = $this->Querys['findByUser'];
@@ -105,5 +106,17 @@ class empleado extends conector_pg
         }
         //devuelve el estado de la busqueda
         return $userFound;
+    }
+
+    public function agregarEmpleado($array){
+        $query = $this->Querys['create'];
+        $result = pg_query_params($this->conexion, $query, array($array['tipoempleado'],$array['nombres'], $array['apellidos'],$array['usuario'], $array['password'],$array['email'], $array['genero'], $array['telefono'], $array['activo'],$array['fecha']));
+        if ($result) {
+            $resultado = true;
+        } else {
+            $resultado = false;
+        }
+        //devuelve tresultado
+        return $resultado;
     }
 }

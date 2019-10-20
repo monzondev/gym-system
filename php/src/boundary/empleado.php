@@ -10,7 +10,7 @@ class empleado extends conector_pg
     //consultas sql para la entidad empleado
     private $Querys  = array(
         "create" => "INSERT INTO empleado(id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
-        "delete" => "DELETE empleado WHERE id_empleado = $1",
+        "delete" => "DELETE FROM empleado WHERE id_empleado = $1",
         "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, nombres =$2, apellidos = $3, usuarios = $4, password = $5, correo = $6, genero = $7, telefono = $8, activo= $9, fecha_nacimiento= $10 WHERE id_empleado = $11",
         "findAll" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
         "findById" => "SELECT id_empleado, id_tipo_empleado, nombres, apellidos, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
@@ -73,6 +73,7 @@ class empleado extends conector_pg
         }
     }
 
+    /*********************************************************************/
     //Metodo para verificar el estado de la sesion en la interfaz login
     public function ValidateSessionLogin()
     {
@@ -83,6 +84,7 @@ class empleado extends conector_pg
         }
     }
 
+    /*********************************************************************/
     //Metodo para encriptar la contraseña de un empleado
     public function EncryptPassword($userpassword)
     {
@@ -94,6 +96,7 @@ class empleado extends conector_pg
         return $passwordHash;
     }
 
+    /*********************************************************************/
     //Metodo para validar que el usuario este o no este en la base de datos
     public function validateUser($name)
     {
@@ -108,6 +111,8 @@ class empleado extends conector_pg
         return $userFound;
     }
 
+    /*********************************************************************/
+    //Metodo que crea un nuevo empleado en el sistema
     public function agregarEmpleado($array){
         if (is_bool($array['genero'])){
             $array['genero'] = ($array['genero']) ? 'true':'false';
@@ -119,7 +124,21 @@ class empleado extends conector_pg
         } else {
             $resultado = false;
         }
-        //devuelve tresultado
+        //devuelve resultado
+        return $resultado;
+    }
+
+    /*********************************************************************/
+    //Metodo que elimina un empleado del sistema
+    public function eliminarEmpleado($idEmpleado){
+        $query = $this->Querys['delete'];
+        $result = pg_query_params($this->conexion, $query, array($idEmpleado));
+        if ($result) {
+            $resultado = true;
+        } else {
+            $resultado = false;
+        }
+        //devuelve resultado
         return $resultado;
     }
 }

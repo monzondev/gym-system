@@ -92,7 +92,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" placeholder="Usuario..." required>
+                                <input type="text" class="form-control" id="usuario" placeholder="Usuario..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese usuario
                                 </div>
@@ -101,7 +101,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Nombres:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombres" placeholder="Nombres..." required>
+                                <input type="text" class="form-control" id="nombres" placeholder="Nombres..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese Nombres
                                 </div>
@@ -110,7 +110,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos..." required>
+                                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese Apellidos
                                 </div>
@@ -119,7 +119,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="correo" placeholder="Correo..." required>
+                                <input type="email" class="form-control" id="correo" placeholder="Correo..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese Correo
                                 </div>
@@ -128,7 +128,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password" placeholder="Contraseña..." required>
+                                <input type="password" class="form-control" id="password" placeholder="Contraseña..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese Contraseña
                                 </div>
@@ -137,7 +137,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" maxlength="8" placeholder="Telefono..." required>
+                                <input type="text" class="form-control" id="telefono" maxlength="8" placeholder="Telefono..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese Telefono
                                 </div>
@@ -146,7 +146,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="fecha_nacimiento" class="col-sm-4 col-form-label">Fecha Nacimiendo:</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="date" value="" id="fecha_nacimiento" required>
+                                <input class="form-control" type="date" value="" id="fecha_nacimiento" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
                                     Ingrese Fecha Nacimiento
                                 </div>

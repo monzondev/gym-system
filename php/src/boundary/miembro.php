@@ -7,7 +7,7 @@ class miembro extends conector_pg
 
     //consultas sql para la entidad miembro
     private $Querys  = array(
-        "create" => "INSERT INTO empleado(id_tipo_membresia, nombres, apellidos, usuario, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
+        "create" => "INSERT INTO miembro(id_tipo_membresia, nombres, apellidos, usuario, correo, genero, telefono,altura,peso, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
         "delete" => "DELETE FROM miembro WHERE id_miembro = $1",
         "update"  => "UPDATE miembro SET  id_tipo_membresia = $1, nombres =$2, apellidos = $3, usuarios = $4, correo = $5, genero = $6, telefono = $7, activo= $8, fecha_nacimiento= $9 WHERE id_empleado = $10",
         "findAll" => "SELECT id_miembro, id_tipo_membresia, nombres, apellidos, usuario, correo, genero, telefono, activo, fecha_nacimiento FROM miembro",
@@ -37,7 +37,6 @@ class miembro extends conector_pg
             if ($apellido2 != null && $apellido2 != "") {
                 //agrega primera letra del segundo apellido
                 $identificador .= strtoupper(substr($apellido2, 0, 1));
-
             } else {
                 //duplica primera letra de el primer apellido
                 $identificador .= strtoupper(substr($apellido1, 0, 1));
@@ -56,10 +55,10 @@ class miembro extends conector_pg
             if ($identificador != null) {
                 //busca si el identidicador se repite los primeros 4 digitos
                 $resultado = $this->findByIdentifier($buscado);
-                if ($resultado != null && count($resultado)>0) { 
-                    $numeroConCeros = str_pad((count($resultado)+1), 3, "0", STR_PAD_LEFT);
+                if ($resultado != null && count($resultado) > 0) {
+                    $numeroConCeros = str_pad((count($resultado) + 1), 3, "0", STR_PAD_LEFT);
                     $identificador .= $numeroConCeros;
-                }else{
+                } else {
                     $numeroConCeros = str_pad((1), 3, "0", STR_PAD_LEFT);
                     $identificador .= $numeroConCeros;
                 }
@@ -70,6 +69,8 @@ class miembro extends conector_pg
         return $identificador;
     }
 
+    /*********************************************************************/
+    //Metodo para filtrar miembros por su identificador
     public function findByIdentifier($identifier)
     {
         $query = $this->Querys['findByIdentifier'];
@@ -81,5 +82,23 @@ class miembro extends conector_pg
         }
         //devuelve todos los miembros con ese identificador
         return $allRows;
+    }
+
+
+    /*********************************************************************/
+    //Metodo que crea un nuevo miembro  al sistema
+    public function agregarMiembro($array){
+        if (is_bool($array['genero'])){
+            $array['genero'] = ($array['genero']) ? 'true':'false';
+        }
+        $query = $this->Querys['create'];
+        $result = pg_query_params($this->conexion, $query, array($array['tipomembresia'],$array['nombres'], $array['apellidos'],$array['usuario'],$array['correo'], $array['genero'], $array['telefono'], $array['altura'], $array['peso'], $array['activo'],$array['fecha']));
+        if ($result) {
+            $resultado = true;
+        } else {
+            $resultado = false;
+        }
+        //devuelve resultado
+        return $resultado;
     }
 }

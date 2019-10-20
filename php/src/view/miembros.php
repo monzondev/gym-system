@@ -27,11 +27,6 @@ $login->ValidateSession();
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <center>
-    <?php
-    echo "Codigo generado: ". $miembro->generateCode("monzon","gonzales",2019);
-    ?>
-    </center>
 
 </body>
 

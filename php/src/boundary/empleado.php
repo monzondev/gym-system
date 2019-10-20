@@ -109,6 +109,9 @@ class empleado extends conector_pg
     }
 
     public function agregarEmpleado($array){
+        if (is_bool($array['genero'])){
+            $array['genero'] = ($array['genero']) ? 'true':'false';
+        }
         $query = $this->Querys['create'];
         $result = pg_query_params($this->conexion, $query, array($array['tipoempleado'],$array['nombres'], $array['apellidos'],$array['usuario'], $array['password'],$array['email'], $array['genero'], $array['telefono'], $array['activo'],$array['fecha']));
         if ($result) {

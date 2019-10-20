@@ -25,7 +25,7 @@ if (isset($_POST['agregarEmpleado'])) {
     //codificando genero del nuevo empleado
     if ($_POST['genero'] == 1) {
         $genero = true;
-    } else  if ($_POST['genero'] == 2) {
+    } else  if ($_POST['genero'] == 0) {
         $genero = false;
     }
     $array = [
@@ -54,10 +54,10 @@ if (isset($_POST['agregarEmpleado'])) {
     } else {
         if (isset($_SESSION['AE'])) {
             $_SESSION['AE'] = '2';
-            echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
+            //echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
         } else {
             $_SESSION['AE'] = '2';
-            echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
+            //echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
             exit();
         }
     }

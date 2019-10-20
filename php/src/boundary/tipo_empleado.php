@@ -8,7 +8,7 @@ class tipo_empleado  extends conector_pg
     //consultas sql para la entidad tipo_empleado
     private $Querys  = array(
         "create" => "INSERT INTO tipo_empleado(nombre, descripcion) VALUES ($1,$2)",
-        "delete" => "DELETE tipo_empleado WHERE id_tipo_empleado = $1",
+        "delete" => "DELETE FROM tipo_empleado WHERE id_tipo_empleado = $1",
         "update"  => "UPDATE tipo_empleado SET  nombre = $1, descripcion = $2 WHERE id_tipo_empleado = $3",
         "findAll" => "SELECT id_tipo_empleado, nombre, descripcion FROM tipo_empleado",
         "findById" => "SELECT id_tipo_empleado, nombre, descripcion FROM tipo_empleado  WHERE id_tipo_empleado = $1 ",

@@ -20,7 +20,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     <link rel="stylesheet" href="css/toastr.css">
     <style>
         .error {
-            font-size: 17px;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -146,20 +146,6 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     
 
     <script>
-        //valueDefecto()
-
-        function valueDefecto() {
-            $("#nombres").val('Alexander');
-            $("#apellidos").val('Monzon');
-            $("#usuario").val('alex');
-            $("#password").val('monzon');
-            $("#email").val('alexandermm2011@gmail.com');
-            $("#telefono").val('75523179');
-            $("#fecha").val('2018-01-01');
-            $("#tipoempleado").val('1');
-            $("#R1M").prop('checked', true);
-
-        }
 
         function justNumbers(e) {
             var keynum = window.event ? window.event.keyCode : e.which;

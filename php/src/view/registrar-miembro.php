@@ -65,11 +65,11 @@ $login->ValidateSession();
             "fecha" => $_POST['fecha']
         ];
 
-        if ($miembro->agregarMiembro($arrayMiembro)) {
+  /*      if ($miembro->agregarMiembro($arrayMiembro)) {
             echo '<center><h1>Miembro agregado con exito</h1></center>';
         } else {
             echo '<center><h1>Hubo un error al guardar el miembro</h1></center>';
-        }
+        }*/
     }
     ?>
 </body>

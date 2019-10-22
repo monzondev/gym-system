@@ -1,3 +1,9 @@
+Options -Indexes
+php_value upload_max_filesize 20M
+php_value post_max_size 25M
+php_value max_execution_time 180
+php_value session.cookie_lifetime 10800
+php_value session.gc_maxlifetime 10800
 ErrorDocument 403 /index.php
 ErrorDocument 404 /index.php
 ErrorDocument 500 /index.php

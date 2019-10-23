@@ -92,7 +92,10 @@ class miembro extends conector_pg
             $array['genero'] = ($array['genero']) ? 'true':'false';
         }
         $query = $this->Querys['create'];
-        $result = pg_query_params($this->conexion, $query, array($array['tipomembresia'],$array['nombres'], $array['apellidos'],$array['usuario'],$array['correo'], $array['genero'], $array['telefono'], $array['altura'], $array['peso'], $array['activo'],$array['fecha']));
+        $result = pg_query_params($this->conexion, $query, array($array['tipomembresia'],$array['primer_nombre'], $array['segundo_nombre'],
+                                                                $array['primer_apellido'], $array['segundo_apellido'], $array['usuario'],
+                                                                $array['identificador'], $array['foto'],$array['correo'], $array['genero'],
+                                                                $array['telefono'], $array['altura'], $array['peso'], $array['activo'],$array['fecha']));
         if ($result) {
             $resultado = true;
         } else {

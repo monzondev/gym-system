@@ -42,8 +42,8 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                             echo "
                                     <tr data-empleado='" . json_encode($empleado) . "'>
                                         <td>" . $empleado["usuario"] . "</td>
-                                        <td>" . $empleado["nombres"] . "</td>
-                                        <td>" . $empleado["apellidos"] . "</td>                                        
+                                        <td>" . $empleado["primer_nombre"] . " " . $empleado["segundo_nombre"] . "</td>
+                                        <td>" . $empleado["primer_apellido"] . " " . $empleado["segundo_apellido"] . "</td>                                        
                                     </tr>
                                 ";
                         }
@@ -99,20 +99,38 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nombres" class="col-sm-4 col-form-label">Nombres:</label>
+                            <label for="nombres" class="col-sm-4 col-form-label">Primer Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombres" placeholder="Nombres..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="primer_nombre" placeholder="Primer Nombre..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
-                                    Ingrese Nombres
+                                    Ingrese Primer Nombre
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nombres" class="col-sm-4 col-form-label">Segundo Nombre:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="segundo_nombre" placeholder="Segundo Nombre..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <div class="invalid-feedback">
+                                    Ingrese Segundo Nombre
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="apellidos" class="col-sm-4 col-form-label">Primer Apellido:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="primer_apellido" placeholder="Primer Apellido..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <div class="invalid-feedback">
+                                    Ingrese Primer Apellido
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="segundo_apellido" placeholder="Segundo Apellido..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
                                 <div class="invalid-feedback">
-                                    Ingrese Apellidos
+                                    Ingrese Segundo Apellido
                                 </div>
                             </div>
                         </div>
@@ -198,8 +216,10 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             if (selectedEmpleado !== null) {
                 $("#tipoEmpleado").val(selectedEmpleado.id_tipo_empleado);
                 $("#usuario").val(selectedEmpleado.usuario);
-                $("#nombres").val(selectedEmpleado.nombres);
-                $("#apellidos").val(selectedEmpleado.apellidos);
+                $("#primer_nombre").val(selectedEmpleado.primer_nombre);
+                $("#segundo_nombre").val(selectedEmpleado.segundo_nombre);
+                $("#primer_apellido").val(selectedEmpleado.primer_apellido);
+                $("#segundo_apellido").val(selectedEmpleado.segundo_apellido);
                 $("#correo").val(selectedEmpleado.correo);
                 $("#password").val("");
                 $("#telefono").val(selectedEmpleado.telefono);

@@ -47,7 +47,7 @@ CREATE TABLE public.empleado (
 	primer_apellido character varying(64) NOT NULL,
 	segundo_apellido character varying(64) NOT NULL,
 	usuario character varying(32) NOT NULL,
-	password character varying(64) NOT NULL,
+	password character varying(60) NOT NULL,
 	correo character varying(64),
 	genero boolean NOT NULL,
 	telefono character varying(20) NOT NULL,

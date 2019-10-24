@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta1" last-position="0,20" last-zoom="1" max-obj-count="6"
+<dbmodel pgmodeler-ver="0.9.2-beta1" last-position="0,18" last-zoom="1" max-obj-count="6"
 	 default-owner="postgres">
 <database name="gym" is-template="false" allow-conns="true">
 </database>
@@ -92,7 +92,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character varying" length="32"/>
 	</column>
 	<column name="password" not-null="true">
-		<type name="character varying" length="64"/>
+		<type name="character varying" length="60"/>
 	</column>
 	<column name="correo">
 		<type name="character varying" length="64"/>

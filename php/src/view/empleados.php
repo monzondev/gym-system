@@ -40,8 +40,8 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     if (!is_null($empleados)) {
                         foreach ($empleados as $empleado) {
                             echo "
-                                    <tr data-empleado='" . json_encode($empleado) . "'>
-                                        <td>" . $empleado["usuario"] . "</td>
+                                    <tr data-empleado='" . json_encode($empleado) . "'>                                        
+                                        <td id='" . $empleado["id_empleado"] ."'>" . $empleado["usuario"] . "</td>
                                         <td>" . $empleado["primer_nombre"] . " " . $empleado["segundo_nombre"] . "</td>
                                         <td>" . $empleado["primer_apellido"] . " " . $empleado["segundo_apellido"] . "</td>                                        
                                     </tr>
@@ -61,7 +61,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     <div class="modal fade" id="editarModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form id="form_editar" class="needs-validation" autocomplete="off" novalidate>
+                <form id="form_editar" class="needs-validation" autocomplete="off" method="post" action="../controller/empleadoController.php?editEmpleado=true" novalidate>
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Editar Trabajador</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -70,9 +70,18 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
+                            <label for="usuario" class="col-sm-4 col-form-label">ID:</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" readonly="readonly">
+                                <div class="invalid-feedback">
+                                    ID no valido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">                            
                             <label for="tipoEmpleado" class="col-sm-4 col-form-label">Tipo Empleado:</label>
                             <div class="col-sm-8">
-                                <select id="tipoEmpleado" class="form-control" required>
+                                <select id="id_tipo_empleado" name="id_tipo_empleado" class="form-control" required>
                                     <!--option>EJEMPLO</option-->
                                     <?php
                                     include_once '../boundary/tipo_empleado.php';
@@ -92,7 +101,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" placeholder="Usuario..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese usuario
                                 </div>
@@ -101,7 +110,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Primer Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_nombre" placeholder="Primer Nombre..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="64" placeholder="Primer Nombre..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Primer Nombre
                                 </div>
@@ -110,7 +119,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Segundo Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_nombre" placeholder="Segundo Nombre..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Segundo Nombre
                                 </div>
@@ -119,7 +128,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Primer Apellido:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_apellido" placeholder="Primer Apellido..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="64" placeholder="Primer Apellido..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Primer Apellido
                                 </div>
@@ -128,7 +137,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_apellido" placeholder="Segundo Apellido..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="64" placeholder="Segundo Apellido..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Segundo Apellido
                                 </div>
@@ -137,7 +146,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="correo" placeholder="Correo..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Correo
                                 </div>
@@ -146,16 +155,29 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password" placeholder="Contraseña..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="password" class="form-control" id="password" name="password" maxlength="60" placeholder="Contraseña..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Contraseña
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="genero" class="col-sm-4 col-form-label">Genero:</label>
+                            <div class="col-sm-8">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="genero" id="genero" value="1">
+                                    <label class="form-check-label" for="genero">Hombre</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="genero" id="genero2" value="0">
+                                    <label class="form-check-label" for="genero2">Mujer</label>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" maxlength="8" placeholder="Telefono..." onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Telefono
                                 </div>
@@ -164,7 +186,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="fecha_nacimiento" class="col-sm-4 col-form-label">Fecha Nacimiendo:</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="date" value="" id="fecha_nacimiento" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required>
+                                <input class="form-control" type="date" value="" id="fecha_nacimiento" name="fecha_nacimiento" oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
                                 <div class="invalid-feedback">
                                     Ingrese Fecha Nacimiento
                                 </div>
@@ -213,8 +235,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             $(this).addClass('table-info').siblings().removeClass('table-info');
             selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
             $("#btn_editar").prop('disabled', false);
-            if (selectedEmpleado !== null) {
-                $("#tipoEmpleado").val(selectedEmpleado.id_tipo_empleado);
+            if (selectedEmpleado !== null) {                
+                $("#id_empleado").val(selectedEmpleado.id_empleado);
+                $("#id_tipo_empleado").val(selectedEmpleado.id_tipo_empleado);
                 $("#usuario").val(selectedEmpleado.usuario);
                 $("#primer_nombre").val(selectedEmpleado.primer_nombre);
                 $("#segundo_nombre").val(selectedEmpleado.segundo_nombre);
@@ -222,19 +245,23 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $("#segundo_apellido").val(selectedEmpleado.segundo_apellido);
                 $("#correo").val(selectedEmpleado.correo);
                 $("#password").val("");
+                $("#genero").prop('checked', selectedEmpleado.genero=='t');
+                $("#genero2").prop('checked', selectedEmpleado.genero=='f');
                 $("#telefono").val(selectedEmpleado.telefono);
                 $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
             }
         });
         $("#btn_guardar").click(function() {
             if (selectedEmpleado !== null) {
-                $("#form_editar").validate({
-                    debug: true
-                });
+                //Validar FORM
             } else {
                 alert("No se ha seleccionado un empleado");
             }
         });
+        $('#genero').change(function() {
+            $(this).html(this.checked?"Hombre":"Mujer");
+        });
+        
 
 
         window.addEventListener('load', function() {
@@ -252,7 +279,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         }, false);
 
         // Validaciones con JS
-        $(function() {
+        $(function() {            
             $('#usuario').on('keypress', function(e) {
                 if (e.which == 32)
                     return false;

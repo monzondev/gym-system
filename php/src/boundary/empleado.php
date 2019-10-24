@@ -11,11 +11,11 @@ class empleado extends conector_pg
     private $Querys  = array(
         "create" => "INSERT INTO empleado(id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
         "delete" => "DELETE FROM empleado WHERE id_empleado = $1",
-        "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, primer_nombre=$2, segundo_nombre=$3, primer_apellido=$4,segundo_apellido=$5, usuarios = $6, password = $7, correo = $8, genero = $9, telefono = $10, activo= $11, fecha_nacimiento= $12 WHERE id_empleado = $13",
-        "findAll" => "SELECT id_empleado, id_tipo_empleado,primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
-        "findById" => "SELECT id_empleado, id_tipo_empleado,primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
+        "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, primer_nombre=$2, segundo_nombre=$3, primer_apellido=$4,segundo_apellido=$5, usuario = $6, password = $7, correo = $8, genero = $9, telefono = $10, activo= $11, fecha_nacimiento= $12 WHERE id_empleado = $13",
+        "findAll" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
+        "findById" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
         "count" => "SELECT COUNT(id_empleado) FROM empleado",
-        "findByUser" => "SELECT id_empleado, id_tipo_empleado,primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE usuario=  $1 "
+        "findByUser" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE usuario=  $1 "
     );
     public function __construct()
     {
@@ -28,6 +28,21 @@ class empleado extends conector_pg
     {
         $query = $this->Querys['findByUser'];
         $result = pg_query_params($this->conexion, $query, array($name));
+        if (pg_num_rows($result)) {
+            $row = pg_fetch_assoc($result);
+        } else {
+            $row = null;
+        }
+        //devuelve el usuario logeado si se encuentra
+        return $row;
+    }
+
+    /*********************************************************************/
+    //Metodo para oboetener empleado por id_empleado este en la base de datos
+    public function getUserbyId($idEmpleado)
+    {
+        $query = $this->Querys['findById'];
+        $result = pg_query_params($this->conexion, $query, array($idEmpleado));
         if (pg_num_rows($result)) {
             $row = pg_fetch_assoc($result);
         } else {
@@ -120,7 +135,7 @@ class empleado extends conector_pg
         $query = $this->Querys['create'];
         $result = pg_query_params($this->conexion, $query, array($array['tipoempleado'],$array['primer_nombre'], $array['segundo_nombre'],
                                                                 $array['primer_apellido'], $array['segundo_apellido'],$array['usuario'],
-                                                                 $array['password'],$array['email'], $array['genero'], $array['telefono'],
+                                                                 $array['password'],$array['correo'], $array['genero'], $array['telefono'],
                                                                   $array['activo'],$array['fecha']));
         if ($result) {
             $resultado = true;
@@ -129,6 +144,26 @@ class empleado extends conector_pg
         }
         //devuelve resultado
         return $resultado;
+    }
+
+    /*********************************************************************/
+    //Metodo que modificar un empleado en el sistema
+    public function modificarEmpleado($array){
+        if (is_bool($array['genero'])){
+            $array['genero'] = ($array['genero']) ? 'true':'false';
+        }
+        $query = $this->Querys['update'];
+        $result = pg_query_params($this->conexion, $query, array($array['id_tipo_empleado'], $array['primer_nombre'], $array['segundo_nombre'],
+                                                                $array['primer_apellido'], $array['segundo_apellido'],$array['usuario'],
+                                                                 $array['password'],$array['correo'], $array['genero'], $array['telefono'],
+                                                                  $array['activo'],$array['fecha_nacimiento'], $array['id_empleado']));
+        if ($result) {
+            $resultado = true;
+        } else {
+            $resultado = false;
+        }
+        //devuelve resultado
+        return $resultado;        
     }
 
     /*********************************************************************/

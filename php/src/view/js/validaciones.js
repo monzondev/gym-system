@@ -13,14 +13,19 @@ $(document).ready(function () {
         var status8 = false;
         var status9 = false;
 
+        var status10 = false;
+        var status11 = false;
+
         //MENSAJES PARA LAS VALIDACIONES
         var requerido = "<img src='img/errorr.png'width='22' >     Este campo es requerido";
         var espacios = "<img src='img/errorr.png'width='22' >     Espacios vacios no permitidos";
         var notEmail = "<img src='img/errorr.png'width='22' >     Formato de correo no permitido";
 
         //CAMPOS A VALIDAR
-        var names = document.getElementById("nombres");
-        var lastNames = document.getElementById("apellidos");
+        var name1 = document.getElementById("nombre1");
+        var name2 = document.getElementById("nombre2");
+        var lastName1 = document.getElementById("apellido1");
+        var lastName2 = document.getElementById("apellido2");
         var user = document.getElementById("usuario");
         var password = document.getElementById("password");
         var email = document.getElementById("email");
@@ -40,6 +45,7 @@ $(document).ready(function () {
         var error7 = document.getElementById("error7");
         var error8 = document.getElementById("error8");
         var error9 = document.getElementById("error9");
+        var error10 = document.getElementById("error10");
 
         //VALIDACION TIPO DE GENERO
         if (!document.querySelector('input[name="genero"]:checked')) {
@@ -120,27 +126,51 @@ $(document).ready(function () {
             error3.innerHTML = "";
             status3 = true;
         }
+         //VALIDACION APELLIDO2
+         if (lastName2.value == "") {
+            lastName2.focus();
+            error11.innerHTML = requerido;
+        } else if (lastName2.value.trim() == "") {
+            lastName2.focus();
+            error11.innerHTML = espacios;
+        } else {
+            error11.innerHTML = "";
+            status11 = true;
+        }
 
 
-        //VALIDACION APELLIDOS
-        if (lastNames.value == "") {
-            lastNames.focus();
+        //VALIDACION APELLIDO1
+        if (lastName1.value == "") {
+            lastName1.focus();
             error2.innerHTML = requerido;
-        } else if (lastNames.value.trim() == "") {
-            lastNames.focus();
+        } else if (lastName1.value.trim() == "") {
+            lastName1.focus();
             error2.innerHTML = espacios;
         } else {
             error2.innerHTML = "";
             status2 = true;
         }
 
+         //VALIDACION NOMBRE2
+         if (name2.value == "") {
+            name2.focus();
+            error10.innerHTML = requerido;
+        } else if (name2.value.trim() == "") {
+            name2.focus();
+            error10.innerHTML = espacios;
+        } else {
+            error10.innerHTML = "";
+            status10 = true;
+        }
 
-        //VALIDACION NOMBRES
-        if (names.value == "") {
-            names.focus();
+
+
+        //VALIDACION NOMBRE1
+        if (name1.value == "") {
+            name1.focus();
             error1.innerHTML = requerido;
-        } else if (names.value.trim() == "") {
-            names.focus();
+        } else if (name1.value.trim() == "") {
+            name1.focus();
             error1.innerHTML = espacios;
         } else {
             error1.innerHTML = "";
@@ -149,7 +179,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9) {
+        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9 && status10 && status11) {
 
             var username = $.trim($("#usuario").val());
 

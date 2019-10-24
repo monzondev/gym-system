@@ -30,8 +30,10 @@ if (isset($_POST['agregarEmpleado'])) {
     }
     $array = [
         "tipoempleado" => $_POST['tipoempleado'],
-        "nombres" => $_POST['nombres'],
-        "apellidos" => $_POST['apellidos'],
+        "primer_nombre" => $_POST['nombre1'],
+        "segundo_nombre" => $_POST['nombre2'],
+        "primer_apellido" => $_POST['apellido1'],
+        "segundo_apellido" => $_POST['apellido2'],
         "usuario" => $_POST['usuario'],
         "password" => $hash,
         "email" => $_POST['email'],
@@ -54,10 +56,10 @@ if (isset($_POST['agregarEmpleado'])) {
     } else {
         if (isset($_SESSION['AE'])) {
             $_SESSION['AE'] = '2';
-            //echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
+            echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
         } else {
             $_SESSION['AE'] = '2';
-            //echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
+            echo "<script language='javascript'>window.location='../view/empleados.php'</script>;";
             exit();
         }
     }

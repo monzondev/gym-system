@@ -69,7 +69,7 @@ $(document).ready(function () {
 
         //VALIDACION FECHA DE NACIMIENTO
         if (date.value == null || date.value == 0) {
-            tel.focus();
+            date.focus();
             error7.innerHTML = requerido;
         } else {
             error7.innerHTML = "";

@@ -30,7 +30,7 @@ $login->ValidateSession();
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
     <?php
-    $_SESSION['AM']='1';
+
     if (isset($_SESSION['AM'])) {
         if ($_SESSION['AM'] == 1) { ?>
             <script>

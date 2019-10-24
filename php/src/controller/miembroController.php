@@ -16,28 +16,11 @@ if (isset($_POST['userValidate'])) {
     exit(json_encode($response));
 }
 
-function test(){
-    /*********************************************************************************************************** */
-    //CODFIGO DE EJEMPLO PARA AGREGAR UN MIEMBRO AL SISTEMA
+if (isset($_POST['agregarMiembro'])) {
 
 
-    $_POST['genero'] = 1;
-    $_POST['tipomembresia'] = 1;
-    $_POST['primer_nombre'] = "Victor";
-    $_POST['segundo_nombre'] = "Jose";
-    $_POST['primer_apellido'] = "Umaña";
-    $_POST['segundo_apellido'] = "Gomez";
-    $_POST['usuario'] = "Jvictor";
-    $_POST['foto']="ruta_foto";
-    $_POST['correo'] = "test123@gmail.com";
-    $_POST['telefono'] = '75645323';
-    $_POST['altura'] = 1.70;
-    $_POST['peso'] = 150.50;
-    $_POST['fecha'] = '2019-10-10';
+    $identificador = $miembro->generateCode($_POST['apellido1'], $_POST['apellido2'], date("Y"));
 
-
-    $identificador = $miembro->generateCode($_POST['primer_apellido'], $_POST['segundo_apellido'], date("Y"));
-    if ($usuario != null) {
 
 
         if ($_POST['genero'] == 1) {
@@ -45,16 +28,25 @@ function test(){
         } elseif ($_POST['genero'] == 0) {
             $genero = false;
         }
+
+        if (isset($_FILES["foto"])) {
+            if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
+                    $nombre1 = "foto" . "_" . $_POST['usuario'];
+                    $ruta1 = "../recursos/fotografias/" . $nombre1 . ".jpg";
+                    move_uploaded_file($_FILES['foto']['tmp_name'], $ruta1);
+                    $imagen = $nombre1;
+            }
+        }
         $arrayMiembro = [
             "tipomembresia" => $_POST['tipomembresia'],
-            "primer_nombre" => $_POST['primer_nombre'],
-            "segundo_nombre" => $_POST['segundo_nombre'],
-            "primer_apellido" => $_POST['primer_apellido'],
-            "segundo_apellido" => $_POST['segundo_apellido'],
+            "primer_nombre" => $_POST['nombre1'],
+            "segundo_nombre" => $_POST['nombre2'],
+            "primer_apellido" => $_POST['apellido1'],
+            "segundo_apellido" => $_POST['apellido2'],
             "usuario" => $_POST['usuario'],
-            "foto" =>  $_POST['foto'],
+            "foto" =>  $imagen,
             "identificador" => $identificador,
-            "correo" => $_POST['correo'],
+            "correo" => $_POST['email'],
             "genero" => $genero,
             "telefono" => $_POST['telefono'],
             "altura" => $_POST['altura'],
@@ -63,11 +55,26 @@ function test(){
             "fecha" => $_POST['fecha']
         ];
 
-        /*      if ($miembro->agregarMiembro($arrayMiembro)) {
-                  echo '<center><h1>Miembro agregado con exito</h1></center>';
-              } else {
-                  echo '<center><h1>Hubo un error al guardar el miembro</h1></center>';
-              }*/
+              if ($miembro->agregarMiembro($arrayMiembro)) {
+                if (isset($_SESSION['AE'])) {
+                    $_SESSION['AE'] = '1';
+                    echo "<script language='javascript'>window.location='../view/miembros.php?'</script>;";
+                    exit();
+                } else {
+                    $_SESSION['AE'] = '1';
+                    echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
+                    exit();
+                }
+            } else {
+                if (isset($_SESSION['AE'])) {
+                    $_SESSION['AE'] = '2';
+                    echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
+                } else {
+                    $_SESSION['AE'] = '2';
+                    echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
+                    exit();
+                }
+            }
     }
-}
+
     ?>

@@ -7,16 +7,31 @@ class tipo_membresia extends conector_pg
 
     //consultas sql para la entidad tipo_membresia
     private $Querys  = array(
-        "create" => "INSERT INTO tipo_membresia(nombre,precio, activo, descripcion) VALUES (?,?,?,?)",
-        "delete" => "DELETE FROM tipo_membresia WHERE id_tipo_membresia = ?",
-        "update"  => "UPDATE tipo_membresia SET  nombre = ?, precio =?, activo = ?, descripcion = ? WHERE id_tipo_membresia = ?",
+        "create" => "INSERT INTO tipo_membresia(nombre,precio, activo, descripcion) VALUES ($1,$2,$3,$4)",
+        "delete" => "DELETE FROM tipo_membresia WHERE id_tipo_membresia = $1",
+        "update"  => "UPDATE tipo_membresia SET  nombre = $1, precio =$2, activo = $3, descripcion = $4 WHERE id_tipo_membresia = $5",
         "findAll" => "SELECT id_tipo_membresia, nombre, precio, activo, descripcion FROM tipo_membresia",
-        "findById" => "SELECT id_tipo_membresia, nombre, precio, activo, descripcion FROM tipo_membresia  WHERE id_tipo_membresia= ? ",
+        "findById" => "SELECT id_tipo_membresia, nombre, precio, activo, descripcion FROM tipo_membresia  WHERE id_tipo_membresia= $1 ",
         "count" => "SELECT COUNT(id_tipo_membresia) FROM tipo_membresia"
     );
 
     public function __construct()
     {
         $this->conexion = parent::__construct();
+    }
+
+     /*********************************************************************/
+    //Metodo que obtiene todos los tipos de empleado
+    public function getAllTipoMembresia()
+    {
+        $query = $this->Querys['findAll'];
+        $result = pg_query($this->conexion, $query);
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+        } else {
+            $allRows = null;
+        }
+        //devuelve todos los tipos de empleados
+        return $allRows;
     }
 }

@@ -14,6 +14,7 @@ $login->ValidateSession();
     <title>Miembros</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/toastr.css">
 </head>
 
 <body>
@@ -27,7 +28,31 @@ $login->ValidateSession();
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
+    <script src="js/toastr.js"></script>
+    <?php
+    $_SESSION['AM']='1';
+    if (isset($_SESSION['AM'])) {
+        if ($_SESSION['AM'] == 1) { ?>
+            <script>
+                toastr.options.timeOut = 2000; //1.5s
+                toastr.options.closeButton = true;
+                toastr.remove();
+                toastr.success('El miembro fue registrado con exito!');
+            </script>
+        <?php
+                unset($_SESSION['AM']);
+            } else if ($_SESSION['AM'] == 2) { ?>
+            <script>
+                toastr.options.timeOut = 2000; //1.5s
+                toastr.options.closeButton = true;
+                toastr.remove();
+                toastr.error('Ah ocurrido un Error al registrar el miembro');
+            </script>
+    <?php
+            unset($_SESSION['AM']);
+        }
+    }
+    ?>
 </body>
 
 </html>

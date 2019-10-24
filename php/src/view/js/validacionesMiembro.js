@@ -14,13 +14,14 @@ $(document).ready(function () {
         var status10 = false;
         var status11 = false;
         var status12 = false;
+        var status13 = false;
 
 
         //MENSAJES PARA LAS VALIDACIONES
         var requerido = "<img src='img/errorr.png'width='22' >     Este campo es requerido";
         var espacios = "<img src='img/errorr.png'width='22' >     Espacios vacios no permitidos";
         var notEmail = "<img src='img/errorr.png'width='22' >     Formato de correo no permitido";
-        var image = "<img src='img/errorr.png'width='22' >     Solo imagenes permitidas";
+        var image = "<img src='img/errorr.png'width='22' >     Solo imagenes jpg permitidas";
 
         //CAMPOS A VALIDAR
         var name1 = document.getElementById("nombre1");
@@ -35,6 +36,7 @@ $(document).ready(function () {
         var altura = document.getElementById("altura");
         var peso = document.getElementById("peso");
         var date = document.getElementById("fecha");
+        var type = document.getElementById("tipomembresia");
         
 
 
@@ -52,6 +54,16 @@ $(document).ready(function () {
         var error10 = document.getElementById("error10");
         var error11 = document.getElementById("error11");
         var error12 = document.getElementById("error12");
+        var error13 = document.getElementById("error13");
+
+        //VALIDACION TIPO DE MEMBRESIA
+        if (type.value == 0) {
+            type.focus();
+            error13.innerHTML = requerido;
+        } else {
+            error13.innerHTML = "";
+            status13 = true;
+        }
 
          //VALIDACION FECHA DE NACIMIENTO
          if (date.value == null || date.value == 0) {
@@ -100,7 +112,7 @@ $(document).ready(function () {
         if (foto.files.length == 0) {
             foto.focus();
             error8.innerHTML = requerido;
-        } else if (extension !== 'gif' && extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png') {
+        } else if ( extension !== 'jpg' ) {
             foto.focus();
             error8.innerHTML = image;
         } else {
@@ -198,7 +210,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7  && status8 && status9 && status10 && status11 && status12) {
+        if (status1 && status2 && status3 && status4 && status5 && status6 && status7  && status8 && status9 && status10 && status11 && status12 && status13) {
 
             var username = $.trim($("#usuario").val());
 
@@ -217,7 +229,7 @@ $(document).ready(function () {
                     toastr.options.timeOut = 1500; //1.5s
                     toastr.options.closeButton = true;
                     if (datos.success === '1') {
-                        //document.getElementById("form").submit();
+                        document.getElementById("form").submit();
                     } else if (datos.success === '2') {
                         toastr.remove();
                         toastr.error('El usuario ya existe, prueba con otro!');

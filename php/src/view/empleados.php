@@ -221,7 +221,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 toastr.options.timeOut = 2000; //1.5s
                 toastr.options.closeButton = true;
                 toastr.remove();
-                toastr.error('Ah ocurrido unError al registrar el empleado');
+                toastr.error('Ah ocurrido un Error al registrar el empleado');
             </script>
     <?php
             unset($_SESSION['AE']);

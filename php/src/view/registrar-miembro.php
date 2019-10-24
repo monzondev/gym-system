@@ -1,6 +1,9 @@
 <?php
 session_start();
 include_once '../boundary/empleado.php';
+include_once '../boundary/tipo_membresia.php';
+$tipoMembresia = new tipo_membresia();
+$tipos = $tipoMembresia->getAllTipoMembresia();
 $login = new empleado();
 $login->ValidateSession();
 ?>
@@ -87,7 +90,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3 ">
                         <div class="form-group">
                             <label>Fotograf&iacute;a</label>
-                            <input type="file" class="form-control-file" required  id="foto" name="foto">
+                            <input type="file" class="form-control-file" required id="foto" name="foto">
                             <p id="error8" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -120,7 +123,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="apellido1" onkeypress="return jusNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return jusNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
                             <p id="error11" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -133,6 +136,24 @@ $login->ValidateSession();
                         </div>
                     </div>
                 </div>
+                <div class="form-row text-center tab-content">
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label class="control-label">Tipo de membresia:</label>
+                            <select class="form-control" name="tipomembresia" id="tipomembresia" required>
+                                < <option value="0" disabled selected="selected">Seleccione un tipo...</option>
+                                    <?php
+                                    foreach ($tipos as $valores) {
+                                        echo '<option value="' . $valores['id_tipo_membresia'] . '">' . $valores['nombre'] . '</option>';
+                                    }
+                                    ?>
+                            </select>
+
+                            <p id="error13" class="text-danger error"> </p>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="agregarMiembro" hidden>
 
                 <br>
                 <center>

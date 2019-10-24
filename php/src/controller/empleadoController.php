@@ -117,6 +117,13 @@ if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
     exit();
 }
 
+if (isset($_GET['disableEmpleado']) && $_GET['disableEmpleado']) {
+    $idEmpleado = $_POST['id_empleado'];
+    $response = $Empleado->deshabilitarEmpleado($idEmpleado);    
+    echo json_encode($response);
+    exit();
+}
+
 header('Location: /view/index.php');
 exit();
 ?>

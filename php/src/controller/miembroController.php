@@ -1,8 +1,25 @@
 <?php
-    /*********************************************************************************************************** */
-    //CODFIGO DE EJEMPLO PARA AGREGAR UN MIEMBRO AL SISTEMA
     include_once '../boundary/miembro.php';
     $miembro = new miembro();
+if (isset($_POST['userValidate'])) {
+    if (isset($_POST['usuario'])  && $_POST['usuario'] != "") {
+        $user = $miembro->validateUser($_POST['usuario']);
+        if ($user != null) {
+            $response = ['success' => '2'];
+        } else {
+            $response = ['success' => '1'];
+        }
+    } else {
+        $response = ['success' => '3'];
+    }
+
+    exit(json_encode($response));
+}
+
+function test(){
+    /*********************************************************************************************************** */
+    //CODFIGO DE EJEMPLO PARA AGREGAR UN MIEMBRO AL SISTEMA
+
 
     $_POST['genero'] = 1;
     $_POST['tipomembresia'] = 1;
@@ -21,11 +38,11 @@
 
     $identificador = $miembro->generateCode($_POST['primer_apellido'], $_POST['segundo_apellido'], date("Y"));
     if ($usuario != null) {
-        echo "<center><h2>Codigo generado: " . $identificador . '</h2></center><br>';
+
 
         if ($_POST['genero'] == 1) {
             $genero = true;
-        } else  if ($_POST['genero'] == 0) {
+        } elseif ($_POST['genero'] == 0) {
             $genero = false;
         }
         $arrayMiembro = [
@@ -46,10 +63,11 @@
             "fecha" => $_POST['fecha']
         ];
 
-  /*      if ($miembro->agregarMiembro($arrayMiembro)) {
-            echo '<center><h1>Miembro agregado con exito</h1></center>';
-        } else {
-            echo '<center><h1>Hubo un error al guardar el miembro</h1></center>';
-        }*/
+        /*      if ($miembro->agregarMiembro($arrayMiembro)) {
+                  echo '<center><h1>Miembro agregado con exito</h1></center>';
+              } else {
+                  echo '<center><h1>Hubo un error al guardar el miembro</h1></center>';
+              }*/
     }
+}
     ?>

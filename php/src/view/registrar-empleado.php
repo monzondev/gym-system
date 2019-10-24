@@ -181,7 +181,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-validate.js"></script>
     <script src="js/toastr.js"></script>
-    <script src="js/validaciones.js"></script>
+    <script src="js/validacionesEmpleado.js"></script>
 
 
     <script>

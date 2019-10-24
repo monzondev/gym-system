@@ -13,7 +13,8 @@ class miembro extends conector_pg
         "findAll" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimientoFROM miembro",
         "findById" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimientoFROM miembro  WHERE id_miembro= $1 ",
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
-        "findByIdentifier" => "SELECT id_miembro, identificador FROM miembro wHERE identificador   LIKE $1"
+        "findByIdentifier" => "SELECT id_miembro, identificador FROM miembro wHERE identificador   LIKE $1",
+        "findByUser" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento FROM miembro  WHERE usuario=  $1 "
     );
     public function __construct()
     {
@@ -83,6 +84,22 @@ class miembro extends conector_pg
         //devuelve todos los miembros con ese identificador
         return $allRows;
     }
+
+
+
+     //Metodo para validar que el usuario este o no este en la base de datos
+     public function validateUser($name)
+     {
+         $query = $this->Querys['findByUser'];
+         $result = pg_query_params($this->conexion, $query, array($name));
+         if (pg_num_rows($result)) {
+             $userFound = true;
+         } else {
+             $userFound = false;
+         }
+         //devuelve el estado de la busqueda
+         return $userFound;
+     }
 
 
     /*********************************************************************/

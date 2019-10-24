@@ -6,13 +6,8 @@ $(document).ready(function () {
         var status1 = false;
         var status2 = false;
         var status3 = false;
-        var status4 = false;
         var status5 = false;
         var status6 = false;
-        var status7 = false;
-        var status8 = false;
-        var status9 = false;
-
         var status10 = false;
         var status11 = false;
 
@@ -27,57 +22,22 @@ $(document).ready(function () {
         var lastName1 = document.getElementById("apellido1");
         var lastName2 = document.getElementById("apellido2");
         var user = document.getElementById("usuario");
-        var password = document.getElementById("password");
         var email = document.getElementById("email");
         var tel = document.getElementById("telefono");
-        var date = document.getElementById("fecha");
-        var type = document.getElementById("tipoempleado");
-        var generoM = document.getElementById("R1M");
+       
 
 
         //REFERENCIA A LOS ERRORES POR CAMPO
         var error1 = document.getElementById("error1");
         var error2 = document.getElementById("error2");
         var error3 = document.getElementById("error3");
-        var error4 = document.getElementById("error4");
         var error5 = document.getElementById("error5");
         var error6 = document.getElementById("error6");
-        var error7 = document.getElementById("error7");
-        var error8 = document.getElementById("error8");
-        var error9 = document.getElementById("error9");
         var error10 = document.getElementById("error10");
+        var error11 = document.getElementById("error11");
 
-        //VALIDACION TIPO DE GENERO
-        if (!document.querySelector('input[name="genero"]:checked')) {
-            generoM.focus();
-            error9.innerHTML = requerido;
-        } else {
-            error9.innerHTML = "";
-            status9 = true;
-        }
-
-
-        //VALIDACION TIPO DE EMPLEADO
-        if (type.value == 0) {
-            tel.focus();
-            error8.innerHTML = requerido;
-        } else {
-            error8.innerHTML = "";
-            status8 = true;
-        }
-
-        //VALIDACION FECHA DE NACIMIENTO
-        if (date.value == null || date.value == 0) {
-            tel.focus();
-            error7.innerHTML = requerido;
-        } else {
-            error7.innerHTML = "";
-            status7 = true;
-        }
-
-
-        //VALIDACION NUMERO DE TELEFONO
-        if (tel.value == "") {
+           //VALIDACION NUMERO DE TELEFONO
+           if (tel.value == "") {
             tel.focus();
             error6.innerHTML = requerido;
         } else {
@@ -100,20 +60,6 @@ $(document).ready(function () {
             error5.innerHTML = "";
             status5 = true;
         }
-
-
-        //VALIDACION CONTRASEÑA
-        if (password.value == "") {
-            password.focus();
-            error4.innerHTML = requerido;
-        } else if (password.value.trim() == "") {
-            password.focus();
-            error4.innerHTML = espacios;
-        } else {
-            error4.innerHTML = "";
-            status4 = true;
-        }
-
 
         //VALIDACION USUARIO
         if (user.value == "") {
@@ -179,26 +125,26 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9 && status10 && status11) {
+        if (status1 && status2 && status3 && status5 && status6 && status10 && status11) {
 
             var username = $.trim($("#usuario").val());
 
             var dataString = 'usuario=' + username + '&userValidate=1';
             $.ajax({
                 type: "POST",
-                url: "../controller/empleadoController.php",
+                url: "../controller/miembroController.php",
                 data: dataString,
                 beforeSend: function () {
                     $("#registrarE").val('Validando...');
                 },
                 success: function (response) {
-                    console.log(response);
                     $("#registrarE").val('Registrar');
                     var datos = JSON.parse(response);
+                    console.log(datos);
                      toastr.options.timeOut = 1500; //1.5s
                      toastr.options.closeButton = true;
                      if (datos.success === '1') {
-                         document.getElementById("form").submit();
+                         //document.getElementById("form").submit();
                      } else if (datos.success === '2') {
                         toastr.remove();
                          toastr.error('El usuario ya existe, prueba con otro!');

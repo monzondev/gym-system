@@ -53,7 +53,7 @@ INSERT INTO public.tipo_membresia VALUES (3, 'Semanal', 10.00, true, 'Pago de cu
 -- Data for Name: empleado; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.empleado VALUES (1, 1, 'Monzon ', 'Masariego', 'Rigoberto', 'Alexander', 'monzon', '$2y$10$SFX.zuOrNRIBjHMl4TEo1ueQuCmK8uP7lFijJyogVHU2DjZgzPz5a', 'c@g.com', true, '87654321', true, '2000-01-01');
+INSERT INTO public.empleado VALUES (1, 1, 'Monzon ', 'Mazariego', 'Rigoberto', 'Alexander', 'monzon', '$2y$10$SFX.zuOrNRIBjHMl4TEo1ueQuCmK8uP7lFijJyogVHU2DjZgzPz5a', 'c@g.com', true, '87654321', true, '1997-16-09');
 INSERT INTO public.empleado VALUES (2, 2, 'Juan', 'Carlos', 'Pleitez', 'Cortez', 'juan', '$2y$10$3MNB48FRYcEzWEeEF7ad2.Fe/2HGNmwwzeSJ50eRKkqPONHYXH7WK', 'j@g.com', true, '12345678', true, '1996-11-07');
 INSERT INTO public.empleado VALUES (4, 2, 'usuario', 'nombre2', 'apellidos', 'apellido2', 'user', '$2y$10$3MNB48FRYcEzWEeEF7ad2.Fe/2HGNmwwzeSJ50eRKkqPONHYXH7WK', 'u@g.com', true, '67895421', true, '1997-07-12');
 INSERT INTO public.empleado VALUES (5, 2, 'Roberto', 'Carlos', 'Menendez', 'Castro', 'carlos', '$2y$10$3MNB48FRYcEzWEeEF7ad2.Fe/2HGNmwwzeSJ50eRKkqPONHYXH7WK', 'r@g.com', true, '73719834', true, '1997-10-10');

@@ -19,7 +19,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                 <?php if ($_SESSION['tipoEmpleado'] == 1) { ?>
                     <a class="nav-link dropdown-toggle" href="index.php" id="navbarDropdown" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php } else { ?>
-                    <a class="nav-link dropdown-toggle" href="index.php" id="navbarDropdown" style="padding-right: 750px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="index.php" id="miembros" style="padding-right: 750px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php } ?>
                 
                     Miembros
@@ -31,7 +31,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
             </li>
             <?php if ($_SESSION['tipoEmpleado'] == 1) { ?>
                 <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="" id="empleados" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Empleados
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">

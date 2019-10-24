@@ -26,6 +26,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         <div class="col-md-10">
             <br>
             <button id="btn_editar" type="button" data-target="#editarModal" data-toggle="modal" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
+            <button id="btn_eliminarModal" type="button" data-target="#eliminarModal" data-toggle="modal" class="btn btn-danger float-right mr-2" title="Seleccione un Empleado" disabled="true">Eliminar Empleado</button>
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -36,7 +37,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 </thead>
                 <tbody id="table_body">
                     <?php
-                    $empleados = $login->getAllEmpleados();
+                    $empleados = $login->getAllActiveEmpleados();
                     if (!is_null($empleados)) {
                         foreach ($empleados as $empleado) {
                             echo "
@@ -59,7 +60,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
 
     <!-- Modal -->
     <div class="modal fade" id="editarModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <form id="form_editar" class="needs-validation" autocomplete="off" method="post" action="../controller/empleadoController.php?editEmpleado=true" novalidate>
                     <div class="modal-header">
@@ -202,6 +203,26 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         </div>
     </div>
 
+    <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Empleado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div id="eliminarInfo" class="modal-body">
+                Mensaje
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn_cancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btn_eliminar" class="btn btn-primary">Eliminar</button>
+            </div>
+        </div>
+    </div>
+    
+
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
@@ -235,6 +256,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             $(this).addClass('table-info').siblings().removeClass('table-info');
             selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
             $("#btn_editar").prop('disabled', false);
+            $("#btn_eliminarModal").prop('disabled', false);
             if (selectedEmpleado !== null) {                
                 $("#id_empleado").val(selectedEmpleado.id_empleado);
                 $("#id_tipo_empleado").val(selectedEmpleado.id_tipo_empleado);
@@ -258,9 +280,33 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 alert("No se ha seleccionado un empleado");
             }
         });
-        $('#genero').change(function() {
-            $(this).html(this.checked?"Hombre":"Mujer");
+        $("#btn_eliminarModal").click(function() {
+            if (selectedEmpleado !== null) {
+                //Validar FORM
+                var name = selectedEmpleado.primer_nombre+" "+selectedEmpleado.segundo_nombre;
+                $("#eliminarInfo").text("Desea eliminar a "+ name + " de la base de datos?");
+            } else {
+                alert("No se ha seleccionado un empleado");
+            }
         });
+        $("#btn_eliminar").click(function() {
+            if (selectedEmpleado !== null && selectedEmpleado.id_empleado != null) {
+                //Eliminar
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/empleadoController.php?disableEmpleado=true",
+                    data: {id_empleado : selectedEmpleado.id_empleado},
+                    success:function (data) {
+                        if(data){
+                            location.reload();
+                        }
+                    }
+                });                
+            } else {
+                alert("No se ha seleccionado un empleado");
+            }
+        });
+        
         
 
 

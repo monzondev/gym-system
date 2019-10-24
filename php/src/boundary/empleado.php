@@ -12,7 +12,9 @@ class empleado extends conector_pg
         "create" => "INSERT INTO empleado(id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
         "delete" => "DELETE FROM empleado WHERE id_empleado = $1",
         "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, primer_nombre=$2, segundo_nombre=$3, primer_apellido=$4,segundo_apellido=$5, usuario = $6, password = $7, correo = $8, genero = $9, telefono = $10, activo= $11, fecha_nacimiento= $12 WHERE id_empleado = $13",
+        "disable"  => "UPDATE empleado SET  activo = false WHERE id_empleado = $1",
         "findAll" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
+        "findAllActive" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado WHERE activo = true",
         "findById" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
         "count" => "SELECT COUNT(id_empleado) FROM empleado",
         "findByUser" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE usuario=  $1 "
@@ -57,6 +59,21 @@ class empleado extends conector_pg
     public function getAllEmpleados()
     {
         $query = $this->Querys['findAll'];
+        $result = pg_query($this->conexion, $query);
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+        } else {
+            $allRows = null;
+        }
+        //devuelve todos los empleados
+        return $allRows;
+    }
+
+    /*********************************************************************/
+    //Metodos que devuelve a todos los empleados activos
+    public function getAllActiveEmpleados()
+    {
+        $query = $this->Querys['findAllActive'];
         $result = pg_query($this->conexion, $query);
         if ($result) {
             $allRows = pg_fetch_all($result);
@@ -164,6 +181,18 @@ class empleado extends conector_pg
         }
         //devuelve resultado
         return $resultado;        
+    }
+
+    /*********************************************************************/
+    //Metodo que deshabilita un empleado en el sistema
+    public function deshabilitarEmpleado($idEmpleado){
+        $user = $this->getUserbyId($idEmpleado);
+        if(!is_null($user) && $user["activo"] == 't'){
+            $query = $this->Querys['disable'];
+            pg_query_params($this->conexion, $query, array($idEmpleado));
+            return true;
+        }
+        return false;
     }
 
     /*********************************************************************/

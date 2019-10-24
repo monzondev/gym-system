@@ -7,3 +7,4 @@ RUN set -ex apk --no-cache add postgresql-dev libpq-dev
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql mbstring
 COPY src/ /var/www/html
+RUN chown www-data:www-data /var/www/html/recursos/* -R

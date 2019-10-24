@@ -57,20 +57,20 @@ if (isset($_POST['agregarMiembro'])) {
 
               if ($miembro->agregarMiembro($arrayMiembro)) {
                 if (isset($_SESSION['AE'])) {
-                    $_SESSION['AE'] = '1';
+                    $_SESSION['AM'] = '1';
                     echo "<script language='javascript'>window.location='../view/miembros.php?'</script>;";
                     exit();
                 } else {
-                    $_SESSION['AE'] = '1';
+                    $_SESSION['AM'] = '1';
                     echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
                     exit();
                 }
             } else {
                 if (isset($_SESSION['AE'])) {
-                    $_SESSION['AE'] = '2';
+                    $_SESSION['AM'] = '2';
                     echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
                 } else {
-                    $_SESSION['AE'] = '2';
+                    $_SESSION['AM'] = '2';
                     echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
                     exit();
                 }

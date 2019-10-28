@@ -20,18 +20,34 @@ $login->ValidateSession();
 <body>
     <?php include_once("navbar.php");
 
-    
-    $m = $miembro->getAllActiveMiembros();
 
-    if($m !=null){
+    $m = $miembro->getAllActiveMiembros();
+    echo 'Todos los miembros <br>';
+    if ($m != null) {
         foreach ($m as $key) {
             echo $key['usuario'];
             echo '<br>';
-         }
-
-    }else{
+        }
+    } else {
         echo 'no hay miembros activos';
     }
+
+    $mf = $miembro->getMiembrobyId(1);
+    echo '<br>';
+    echo '<br>';
+    echo 'un miembro <br>';
+
+    if ($mf != null) {
+        echo 'nombre '.$mf['primer_nombre'];
+        echo '<br>';
+        echo 'apellido '.$mf['primer_apellido'];
+        echo '<br>';
+        echo 'Usuario '.$mf['usuario'];
+        echo '<br>';
+    } else {
+        echo 'no se encontro miembro';
+    }
+
     ?>
 
     <div class="row">

@@ -136,4 +136,18 @@ class miembro extends conector_pg
         return $allRows;
     }
 
+    /*********************************************************************/
+    //Metodo para obtener un miembto por id_miembro este en la base de datos
+    public function getMiembrobyId($idmiembro)
+    {
+        $query = $this->Querys['findById'];
+        $result = pg_query_params($this->conexion, $query, array($idmiembro));
+        if (pg_num_rows($result)) {
+            $row = pg_fetch_assoc($result);
+        } else {
+            $row = null;
+        }
+        return $row;
+    }
+
 }

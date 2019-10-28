@@ -10,11 +10,12 @@ class miembro extends conector_pg
         "create" => "INSERT INTO miembro(id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)",
         "delete" => "DELETE FROM miembro WHERE id_miembro = $1",
         "update"  => "UPDATE miembro SET  id_tipo_membresia = $1, primer_nombre =$2, segundo_nombre =$3, primer_apellido = $4,  segundo_apellido= $5, usuario = $6, identificador = $7, foto=$8, correo = $9, genero = $10, telefono = $11,altura=$12, peso =$13 activo= $14, fecha_nacimiento= $15 WHERE id_empleado = $16",
-        "findAll" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimientoFROM miembro",
-        "findById" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimientoFROM miembro  WHERE id_miembro= $1 ",
+        "findAll" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento FROM miembro",
+        "findById" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento FROM miembro  WHERE id_miembro= $1 ",
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
         "findByIdentifier" => "SELECT id_miembro, identificador FROM miembro wHERE identificador   LIKE $1",
-        "findByUser" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento FROM miembro  WHERE usuario=  $1 "
+        "findByUser" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento FROM miembro  WHERE usuario=  $1 ",
+        "findAllActive" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento FROM miembro  WHERE activo=true"
     );
     public function __construct()
     {
@@ -85,8 +86,6 @@ class miembro extends conector_pg
         return $allRows;
     }
 
-
-
      //Metodo para validar que el usuario este o no este en la base de datos
      public function validateUser($name)
      {
@@ -121,4 +120,20 @@ class miembro extends conector_pg
         //devuelve resultado
         return $resultado;
     }
+
+     /*********************************************************************/
+    //Metodos que devuelve a todos los empleados activos
+    public function getAllActiveMiembros()
+    {
+        $query = $this->Querys['findAllActive'];
+        $result = pg_query($this->conexion, $query);
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+        } else {
+            $allRows = null;
+        }
+        //devuelve todos los empleados
+        return $allRows;
+    }
+
 }

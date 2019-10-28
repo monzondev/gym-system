@@ -18,7 +18,22 @@ $login->ValidateSession();
 </head>
 
 <body>
-    <?php include_once("navbar.php"); ?>
+    <?php include_once("navbar.php");
+
+    
+    $m = $miembro->getAllActiveMiembros();
+
+    if($m !=null){
+        foreach ($m as $key) {
+            echo $key['usuario'];
+            echo '<br>';
+         }
+
+    }else{
+        echo 'no hay miembros activos';
+    }
+    ?>
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">

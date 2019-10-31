@@ -73,10 +73,10 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">ID:</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." readonly="readonly" />                                
+                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." onDrag="return false" onDrop="return false" onPaste="return false" readonly="readonly" />
                             </div>
                         </div>
-                        <div class="form-group row">                            
+                        <div class="form-group row">
                             <label for="tipoEmpleado" class="col-sm-4 col-form-label">Tipo Empleado:</label>
                             <div class="col-sm-8">
                                 <select id="id_tipo_empleado" name="id_tipo_empleado" class="form-control" required>
@@ -99,49 +99,49 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." />
+                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Primer Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." />
+                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Segundo Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." />
+                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Primer Apellido:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." />
+                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." />
+                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." />
+                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." onDrag="return false" onDrop="return false" onPaste="return false" />
                             </div>
                         </div>
                         <div id="changePassDiv" class="form-group row">
                             <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
                             <div class="col-sm-8">
-                                <button id="btn_password" type="button" class="btn btn-warning" title="Cambio de Contraseña">Cambiar Contraseña</button>
+                                <button id="btn_password" type="button" class="btn btn-warning" title="Sustituirá la contraseña actual por una nueva">Cambiar Contraseña</button>
                             </div>
                         </div>
                         <div id="passDiv" class="form-group row d-none">
                             <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password" name="password" maxlength="60" placeholder="Contraseña..." />
+                                <input type="password" class="form-control" id="password" name="password" maxlength="60" placeholder="Contraseña..." onDrag="return false" onDrop="return false" onPaste="return false" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -160,7 +160,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." />
+                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -223,9 +223,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 localStorage.removeItem("message");
             }            
         });
-        $("#table_body tr").click(function() {
-            $("#passDiv").addClass('d-none');
-            $("#changePassDiv").removeClass('d-none');
+        $("#table_body tr").click(function() {            
             $(this).addClass('table-info').siblings().removeClass('table-info');
             selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
             $("#btn_editar").prop('disabled', false);
@@ -245,6 +243,17 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $("#telefono").val(selectedEmpleado.telefono);
                 $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
             }
+        });
+        $("#btn_editar").click(function() {
+            $("#passDiv").addClass('d-none');
+            $("#changePassDiv").removeClass('d-none');
+            $("#password").val("");
+            $("#password").prop("disabled", true);
+        });
+        $("#btn_password").click(function() {
+            $("#passDiv").removeClass('d-none');
+            $("#changePassDiv").addClass('d-none');
+            $("#password").prop("disabled", false);
         });
         $("#btn_guardar").click(function() {
             if (selectedEmpleado !== null) {
@@ -268,7 +277,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         var response = jQuery.parseJSON(data);
                         if(response){
                             localStorage.setItem("code", response.code);
-                            localStorage.setItem("message", response.message);
+                            localStorage.setItem("message", response.message);                            
                             location.reload();
                         }
                     }
@@ -304,11 +313,22 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             } else {
                 alert("No se ha seleccionado un empleado");
             }
-        });
-        $("#btn_password").click(function() {
-            $("#passDiv").removeClass('d-none');
-            $("#changePassDiv").addClass('d-none');
-        });
+        });        
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+        function notNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            var keyCode = document.all ? e.which : e.keyCode;
+            if ((keynum == 8) || (keynum == 46) || (keyCode == 37) || (keyCode == 39)) {
+                return true;
+            }
+            var patt = new RegExp(/^[A-Za-z\s]+$/g);
+            return patt.test(String.fromCharCode(keynum));
+        }        
     </script>
 </body>
 

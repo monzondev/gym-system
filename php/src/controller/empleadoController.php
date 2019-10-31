@@ -73,12 +73,20 @@ if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
     //Comprobar que el id del empleado a editar
     if(isset($empleado) && isset($empleado->id_empleado) ){
         //Comprobar que existe en la base de datos
-        $findEmpleado = $Empleado->getUserbyId($empleado->id_empleado);        
+        $findEmpleado = $Empleado->getUserbyId($empleado->id_empleado);
         if(isset($findEmpleado) && isset($findEmpleado['id_empleado']) ){
+            //Si la contraseña esta vacia no requiere cambio de contraseña
+            if(empty($empleado->password)){
+                //No se ha modificado la contraseña
+                $empleado->password = $findEmpleado['password'];
+            }else{
+                //Se cambio la contraseña
+                $empleado->password = $Empleado->EncryptPassword($empleado->password);
+            }
             //Verificar si existes el nombre de usuario o ver si aun es el mismo nombre de usuario
             $allowUserName = ($Empleado->validateUser($empleado->usuario)==false) || ($findEmpleado["usuario"]==$empleado->usuario);
             if($allowUserName){
-                //Modificamos al usuario                
+                //Modificamos al usuario
                 if ($Empleado->modificarEmpleado($empleado)) {
                     $response['code'] = '1';
                     $response['message'] = 'Se ha modificado con exito';

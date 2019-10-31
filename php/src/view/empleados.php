@@ -99,7 +99,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" />
+                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return username(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -328,7 +328,13 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             }
             var patt = new RegExp(/^[A-Za-z\s]+$/g);
             return patt.test(String.fromCharCode(keynum));
-        }        
+        }
+        function username(e) {
+            if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {
+                return true;
+            }
+            return false;
+        }
     </script>
 </body>
 

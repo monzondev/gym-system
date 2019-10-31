@@ -32,6 +32,7 @@ CREATE TABLE public.miembro (
 	peso double precision,
 	activo boolean NOT NULL,
 	fecha_nacimiento date NOT NULL,
+	fecha_inicio date NOT NULL,
 	CONSTRAINT miembro_pk PRIMARY KEY (id_miembro)
 
 );

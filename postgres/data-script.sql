@@ -53,7 +53,7 @@ INSERT INTO public.tipo_membresia VALUES (3, 'Semanal', 10.00, true, 'Pago de cu
 -- Data for Name: empleado; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.empleado VALUES (1, 1, 'Monzon ', 'Mazariego', 'Rigoberto', 'Alexander', 'monzon', '$2y$10$SFX.zuOrNRIBjHMl4TEo1ueQuCmK8uP7lFijJyogVHU2DjZgzPz5a', 'c@g.com', true, '87654321', true, '1997-16-09');
+INSERT INTO public.empleado VALUES (1, 1, 'Monzon ', 'Mazariego', 'Rigoberto', 'Alexander', 'monzon', '$2y$10$SFX.zuOrNRIBjHMl4TEo1ueQuCmK8uP7lFijJyogVHU2DjZgzPz5a', 'c@g.com', true, '87654321', true, '1997-09-10');
 INSERT INTO public.empleado VALUES (2, 2, 'Juan', 'Carlos', 'Pleitez', 'Cortez', 'juan', '$2y$10$3MNB48FRYcEzWEeEF7ad2.Fe/2HGNmwwzeSJ50eRKkqPONHYXH7WK', 'j@g.com', true, '12345678', true, '1996-11-07');
 INSERT INTO public.empleado VALUES (4, 2, 'usuario', 'nombre2', 'apellidos', 'apellido2', 'user', '$2y$10$3MNB48FRYcEzWEeEF7ad2.Fe/2HGNmwwzeSJ50eRKkqPONHYXH7WK', 'u@g.com', true, '67895421', true, '1997-07-12');
 INSERT INTO public.empleado VALUES (5, 2, 'Roberto', 'Carlos', 'Menendez', 'Castro', 'carlos', '$2y$10$3MNB48FRYcEzWEeEF7ad2.Fe/2HGNmwwzeSJ50eRKkqPONHYXH7WK', 'r@g.com', true, '73719834', true, '1997-10-10');
@@ -65,7 +65,7 @@ INSERT INTO public.empleado VALUES (5, 2, 'Roberto', 'Carlos', 'Menendez', 'Cast
 -- Data for Name: miembro; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.miembro VALUES (1, 1, 'Victor', 'Victor2', 'Umaña', 'Umaña2', 'vic123', 'UU19001', 'foto.png', 'test123@gmail.com', true, '75645323', 1.69999999999999996, 150.5, true, '2019-10-10');
+INSERT INTO public.miembro VALUES (1, 1, 'Victor', 'Victor2', 'Umaña', 'Umaña2', 'vic123', 'UU19001', 'foto_user.jpg', 'test123@gmail.com', true, '75645323', 1.69, 150.5, true, '2019-10-10', '2019-10-10');
 
 --
 -- TOC entry 2185 (class 0 OID 0)

@@ -123,7 +123,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return jusNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso"  onkeypress="return justNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
                             <p id="error11" class="text-danger error"> </p>
                         </div>
                     </div>

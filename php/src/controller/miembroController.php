@@ -31,8 +31,8 @@ if (isset($_POST['agregarMiembro'])) {
 
         if (isset($_FILES["foto"])) {
             if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-                    $nombre1 = "foto" . "_" . $_POST['usuario'];
-                    $ruta1 = "../recursos/fotografias/" . $nombre1 . ".jpg";
+                    $nombre1 = "foto" . "_" . $_POST['usuario'].'.jpg';
+                    $ruta1 = "../recursos/fotografias/" . $nombre1;
                     move_uploaded_file($_FILES['foto']['tmp_name'], $ruta1);
                     $imagen = $nombre1;
             }

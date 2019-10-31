@@ -34,4 +34,18 @@ class tipo_membresia extends conector_pg
         //devuelve todos los tipos de empleados
         return $allRows;
     }
+    //Metodo para buscar un tipo de empleado por id
+    public function getTipoMembresia($id)
+    {
+        $query = $this->Querys['findById'];
+        $result = pg_query_params($this->conexion, $query, array($id));
+        if (pg_num_rows($result)) {
+            $row = pg_fetch_assoc($result);
+        } else {
+            $row = null;
+        }
+        //devuelve el usuario logeado si se encuentra
+        return $row;
+    }
+
 }

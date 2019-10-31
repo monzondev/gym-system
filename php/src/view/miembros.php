@@ -2,7 +2,10 @@
 session_start();
 include_once '../boundary/empleado.php';
 include_once '../boundary/miembro.php';
+include_once '../boundary/tipo_membresia.php';
+$tipoMiembro = new tipo_membresia;
 $miembro = new miembro();
+$activos = $miembro->getAllActiveMiembros();
 $login = new empleado();
 $login->ValidateSession();
 ?>
@@ -18,45 +21,57 @@ $login->ValidateSession();
 </head>
 
 <body>
-    <?php include_once("navbar.php");
-
-
-    $m = $miembro->getAllActiveMiembros();
-    echo 'Todos los miembros <br>';
-    if ($m != null) {
-        foreach ($m as $key) {
-            echo $key['usuario'];
-            echo '<br>';
-        }
-    } else {
-        echo 'no hay miembros activos';
-    }
-
-    $mf = $miembro->getMiembrobyId(1);
-    echo '<br>';
-    echo '<br>';
-    echo 'un miembro <br>';
-
-    if ($mf != null) {
-        echo 'nombre '.$mf['primer_nombre'];
-        echo '<br>';
-        echo 'apellido '.$mf['primer_apellido'];
-        echo '<br>';
-        echo 'Usuario '.$mf['usuario'];
-        echo '<br>';
-    } else {
-        echo 'no se encontro miembro';
-    }
-
-    ?>
-
+    <?php include_once("navbar.php"); ?>
+    <div class="row text-center">
+        <h1></h1>
+    </div>
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-            <h1>En Desarrrolo</h1>
+            <table class="table text-center table-striped table-hover" >
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Membres&iacute;a</th>
+                        <th scope="col">Inicio</th>
+                        <th scope="col">Estado</th>
+
+                    </tr>
+                </thead>
+                <tbody >
+                    <?php foreach ($activos as $miembro) { 
+                        $tipoM = $tipoMiembro->getTipoMembresia($miembro['id_tipo_membresia']);
+                        ?>
+                        <tr>
+                            <th style="padding-top: 5px; padding-bottom: 5px;" scope="row"><img src="../recursos/fotografias/<?php echo $miembro['foto']?>" class="rounded-circle" width="50" alt="<?php echo $miembro['usuario']?>" title="<?php echo $miembro['usuario']?>"></th>
+                            <td style="padding-top: 17px;"><?php echo $miembro['primer_nombre'].' '.$miembro['primer_apellido'] ?></td>
+                            <td style="padding-top: 17px;"><?php echo $miembro['telefono'] ?></td>
+                            <td style="padding-top: 17px;"><?php 
+                            if ($tipoM != null) {
+                                echo $tipoM['nombre'];
+                            }
+                           ?></td>
+                            <td style="padding-top: 17px;"><?php echo $miembro['fecha_inicio']?></td>
+
+                        <td style="padding-top: 17px;"><?php 
+                            if ($miembro['fecha_inicio']) {
+                                echo 'Activo';
+                            }else{
+                                echo 'InActivo';
+                            }
+                           ?></td>
+                           
+                        </tr>
+                    <?php } ?>
+
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
     </div>
+
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>

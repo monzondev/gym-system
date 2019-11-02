@@ -65,6 +65,35 @@ if (isset($_POST['agregarEmpleado'])) {
     }
 }
 
+if (isset($_GET['allEmpleados']) && $_GET['allEmpleados']) {
+    $json = file_get_contents('php://input');
+    $id_empleado = (json_decode($json))->id_empleado;
+    $empleado = (object) $Empleado->getUserbyId($id_empleado);
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        $empleados = $Empleado->getAllActiveEmpleados();
+        echo json_encode($empleados);
+    }else{
+        $response = array('message' => 'No tiene permisos de administrador', 'code' => 2);
+        echo json_encode($response);        
+    }
+    exit();
+}
+
+if (isset($_GET['findEmpleado']) && $_GET['findEmpleado']) {
+    $json = file_get_contents('php://input');
+    $id_empleado = (json_decode($json))->id_empleado;
+    $find_id_empleado = (json_decode($json))->find_id_empleado;
+    $empleado = (object) $Empleado->getUserbyId($id_empleado);
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        $find = $Empleado->getUserbyId($find_id_empleado);
+        echo json_encode($find);
+    }else{
+        $response = array('message' => 'No tiene permisos de administrador', 'code' => 2);
+        echo json_encode($response);        
+    }
+    exit();
+}
+
 if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
     $json = file_get_contents('php://input');
     $empleado = json_decode($json);
@@ -73,37 +102,37 @@ if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
     //Comprobar que el id del empleado a editar
     if(isset($empleado) && isset($empleado->id_empleado) ){
         //Comprobar que existe en la base de datos
-        $findEmpleado = $Empleado->getUserbyId($empleado->id_empleado);
-        if(isset($findEmpleado) && isset($findEmpleado['id_empleado']) ){
+        $findEmpleado = (object) $Empleado->getUserbyId($empleado->id_empleado);
+        if(isset($findEmpleado) && isset($findEmpleado->id_empleado) ){
             //Si la contraseña esta vacia no requiere cambio de contraseña
             if(empty($empleado->password)){
                 //No se ha modificado la contraseña
-                $empleado->password = $findEmpleado['password'];
+                $empleado->password = $findEmpleado->password;
             }else{
                 //Se cambio la contraseña
                 $empleado->password = $Empleado->EncryptPassword($empleado->password);
             }
             //Verificar si existes el nombre de usuario o ver si aun es el mismo nombre de usuario
-            $allowUserName = ($Empleado->validateUser($empleado->usuario)==false) || ($findEmpleado["usuario"]==$empleado->usuario);
+            $allowUserName = ($Empleado->validateUser($empleado->usuario)==false) || ($findEmpleado->usuario==$empleado->usuario);
             if($allowUserName){
                 //Modificamos al usuario
                 if ($Empleado->modificarEmpleado($empleado)) {
-                    $response['code'] = '1';
+                    $response['code'] = 1;
                     $response['message'] = 'Se ha modificado con exito';
                 }else{
-                    $response['code'] = '2';
+                    $response['code'] = 2;
                     $response['message'] = 'No ha podido modificar empleado';
                 }
             }else{
-                $response['code'] = '2';
+                $response['code'] = 2;
                 $response['message'] = 'No puede utilizar este nombre de usuario';
             }
         }else{
-            $response['code'] = '2';
+            $response['code'] = 2;
             $response['message'] = 'Este empleado no existe';
         }
     }else{
-        $response['code'] = '2';
+        $response['code'] = 2;
         $response['message'] = 'Empleado no posee ID';
     }
     echo json_encode($response);
@@ -116,10 +145,10 @@ if (isset($_GET['disableEmpleado']) && $_GET['disableEmpleado']) {
     //code 1=Ok, 2=Bad, 3=Warning
     $response = array('message' => 'Mensaje', 'code' => 1);
     if($Empleado->deshabilitarEmpleado($empleado->id_empleado)){
-        $response['code'] = '1';
+        $response['code'] = 1;
         $response['message'] = 'Se ha eliminado empleado';
     }else{
-        $response['code'] = '2';
+        $response['code'] = 2;
         $response['message'] = 'El Empleado no existe';
     }
     echo json_encode($response);

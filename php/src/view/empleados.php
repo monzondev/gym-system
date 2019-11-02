@@ -36,22 +36,11 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     </tr>
                 </thead>
                 <tbody id="table_body">
-                    <?php
-                    $empleados = $login->getAllActiveEmpleados();
-                    if (!is_null($empleados)) {
-                        foreach ($empleados as $empleado) {
-                            echo "
-                                    <tr data-empleado='" . json_encode($empleado) . "'>                                        
-                                        <td id='" . $empleado["id_empleado"] ."'>" . $empleado["usuario"] . "</td>
-                                        <td>" . $empleado["primer_nombre"] . " " . $empleado["segundo_nombre"] . "</td>
-                                        <td>" . $empleado["primer_apellido"] . " " . $empleado["segundo_apellido"] . "</td>                                        
-                                    </tr>
-                                ";
-                        }
-                    } else {
-                        echo "<tr><td>No se encontraron Empleados</td></tr>";
-                    }
-                    ?>
+                    <tr>
+                        <td>No disponibles</td>
+                        <td>No disponibles</td>
+                        <td>No disponibles</td>
+                    </tr>                    
                 </tbody>
             </table>
         </div>
@@ -204,28 +193,63 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     <script src="js/toastr.js"></script>    
     <script>
         var selectedEmpleado = null;
-
-        //Al Carga el documento mostrar las notificaciones pendientes en memoria
-        $(document).ready(function() {
-            if(localStorage.code != undefined && localStorage.message != undefined){
-                switch (localStorage.code) {
-                    case '1':
-                        toastr.success(localStorage.message);
-                        break;
-                    case '2':
-                        toastr.error(localStorage.message);
-                        break;
-                    case '3':
-                        toastr.warning(localStorage.message);
-                        break;
+        
+        //Funcion para cargar la tabla
+        function updateTable() {
+            //NOTA BUSCAR FORMA DE OBTENER EL id_empleado de la Session
+            $.ajax({
+                type: "POST",
+                url: "../controller/empleadoController.php?allEmpleados=true",
+                data: JSON.stringify({"id_empleado":1}),
+                success:function (data) {
+                    var response = jQuery.parseJSON(data);
+                    if(typeof response.code !== 'undefined'){
+                        toastr.error(response.message);
+                    }else{
+                        //Vaciar la tabla
+                        $("#table_body" ).html("");
+                        //Lenar la tabla
+                        jQuery.each(response, function(i, val) {
+                            var tr = "<tr id='"+val.id_empleado+"' data-id_empleado='"+val.id_empleado+"'><td>"+val.usuario+"</td><td>"+val.primer_nombre+"</td><td>"+val.primer_apellido+"</td></tr>";
+                            $("#table_body").append(tr);
+                        });
+                        //Agregar Evento de click por cada item de la tabla
+                        eventoSeleccionar();
+                    }
                 }
-                localStorage.removeItem("code");
-                localStorage.removeItem("message");
-            }            
-        });
-        $("#table_body tr").click(function() {            
-            $(this).addClass('table-info').siblings().removeClass('table-info');
-            selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
+            });
+        }
+        //Funcion para evento de click a una fila
+        function eventoSeleccionar(){
+            //Evento del click de un tr obteniendo su id_empleado del atributo data-id_empleado
+            $("#table_body tr").click(function() {
+                //Agregar color hover del mouse a la tabla
+                $(this).addClass('table-info').siblings().removeClass('table-info');
+                //Variable selectedEmpleado contiene el id_empleado
+                selectedEmpleado = jQuery.parseJSON($(this).attr("data-id_empleado"));
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/empleadoController.php?findEmpleado=true",
+                    data: JSON.stringify({"id_empleado":1, "find_id_empleado":selectedEmpleado}),
+                    success:function (data) {
+                        var response = jQuery.parseJSON(data);
+                        console.log(response);
+                        if(typeof response.code !== 'undefined'){
+                            toastr.error(response.message);
+                        }else{
+                            //selectedEmpleado se convierte en el objeto completo
+                            selectedEmpleado = response;
+                            //Cargamos el formulario modal con los datos del objeto
+                            cargarDatos(selectedEmpleado);
+                        }                        
+                    }
+                });
+                
+                
+            });
+        }
+
+        function cargarDatos(selectedEmpleado){
             $("#btn_editar").prop('disabled', false);
             $("#btn_eliminarModal").prop('disabled', false);
             if (selectedEmpleado !== null) {
@@ -242,8 +266,24 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $("#genero2").prop('checked', selectedEmpleado.genero=='f');
                 $("#telefono").val(selectedEmpleado.telefono);
                 $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
+            }else{
+                alert("Usuario Invalido");
             }
-        });
+        }
+
+        function restablecerSeleccion(){
+            $("#editarModal").modal('hide');
+            $("#eliminarModal").modal('hide');
+            $("#btn_editar").prop('disabled', true);
+            $("#btn_eliminarModal").prop('disabled', true);            
+        }
+
+        //Al Carga el documento cargar la tabla
+        $(document).ready(function() {
+            //Cargar Tabla
+            updateTable();
+        });        
+        
         $("#btn_editar").click(function() {
             $("#passDiv").addClass('d-none');
             $("#changePassDiv").removeClass('d-none');
@@ -265,6 +305,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 selectedEmpleado.primer_apellido = $("#primer_apellido").val();
                 selectedEmpleado.segundo_apellido = $("#segundo_apellido").val();
                 selectedEmpleado.correo = $("#correo").val();
+                selectedEmpleado.activo = true;
                 selectedEmpleado.password = $("#password").val();
                 selectedEmpleado.genero = $('#genero').prop('checked');
                 selectedEmpleado.telefono = $("#telefono").val();
@@ -275,10 +316,13 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     data: JSON.stringify(selectedEmpleado),
                     success:function (data) {
                         var response = jQuery.parseJSON(data);
-                        if(response){
-                            localStorage.setItem("code", response.code);
-                            localStorage.setItem("message", response.message);                            
-                            location.reload();
+                        console.log(response);
+                        if(response.code == 1){
+                            toastr.success(response.message);
+                            updateTable();
+                            restablecerSeleccion();
+                        }else if(response.code == 2){
+                            toastr.error(response.message);
                         }
                     }
                 });
@@ -303,10 +347,13 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     data: JSON.stringify(selectedEmpleado),
                     success:function (data) {
                         var response = jQuery.parseJSON(data);
-                        if(response){
-                            localStorage.setItem("code", response.code);
-                            localStorage.setItem("message", response.message);
-                            location.reload();
+                        console.log(response);
+                        if(response.code == 1){
+                            toastr.success(response.message);
+                            updateTable();
+                            restablecerSeleccion();
+                        }else if(response.code == 2){
+                            toastr.error(response.message);
                         }
                     }
                 });

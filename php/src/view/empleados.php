@@ -193,14 +193,25 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     <script src="js/toastr.js"></script>    
     <script>
         var selectedEmpleado = null;
-        
+        /*
+        NOTA: EL id_empleado NO ES LA FORMA MAS CONVENIENTE PARA DETERMINAR SI
+        EL EMPLEADO ES DE TIPO ADMINISTRADOR POR CUESTIONES DE SEGURIDAD, CUALQUIERA
+        PODRIA REPLICAR UN ID DIFERENTE PARA CAMBIARSE PERMISOS.
+        PROBLEMAS: OBTENER $_SESSION['tipoEmpleado'] CAUSARA PROBLEMAS A LA HORA DE
+        QUE SE MODIFIQUE DETERMINAR EMPLEADO DADO, QUE LA ASIGNACION SOLO OCURRE AL
+        INICIAR SESION Y QUE $_SESSION['tipoEmpleado'] SOLO PUEDE SER MODIFICADA CON PHP.
+        -PARA CORREGIR ESTO SE DEBE CREAR UNA KEY POR USUARIO QUE PERMITA ESTOS ACCESOS.
+        -OTRA FORMA SERIA SOLICITAR Y ENVIAR LA CONTRASEÑA PARA COMPROBAR DESDE EL CONTROLLER.
+        */
+        var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
+
         //Funcion para cargar la tabla
         function updateTable() {
             //NOTA BUSCAR FORMA DE OBTENER EL id_empleado de la Session
             $.ajax({
                 type: "POST",
                 url: "../controller/empleadoController.php?allEmpleados=true",
-                data: JSON.stringify({"id_empleado":1}),
+                data: JSON.stringify({"id_empleado":id_empleado}),
                 success:function (data) {
                     var response = jQuery.parseJSON(data);
                     if(typeof response.code !== 'undefined'){
@@ -230,10 +241,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $.ajax({
                     type: "POST",
                     url: "../controller/empleadoController.php?findEmpleado=true",
-                    data: JSON.stringify({"id_empleado":1, "find_id_empleado":selectedEmpleado}),
+                    data: JSON.stringify({"id_empleado":id_empleado, "find_id_empleado":selectedEmpleado}),
                     success:function (data) {
                         var response = jQuery.parseJSON(data);
-                        console.log(response);
                         if(typeof response.code !== 'undefined'){
                             toastr.error(response.message);
                         }else{
@@ -316,7 +326,6 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     data: JSON.stringify(selectedEmpleado),
                     success:function (data) {
                         var response = jQuery.parseJSON(data);
-                        console.log(response);
                         if(response.code == 1){
                             toastr.success(response.message);
                             updateTable();
@@ -344,10 +353,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $.ajax({
                     type: "POST",
                     url: "../controller/empleadoController.php?disableEmpleado=true",
-                    data: JSON.stringify(selectedEmpleado),
+                    data: JSON.stringify({"id_empleado":id_empleado, "disable_id_empleado":selectedEmpleado.id_empleado}),
                     success:function (data) {
                         var response = jQuery.parseJSON(data);
-                        console.log(response);
                         if(response.code == 1){
                             toastr.success(response.message);
                             updateTable();

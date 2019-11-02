@@ -141,15 +141,23 @@ if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
 
 if (isset($_GET['disableEmpleado']) && $_GET['disableEmpleado']) {
     $json = file_get_contents('php://input');
-    $empleado = json_decode($json);
+    $id_empleado = (json_decode($json))->id_empleado;
+    $disable_id_empleado = (json_decode($json))->disable_id_empleado;
+    $empleado = (object) $Empleado->getUserbyId($id_empleado);
     //code 1=Ok, 2=Bad, 3=Warning
     $response = array('message' => 'Mensaje', 'code' => 1);
-    if($Empleado->deshabilitarEmpleado($empleado->id_empleado)){
-        $response['code'] = 1;
-        $response['message'] = 'Se ha eliminado empleado';
+    //Verificar si es administrador el que solicita
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        if($Empleado->deshabilitarEmpleado($disable_id_empleado)){
+            $response['code'] = 1;
+            $response['message'] = 'Se ha eliminado empleado';
+        }else{
+            $response['code'] = 2;
+            $response['message'] = 'El Empleado no existe';
+        }        
     }else{
         $response['code'] = 2;
-        $response['message'] = 'El Empleado no existe';
+        $response['message'] = 'No tiene permisos de administrador';        
     }
     echo json_encode($response);
     exit();

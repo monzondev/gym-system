@@ -41,10 +41,10 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     if (!is_null($empleados)) {
                         foreach ($empleados as $empleado) {
                             echo "
-                                    <tr data-empleado='" . json_encode($empleado) . "'>                                        
+                                    <tr data-empleado='" . json_encode($empleado) . "'>
                                         <td id='" . $empleado["id_empleado"] ."'>" . $empleado["usuario"] . "</td>
                                         <td>" . $empleado["primer_nombre"] . " " . $empleado["segundo_nombre"] . "</td>
-                                        <td>" . $empleado["primer_apellido"] . " " . $empleado["segundo_apellido"] . "</td>                                        
+                                        <td>" . $empleado["primer_apellido"] . " " . $empleado["segundo_apellido"] . "</td>
                                     </tr>
                                 ";
                         }
@@ -79,7 +79,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">                            
+                        <div class="form-group row">
                             <label for="tipoEmpleado" class="col-sm-4 col-form-label">Tipo Empleado:</label>
                             <div class="col-sm-8">
                                 <select id="id_tipo_empleado" name="id_tipo_empleado" class="form-control" required>
@@ -173,7 +173,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                                     <input class="form-check-input" type="radio" name="genero" id="genero2" value="0">
                                     <label class="form-check-label" for="genero2">Mujer</label>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
@@ -221,8 +221,6 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             </div>
         </div>
     </div>
-    
-
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
@@ -257,7 +255,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
             $("#btn_editar").prop('disabled', false);
             $("#btn_eliminarModal").prop('disabled', false);
-            if (selectedEmpleado !== null) {                
+            if (selectedEmpleado !== null) {
                 $("#id_empleado").val(selectedEmpleado.id_empleado);
                 $("#id_tipo_empleado").val(selectedEmpleado.id_tipo_empleado);
                 $("#usuario").val(selectedEmpleado.usuario);
@@ -301,15 +299,11 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                             location.reload();
                         }
                     }
-                });                
+                });
             } else {
                 alert("No se ha seleccionado un empleado");
             }
         });
-        
-        
-
-
         window.addEventListener('load', function() {
             var forms = document.getElementsByClassName('needs-validation');
             var validation = Array.prototype.filter.call(forms,
@@ -323,9 +317,8 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     }, false);
                 });
         }, false);
-
         // Validaciones con JS
-        $(function() {            
+        $(function() {
             $('#usuario').on('keypress', function(e) {
                 if (e.which == 32)
                     return false;

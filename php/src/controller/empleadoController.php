@@ -65,61 +65,100 @@ if (isset($_POST['agregarEmpleado'])) {
     }
 }
 
-if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
-    $hash = $Empleado->EncryptPassword($_POST['password']);
-    $genero = ($_POST['genero']==1);
-        
-    $empleado = [
-        "id_empleado" => $_POST['id_empleado'],
-        "id_tipo_empleado" => $_POST['id_tipo_empleado'],
-        "primer_nombre" => $_POST['primer_nombre'],
-        "segundo_nombre" => $_POST['segundo_nombre'],
-        "primer_apellido" => $_POST['primer_apellido'],
-        "segundo_apellido" => $_POST['segundo_apellido'],
-        "usuario" => $_POST['usuario'],
-        "password" => $hash,
-        "correo" => $_POST['correo'],
-        "genero" => $genero,
-        "telefono" => $_POST['telefono'],
-        "activo" => true,
-        "fecha_nacimiento" => $_POST['fecha_nacimiento']
-    ];
-
-    $findEmpleado = $Empleado->getUserbyId($empleado["id_empleado"]);
-    //Comprobrar el id del empleado
-    if(!is_null($findEmpleado["id_empleado"])){
-        //Verificar si existes el nombre de usuario o ver si aun es el mismo nombre de usuario
-        $allowUserName = ($Empleado->validateUser($empleado["usuario"])==false) || ($findEmpleado["usuario"]==$empleado["usuario"]);
-        
-        if($allowUserName){
-            //Nombre de usuario disponible
-            if ($Empleado->modificarEmpleado($empleado)) {
-                //print_r("Disponible");
-                $_SESSION['AE'] = '1';
-                echo "<script language='javascript'>window.location='../view/empleados.php?'</script>;";
-                exit();
-            }else{
-                //Error al modificar en la base de datos
-                $_SESSION['AE'] = '2';
-                echo "<script language='javascript'>window.location='../view/empleados.php?'</script>;";
-                print_r("Error en al ingresar en DB");
-            }            
-        }else {
-            //Nombre de usuario ya existe
-            $_SESSION['AE'] = '2';
-            echo "<script language='javascript'>window.location='../view/empleados.php?'</script>;";
-            print_r("Error en al ingresar en DB");
-        }        
+if (isset($_GET['allEmpleados']) && $_GET['allEmpleados']) {
+    $json = file_get_contents('php://input');
+    $id_empleado = (json_decode($json))->id_empleado;
+    $empleado = (object) $Empleado->getUserbyId($id_empleado);
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        $empleados = $Empleado->getAllActiveEmpleados();
+        echo json_encode($empleados);
     }else{
-        //ID no coinciden
-        print_r("ID No Corresponde a ningun usuario");
-    }    
+        $response = array('message' => 'No tiene permisos de administrador', 'code' => 2);
+        echo json_encode($response);        
+    }
+    exit();
+}
+
+if (isset($_GET['findEmpleado']) && $_GET['findEmpleado']) {
+    $json = file_get_contents('php://input');
+    $id_empleado = (json_decode($json))->id_empleado;
+    $find_id_empleado = (json_decode($json))->find_id_empleado;
+    $empleado = (object) $Empleado->getUserbyId($id_empleado);
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        $find = $Empleado->getUserbyId($find_id_empleado);
+        echo json_encode($find);
+    }else{
+        $response = array('message' => 'No tiene permisos de administrador', 'code' => 2);
+        echo json_encode($response);        
+    }
+    exit();
+}
+
+if (isset($_GET['editEmpleado']) && $_GET['editEmpleado']) {
+    $json = file_get_contents('php://input');
+    $empleado = json_decode($json);
+    //code 1=Ok, 2=Bad, 3=Warning
+    $response = array('message' => 'Mensaje', 'code' => 1);
+    //Comprobar que el id del empleado a editar
+    if(isset($empleado) && isset($empleado->id_empleado) ){
+        //Comprobar que existe en la base de datos
+        $findEmpleado = (object) $Empleado->getUserbyId($empleado->id_empleado);
+        if(isset($findEmpleado) && isset($findEmpleado->id_empleado) ){
+            //Si la contraseña esta vacia no requiere cambio de contraseña
+            if(empty($empleado->password)){
+                //No se ha modificado la contraseña
+                $empleado->password = $findEmpleado->password;
+            }else{
+                //Se cambio la contraseña
+                $empleado->password = $Empleado->EncryptPassword($empleado->password);
+            }
+            //Verificar si existes el nombre de usuario o ver si aun es el mismo nombre de usuario
+            $allowUserName = ($Empleado->validateUser($empleado->usuario)==false) || ($findEmpleado->usuario==$empleado->usuario);
+            if($allowUserName){
+                //Modificamos al usuario
+                if ($Empleado->modificarEmpleado($empleado)) {
+                    $response['code'] = 1;
+                    $response['message'] = 'Se ha modificado con exito';
+                }else{
+                    $response['code'] = 2;
+                    $response['message'] = 'No ha podido modificar empleado';
+                }
+            }else{
+                $response['code'] = 2;
+                $response['message'] = 'No puede utilizar este nombre de usuario';
+            }
+        }else{
+            $response['code'] = 2;
+            $response['message'] = 'Este empleado no existe';
+        }
+    }else{
+        $response['code'] = 2;
+        $response['message'] = 'Empleado no posee ID';
+    }
+    echo json_encode($response);
     exit();
 }
 
 if (isset($_GET['disableEmpleado']) && $_GET['disableEmpleado']) {
-    $idEmpleado = $_POST['id_empleado'];
-    $response = $Empleado->deshabilitarEmpleado($idEmpleado);    
+    $json = file_get_contents('php://input');
+    $id_empleado = (json_decode($json))->id_empleado;
+    $disable_id_empleado = (json_decode($json))->disable_id_empleado;
+    $empleado = (object) $Empleado->getUserbyId($id_empleado);
+    //code 1=Ok, 2=Bad, 3=Warning
+    $response = array('message' => 'Mensaje', 'code' => 1);
+    //Verificar si es administrador el que solicita
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        if($Empleado->deshabilitarEmpleado($disable_id_empleado)){
+            $response['code'] = 1;
+            $response['message'] = 'Se ha eliminado empleado';
+        }else{
+            $response['code'] = 2;
+            $response['message'] = 'El Empleado no existe';
+        }        
+    }else{
+        $response['code'] = 2;
+        $response['message'] = 'No tiene permisos de administrador';        
+    }
     echo json_encode($response);
     exit();
 }

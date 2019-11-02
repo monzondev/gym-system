@@ -36,47 +36,33 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     </tr>
                 </thead>
                 <tbody id="table_body">
-                    <?php
-                    $empleados = $login->getAllActiveEmpleados();
-                    if (!is_null($empleados)) {
-                        foreach ($empleados as $empleado) {
-                            echo "
-                                    <tr data-empleado='" . json_encode($empleado) . "'>
-                                        <td id='" . $empleado["id_empleado"] ."'>" . $empleado["usuario"] . "</td>
-                                        <td>" . $empleado["primer_nombre"] . " " . $empleado["segundo_nombre"] . "</td>
-                                        <td>" . $empleado["primer_apellido"] . " " . $empleado["segundo_apellido"] . "</td>
-                                    </tr>
-                                ";
-                        }
-                    } else {
-                        echo "<tr><td>No se encontraron Empleados</td></tr>";
-                    }
-                    ?>
+                    <tr>
+                        <td>No disponibles</td>
+                        <td>No disponibles</td>
+                        <td>No disponibles</td>
+                    </tr>                    
                 </tbody>
             </table>
         </div>
         <div class="col-md-1"></div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog">
+    <!-- Modal -->    
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <form id="form_editar" class="needs-validation" autocomplete="off" method="post" action="../controller/empleadoController.php?editEmpleado=true" novalidate>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Trabajador</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Editar Trabajador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_editar">
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">ID:</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" readonly="readonly">
-                                <div class="invalid-feedback">
-                                    ID no valido
-                                </div>
+                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." onDrag="return false" onDrop="return false" onPaste="return false" readonly="readonly" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -102,75 +88,60 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese usuario
-                                </div>
+                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return username(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Primer Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="64" placeholder="Primer Nombre..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Primer Nombre
-                                </div>
+                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Segundo Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Segundo Nombre
-                                </div>
+                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Primer Apellido:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="64" placeholder="Primer Apellido..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Primer Apellido
-                                </div>
+                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="64" placeholder="Segundo Apellido..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Segundo Apellido
-                                </div>
+                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Correo
-                                </div>
+                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." onDrag="return false" onDrop="return false" onPaste="return false" />
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div id="changePassDiv" class="form-group row">
                             <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password" name="password" maxlength="60" placeholder="Contraseña..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Contraseña
-                                </div>
+                                <button id="btn_password" type="button" class="btn btn-warning" title="Sustituirá la contraseña actual por una nueva">Cambiar Contraseña</button>
+                            </div>
+                        </div>
+                        <div id="passDiv" class="form-group row d-none">
+                            <label for="password" class="col-sm-4 col-form-label">Contraseña:</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="password" name="password" maxlength="60" placeholder="Contraseña..." onDrag="return false" onDrop="return false" onPaste="return false" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="genero" class="col-sm-4 col-form-label">Genero:</label>
                             <div class="col-sm-8">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="genero" id="genero" value="1">
+                                    <input class="form-check-input" type="radio" name="genero" id="genero" value="1" />
                                     <label class="form-check-label" for="genero">Hombre</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="genero" id="genero2" value="0">
+                                    <input class="form-check-input" type="radio" name="genero" id="genero2" value="0" />
                                     <label class="form-check-label" for="genero2">Mujer</label>
                                 </div>
                             </div>
@@ -178,27 +149,21 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Telefono
-                                </div>
+                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fecha_nacimiento" class="col-sm-4 col-form-label">Fecha Nacimiendo:</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="date" value="" id="fecha_nacimiento" name="fecha_nacimiento" oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" required="">
-                                <div class="invalid-feedback">
-                                    Ingrese Fecha Nacimiento
-                                </div>
+                                <input class="form-control" type="date" value="" id="fecha_nacimiento" name="fecha_nacimiento" />                                
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button id="btn_guardar" type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btn_guardar" type="submit" class="btn btn-primary">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -223,36 +188,76 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/toastr.js"></script>
-    <?php
-    if (isset($_SESSION['AE'])) {
-        if ($_SESSION['AE'] == 1) { ?>
-            <script>
-                toastr.options.timeOut = 2000; //1.5s
-                toastr.options.closeButton = true;
-                toastr.remove();
-                toastr.success('El empleado fue registrado con exito!');
-            </script>
-        <?php
-                unset($_SESSION['AE']);
-            } else if ($_SESSION['AE'] == 2) { ?>
-            <script>
-                toastr.options.timeOut = 2000; //1.5s
-                toastr.options.closeButton = true;
-                toastr.remove();
-                toastr.error('Ah ocurrido un Error al registrar el empleado');
-            </script>
-    <?php
-            unset($_SESSION['AE']);
-        }
-    }
-    ?>
+    <script src="js/toastr.js"></script>    
     <script>
         var selectedEmpleado = null;
+        /*
+        NOTA: EL id_empleado NO ES LA FORMA MAS CONVENIENTE PARA DETERMINAR SI
+        EL EMPLEADO ES DE TIPO ADMINISTRADOR POR CUESTIONES DE SEGURIDAD, CUALQUIERA
+        PODRIA REPLICAR UN ID DIFERENTE PARA CAMBIARSE PERMISOS.
+        PROBLEMAS: OBTENER $_SESSION['tipoEmpleado'] CAUSARA PROBLEMAS A LA HORA DE
+        QUE SE MODIFIQUE DETERMINAR EMPLEADO DADO, QUE LA ASIGNACION SOLO OCURRE AL
+        INICIAR SESION Y QUE $_SESSION['tipoEmpleado'] SOLO PUEDE SER MODIFICADA CON PHP.
+        -PARA CORREGIR ESTO SE DEBE CREAR UNA KEY POR USUARIO QUE PERMITA ESTOS ACCESOS.
+        -OTRA FORMA SERIA SOLICITAR Y ENVIAR LA CONTRASEÑA PARA COMPROBAR DESDE EL CONTROLLER.
+        */
+        var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
 
-        $("#table_body tr").click(function() {
-            $(this).addClass('table-info').siblings().removeClass('table-info');
-            selectedEmpleado = jQuery.parseJSON($(this).attr("data-empleado"));
+        //Funcion para cargar la tabla
+        function updateTable() {
+            //NOTA BUSCAR FORMA DE OBTENER EL id_empleado de la Session
+            $.ajax({
+                type: "POST",
+                url: "../controller/empleadoController.php?allEmpleados=true",
+                data: JSON.stringify({"id_empleado":id_empleado}),
+                success:function (data) {
+                    var response = jQuery.parseJSON(data);
+                    if(typeof response.code !== 'undefined'){
+                        toastr.error(response.message);
+                    }else{
+                        //Vaciar la tabla
+                        $("#table_body" ).html("");
+                        //Lenar la tabla
+                        jQuery.each(response, function(i, val) {
+                            var tr = "<tr id='"+val.id_empleado+"' data-id_empleado='"+val.id_empleado+"'><td>"+val.usuario+"</td><td>"+val.primer_nombre+"</td><td>"+val.primer_apellido+"</td></tr>";
+                            $("#table_body").append(tr);
+                        });
+                        //Agregar Evento de click por cada item de la tabla
+                        eventoSeleccionar();
+                    }
+                }
+            });
+        }
+        //Funcion para evento de click a una fila
+        function eventoSeleccionar(){
+            //Evento del click de un tr obteniendo su id_empleado del atributo data-id_empleado
+            $("#table_body tr").click(function() {
+                //Agregar color hover del mouse a la tabla
+                $(this).addClass('table-info').siblings().removeClass('table-info');
+                //Variable selectedEmpleado contiene el id_empleado
+                selectedEmpleado = jQuery.parseJSON($(this).attr("data-id_empleado"));
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/empleadoController.php?findEmpleado=true",
+                    data: JSON.stringify({"id_empleado":id_empleado, "find_id_empleado":selectedEmpleado}),
+                    success:function (data) {
+                        var response = jQuery.parseJSON(data);
+                        if(typeof response.code !== 'undefined'){
+                            toastr.error(response.message);
+                        }else{
+                            //selectedEmpleado se convierte en el objeto completo
+                            selectedEmpleado = response;
+                            //Cargamos el formulario modal con los datos del objeto
+                            cargarDatos(selectedEmpleado);
+                        }                        
+                    }
+                });
+                
+                
+            });
+        }
+
+        function cargarDatos(selectedEmpleado){
             $("#btn_editar").prop('disabled', false);
             $("#btn_eliminarModal").prop('disabled', false);
             if (selectedEmpleado !== null) {
@@ -269,18 +274,71 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $("#genero2").prop('checked', selectedEmpleado.genero=='f');
                 $("#telefono").val(selectedEmpleado.telefono);
                 $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
+            }else{
+                alert("Usuario Invalido");
             }
+        }
+
+        function restablecerSeleccion(){
+            $("#editarModal").modal('hide');
+            $("#eliminarModal").modal('hide');
+            $("#btn_editar").prop('disabled', true);
+            $("#btn_eliminarModal").prop('disabled', true);            
+        }
+
+        //Al Carga el documento cargar la tabla
+        $(document).ready(function() {
+            //Cargar Tabla
+            updateTable();
+        });        
+        
+        $("#btn_editar").click(function() {
+            $("#passDiv").addClass('d-none');
+            $("#changePassDiv").removeClass('d-none');
+            $("#password").val("");
+            $("#password").prop("disabled", true);
+        });
+        $("#btn_password").click(function() {
+            $("#passDiv").removeClass('d-none');
+            $("#changePassDiv").addClass('d-none');
+            $("#password").prop("disabled", false);
         });
         $("#btn_guardar").click(function() {
             if (selectedEmpleado !== null) {
-                //Validar FORM
+                //Validar campos y Enviar Usuario
+                selectedEmpleado.id_tipo_empleado = $("#id_tipo_empleado").val();
+                selectedEmpleado.usuario = $("#usuario").val();
+                selectedEmpleado.primer_nombre = $("#primer_nombre").val();
+                selectedEmpleado.segundo_nombre = $("#segundo_nombre").val();
+                selectedEmpleado.primer_apellido = $("#primer_apellido").val();
+                selectedEmpleado.segundo_apellido = $("#segundo_apellido").val();
+                selectedEmpleado.correo = $("#correo").val();
+                selectedEmpleado.activo = true;
+                selectedEmpleado.password = $("#password").val();
+                selectedEmpleado.genero = $('#genero').prop('checked');
+                selectedEmpleado.telefono = $("#telefono").val();
+                selectedEmpleado.fecha_nacimiento =$("#fecha_nacimiento").val();
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/empleadoController.php?editEmpleado=true",
+                    data: JSON.stringify(selectedEmpleado),
+                    success:function (data) {
+                        var response = jQuery.parseJSON(data);
+                        if(response.code == 1){
+                            toastr.success(response.message);
+                            updateTable();
+                            restablecerSeleccion();
+                        }else if(response.code == 2){
+                            toastr.error(response.message);
+                        }
+                    }
+                });
             } else {
                 alert("No se ha seleccionado un empleado");
             }
         });
         $("#btn_eliminarModal").click(function() {
             if (selectedEmpleado !== null) {
-                //Validar FORM
                 var name = selectedEmpleado.primer_nombre+" "+selectedEmpleado.segundo_nombre;
                 $("#eliminarInfo").text("Desea eliminar a "+ name + " de la base de datos?");
             } else {
@@ -293,52 +351,43 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $.ajax({
                     type: "POST",
                     url: "../controller/empleadoController.php?disableEmpleado=true",
-                    data: {id_empleado : selectedEmpleado.id_empleado},
+                    data: JSON.stringify({"id_empleado":id_empleado, "disable_id_empleado":selectedEmpleado.id_empleado}),
                     success:function (data) {
-                        if(data){
-                            location.reload();
+                        var response = jQuery.parseJSON(data);
+                        if(response.code == 1){
+                            toastr.success(response.message);
+                            updateTable();
+                            restablecerSeleccion();
+                        }else if(response.code == 2){
+                            toastr.error(response.message);
                         }
                     }
                 });
             } else {
                 alert("No se ha seleccionado un empleado");
             }
-        });
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms,
-                function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-        }, false);
-        // Validaciones con JS
-        $(function() {
-            $('#usuario').on('keypress', function(e) {
-                if (e.which == 32)
-                    return false;
-            });
-            $('#correo').on('keypress', function(e) {
-                if (e.which == 32)
-                    return false;
-            });
-            $('#password').on('keypress', function(e) {
-                if (e.which == 32)
-                    return false;
-            });
-            $('#telefono').on('keypress', function(e) {
-                var charCode = (e.which) ? e.which : e.keyCode
-                if (charCode != 43 && charCode > 31 && (charCode < 48 || charCode > 57)) {
-                    return false;
-                }
+        });        
+        function justNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
                 return true;
-            });
-        });
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+        function notNumbers(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            var keyCode = document.all ? e.which : e.keyCode;
+            if ((keynum == 8) || (keynum == 46) || (keyCode == 37) || (keyCode == 39)) {
+                return true;
+            }
+            var patt = new RegExp(/^[A-Za-z\s]+$/g);
+            return patt.test(String.fromCharCode(keynum));
+        }
+        function username(e) {
+            if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {
+                return true;
+            }
+            return false;
+        }
     </script>
 </body>
 

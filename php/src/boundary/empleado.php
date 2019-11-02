@@ -165,15 +165,15 @@ class empleado extends conector_pg
 
     /*********************************************************************/
     //Metodo que modificar un empleado en el sistema
-    public function modificarEmpleado($array){
-        if (is_bool($array['genero'])){
-            $array['genero'] = ($array['genero']) ? 'true':'false';
-        }
+    public function modificarEmpleado($empleado){
+        $empleado->genero = ($empleado->genero ? 'true':'false');
+        $empleado->fecha_nacimiento = (new DateTime($empleado->fecha_nacimiento))->format('Y-m-d');
         $query = $this->Querys['update'];
-        $result = pg_query_params($this->conexion, $query, array($array['id_tipo_empleado'], $array['primer_nombre'], $array['segundo_nombre'],
-                                                                $array['primer_apellido'], $array['segundo_apellido'],$array['usuario'],
-                                                                 $array['password'],$array['correo'], $array['genero'], $array['telefono'],
-                                                                  $array['activo'],$array['fecha_nacimiento'], $array['id_empleado']));
+        $result = pg_query_params($this->conexion, $query, array(
+            $empleado->id_tipo_empleado, $empleado->primer_nombre, $empleado->segundo_nombre,
+            $empleado->primer_apellido, $empleado->segundo_apellido,$empleado->usuario,
+            $empleado->password,$empleado->correo, $empleado->genero, $empleado->telefono,
+            $empleado->activo,$empleado->fecha_nacimiento, $empleado->id_empleado));
         if ($result) {
             $resultado = true;
         } else {

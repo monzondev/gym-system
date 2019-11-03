@@ -58,11 +58,14 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form_editar">
+                    <form id="form_editar" class="needs-validation" autocomplete="off">
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">ID:</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." onDrag="return false" onDrop="return false" onPaste="return false" readonly="readonly" />
+                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." onDrag="return false" onDrop="return false" onPaste="return false" readonly="readonly" required/>
+                                <div class="invalid-feedback">
+                                    ID no valido
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -88,37 +91,37 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return username(event);" />
+                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return username(event);" required/>                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Primer Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
+                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Segundo Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
+                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Primer Apellido:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
+                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" />
+                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." onDrag="return false" onDrop="return false" onPaste="return false" />
+                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." onDrag="return false" onDrop="return false" onPaste="return false" required/>
                             </div>
                         </div>
                         <div id="changePassDiv" class="form-group row">
@@ -149,7 +152,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" />
+                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" required/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -189,6 +192,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     
 
     <script src="js/jQuery-3-4.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>    
     <script>
@@ -308,33 +312,44 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         $("#btn_guardar").click(function() {
             if (selectedEmpleado !== null) {
                 //Validar campos y Enviar Usuario
-                selectedEmpleado.id_tipo_empleado = $("#id_tipo_empleado").val();
-                selectedEmpleado.usuario = $("#usuario").val();
-                selectedEmpleado.primer_nombre = $("#primer_nombre").val();
-                selectedEmpleado.segundo_nombre = $("#segundo_nombre").val();
-                selectedEmpleado.primer_apellido = $("#primer_apellido").val();
-                selectedEmpleado.segundo_apellido = $("#segundo_apellido").val();
-                selectedEmpleado.correo = $("#correo").val();
-                selectedEmpleado.activo = true;
-                selectedEmpleado.password = $("#password").val();
-                selectedEmpleado.genero = $('#genero').prop('checked');
-                selectedEmpleado.telefono = $("#telefono").val();
-                selectedEmpleado.fecha_nacimiento =$("#fecha_nacimiento").val();
-                $.ajax({
-                    type: "POST",
-                    url: "../controller/empleadoController.php?editEmpleado=true",
-                    data: JSON.stringify(selectedEmpleado),
-                    success:function (data) {
-                        var response = jQuery.parseJSON(data);
-                        if(response.code == 1){
-                            toastr.success(response.message);
-                            updateTable();
-                            restablecerSeleccion();
-                        }else if(response.code == 2){
-                            toastr.error(response.message);
+                var formIsValid = $("#form_editar").valid();
+                var password = $("#password");
+                if(!password.prop("disabled") && password.val().length == 0){
+                    toastr.warning("Favor ingrese contraseña nueva");
+                    formIsValid = false;
+                }
+
+                if(formIsValid){
+                    selectedEmpleado.id_tipo_empleado = $("#id_tipo_empleado").val();
+                    selectedEmpleado.usuario = $("#usuario").val();
+                    selectedEmpleado.primer_nombre = $("#primer_nombre").val();
+                    selectedEmpleado.segundo_nombre = $("#segundo_nombre").val();
+                    selectedEmpleado.primer_apellido = $("#primer_apellido").val();
+                    selectedEmpleado.segundo_apellido = $("#segundo_apellido").val();
+                    selectedEmpleado.correo = $("#correo").val();
+                    selectedEmpleado.activo = true;
+                    selectedEmpleado.password = $("#password").val();
+                    selectedEmpleado.genero = $('#genero').prop('checked');
+                    selectedEmpleado.telefono = $("#telefono").val();
+                    selectedEmpleado.fecha_nacimiento =$("#fecha_nacimiento").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "../controller/empleadoController.php?editEmpleado=true",
+                        data: JSON.stringify(selectedEmpleado),
+                        success:function (data) {
+                            var response = jQuery.parseJSON(data);
+                            if(response.code == 1){
+                                toastr.success(response.message);
+                                updateTable();
+                                restablecerSeleccion();
+                            }else if(response.code == 2){
+                                toastr.error(response.message);
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    toastr.warning("Favor complete todos los campos");
+                }                
             } else {
                 alert("No se ha seleccionado un empleado");
             }
@@ -368,24 +383,124 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             } else {
                 alert("No se ha seleccionado un empleado");
             }
-        });        
+        });
+        jQuery.validator.setDefaults({
+            errorElement: 'div',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+        $("#form_editar").validate({
+            rules: {
+                "id_empleado": {
+                    required: true,
+                    minlength: 1,
+                    digits: true
+                },
+                "id_tipo_empleado": {
+                    required: true                    
+                },
+                "usuario": {
+                    required: true,
+                    minlength: 3
+                },
+                "primer_nombre": {
+                    required: true,
+                    minlength: 3
+                },
+                "segundo_nombre": {
+                    required: true,
+                    minlength: 3
+                },
+                "primer_apellido": {
+                    required: true,
+                    minlength: 3
+                },
+                "segundo_apellido": {
+                    required: true,
+                    minlength: 3
+                },
+                "correo": {
+                    required: true,
+                    email: true
+                },
+                "password": {
+                    minlength: 3
+                },
+                "telefono": {
+                    required: true,
+                    minlength: 8,
+                    digits: true
+                }
+            },
+            messages: {
+                "id_empleado": {
+                    required: "Campo Requerido",
+                    minlength: "Digitos minimos 1",
+                    digits: "Solo se permiten numeros"
+                },
+                "id_tipo_empleado": {
+                    required: "Campo Requerido"
+                },
+                "usuario": {
+                    required: "Campo Requerido",
+                    minlength: "Digitos minimos 3"
+                },
+                "primer_nombre": {
+                    required: "Campo Requerido",
+                    minlength: "Digitos minimos 3"
+                },
+                "segundo_nombre": {
+                    required: "Campo Requerido",
+                    minlength: "Digitos minimos 3"
+                },
+                "primer_apellido": {
+                    required: "Campo Requerido",
+                    minlength: "Digitos minimos 3"
+                },
+                "segundo_apellido": {
+                    required: "Campo Requerido",
+                    minlength: "Digitos minimos 3"
+                },
+                "correo": {
+                    required: "Ingrese correo",
+                    email: "Correo invalido"
+                },
+                "password": {
+                    minlength: "Caracteres minimos 3"
+                },
+                "telefono": {
+                    required: "Ingrese numero de telefono",
+                    minlength: "Numeros minimos 8",
+                    digits: "Solo se permiten Numeros"
+                }
+            }
+        });
         function justNumbers(e) {
-            var keynum = window.event ? window.event.keyCode : e.which;
-            if ((keynum == 8) || (keynum == 46))
-                return true;
-            return /\d/.test(String.fromCharCode(keynum));
-        }
-        function notNumbers(e) {
-            var keynum = window.event ? window.event.keyCode : e.which;
-            var keyCode = document.all ? e.which : e.keyCode;
-            if ((keynum == 8) || (keynum == 46) || (keyCode == 37) || (keyCode == 39)) {
+            if (String.fromCharCode(e.which).match(/^[0-9\x08]$/)) {
                 return true;
             }
-            var patt = new RegExp(/^[A-Za-z\s]+$/g);
-            return patt.test(String.fromCharCode(keynum));
+            return false;
+        }
+        function notNumbers(e) {
+            if (String.fromCharCode(e.which).match(/^[A-Za-z\x08]$/)) {
+                return true;
+            }
+            return false;
         }
         function username(e) {
-            if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {
+            if (String.fromCharCode(e.which).match(/^[A-Za-z0-9\x08]$/)) {
                 return true;
             }
             return false;

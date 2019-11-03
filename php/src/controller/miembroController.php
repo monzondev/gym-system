@@ -75,6 +75,19 @@ if (isset($_POST['agregarMiembro'])) {
                     exit();
                 }
             }
+}
+
+if (isset($_POST['getMiembro'])) {
+    if (isset($_POST['id'])  && $_POST['id'] != "") {
+        $user = $miembro->getMiembrobyId($_POST['id']);
+        if ($user != null) {
+            exit(json_encode($user));
+        } else {
+            exit(json_encode(null));
+        }
+    } else {
+        exit(json_encode(null));
     }
 
-    ?>
+   
+}

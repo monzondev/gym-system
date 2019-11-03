@@ -147,7 +147,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                                     <input class="form-check-input" type="radio" name="genero" id="genero2" value="0" />
                                     <label class="form-check-label" for="genero2">Mujer</label>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
@@ -189,8 +189,6 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             </div>
         </div>
     </div>
-    
-
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/jquery.validate.js"></script>
     <script src="js/bootstrap.min.js"></script>

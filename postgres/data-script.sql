@@ -71,9 +71,9 @@ INSERT INTO public.empleado VALUES (10, 2, 'Carlos', 'Roberto', 'Castro', 'Mené
 -- Data for Name: miembro; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.estado VALUES(1, "Activo", "Estado para los miembros que asisten al gym y tienen sus pagos al dia");
-INSERT INTO public.estado VALUES(2, "Pendiente", "Estado para los miembros que tienen pagos pendientes");
-INSERT INTO public.estado VALUES(3, "Inactivo", "Estado para los miembros que dejaron de realizar los pagos");
+INSERT INTO public.estado VALUES(1, 'Activo', 'Estado para los miembros que asisten al gym y tienen sus pagos al dia');
+INSERT INTO public.estado VALUES(2, 'Pendiente', 'Estado para los miembros que tienen pagos pendientes');
+INSERT INTO public.estado VALUES(3, 'Inactivo', 'Estado para los miembros que dejaron de realizar los pagos');
 
 INSERT INTO public.miembro VALUES (1, 1, 'Victor', 'Victor2', 'Umaña', 'Umaña2', 'vic123', 'UU19001', 'foto_user.jpg', 'test123@gmail.com', true, '75645323', 1.69, 150.5, true, '2019-10-10', '2019-10-10', 1);
 

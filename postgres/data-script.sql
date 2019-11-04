@@ -71,7 +71,10 @@ INSERT INTO public.empleado VALUES (10, 2, 'Carlos', 'Roberto', 'Castro', 'Mené
 -- Data for Name: miembro; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.miembro VALUES (1, 1, 'Victor', 'Victor2', 'Umaña', 'Umaña2', 'vic123', 'UU19001', 'foto_user.jpg', 'test123@gmail.com', true, '75645323', 1.69, 150.5, true, '2019-10-10', '2019-10-10');
+INSERT INTO public.miembro VALUES (1, 1, 'Victor', 'Victor2', 'Umaña', 'Umaña2', 'vic123', 'UU19001', 'default.jpg', 'test123@gmail.com', true, '75645323', 1.68999999999999995, 150.5, true, '2019-10-10', '2019-10-10');
+INSERT INTO public.miembro VALUES (2, 1, 'Juan Carlos', 'Juan Carlos', 'Pleitez Cortez', 'Pleitez Cortez', 'juanpc13', 'PP19001', 'default.gif', 'juanpc13lolol@gmail.com', true, '76876868', 172, 160, true, '1996-11-07', '2019-11-04');
+INSERT INTO public.miembro VALUES (3, 2, 'Carlos', 'Luis', 'Gonzalez', 'Mendez', 'cl13', 'GM19001', 'default.jpg', 'carlos@gmail.com', true, '12345678', 170, 160, true, '2019-11-05', '2019-11-04');
+
 
 --
 -- TOC entry 2185 (class 0 OID 0)
@@ -88,7 +91,7 @@ SELECT pg_catalog.setval('public.empleado_id_empleado_seq', 10, true);
 -- Name: miembro_id_miembro_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.miembro_id_miembro_seq', 1, true);
+SELECT pg_catalog.setval('public.miembro_id_miembro_seq', 3, true);
 
 
 --

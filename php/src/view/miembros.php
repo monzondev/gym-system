@@ -527,7 +527,7 @@ $login->ValidateSession();
 		});
         
         function lettersOnly(e) {
-            if (String.fromCharCode(e.which).match(/^[A-Za-z \x08]$/)) {
+            if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {
                 return true;
             }
             return false;

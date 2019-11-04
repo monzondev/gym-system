@@ -15,7 +15,8 @@ class miembro extends conector_pg
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
         "findByIdentifier" => "SELECT id_miembro, identificador FROM miembro wHERE identificador   LIKE $1",
         "findByUser" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento,fecha_inicio FROM miembro  WHERE usuario=  $1 ",
-        "findAllActive" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio FROM miembro  WHERE activo=true"
+        "findAllActive" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio FROM miembro  WHERE activo=true",
+        "findLikeNameOrID" => "SELECT m.id_miembro AS value, CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' (', m.identificador , ')') AS text FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' (', m.identificador , ')') ~* $1"
     );
     public function __construct()
     {
@@ -149,6 +150,21 @@ class miembro extends conector_pg
             $row = null;
         }
         return $row;
+    }
+
+    /*********************************************************************/
+    //Metodo para obtener un miembto por Name o ID este en la base de datos
+    public function getFilterNameId($txt)
+    {
+        $query = $this->Querys['findLikeNameOrID'];
+        $result = pg_query_params($this->conexion, $query, array($txt));
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+        } else {
+            $allRows = null;
+        }
+        //devuelve todos los empleados
+        return $allRows;
     }
 
 }

@@ -1,6 +1,8 @@
 <?php
     include_once '../boundary/miembro.php';
+    include_once '../boundary/empleado.php';
     $miembro = new miembro();
+    $empleado = new empleado();
 if (isset($_POST['userValidate'])) {
     if (isset($_POST['usuario'])  && $_POST['usuario'] != "") {
         $user = $miembro->validateUser($_POST['usuario']);
@@ -91,3 +93,29 @@ if (isset($_POST['getMiembro'])) {
 
    
 }
+
+if (isset($_GET['filtrar']) && $_GET['filtrar']) {
+    $json = file_get_contents('php://input');
+    $txt = (json_decode($json))->query;
+    $id_empleado = (json_decode($json))->id_empleado;
+    $empleado = (object) $empleado->getUserbyId($id_empleado);    
+    //code 1=Ok, 2=Bad, 3=Warning
+    $response = array('message' => 'Mensaje', 'code' => 1);
+    //Verificar si es administrador el que solicita
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        //realizar la busqueda y devolver
+        $miembros = $miembro->getFilterNameId($txt);
+        echo json_encode($miembros);
+        exit();
+    }else{
+        $response['code'] = 2;
+        $response['message'] = 'No tiene permisos de administrador';        
+    }
+    echo json_encode($response);
+    exit();
+}
+
+
+header('Location: /view/index.php');
+exit();
+?>

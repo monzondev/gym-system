@@ -142,6 +142,16 @@ $login->ValidateSession();
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <h3>Buscar Miembro:</h3>
+                    <input id="buscador" class="form-control basicAutoSelect" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                    <br>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            
             <table class="table text-center table-striped table-hover" id="table_body">
                 <thead class="thead-dark">
                     <tr>
@@ -484,6 +494,45 @@ $login->ValidateSession();
         }
     }
     ?>
+    <script src="js/bootstrap-autocomplete.min.js"></script>
+    <script>
+        var selectedId = 0;
+        $('#buscador').autoComplete({
+            minLength: 1,
+            events: {
+                searchPost: function (resultFromServer) {
+                    var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
+                    var query = $('#buscador').val();
+                    var list = [];
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "../controller/miembroController.php?filtrar=true",
+                        data: JSON.stringify({"id_empleado":id_empleado,"query":query}),
+                        success:function (data) {                            
+                            var response = jQuery.parseJSON(data);
+                            if(typeof response.code !== 'undefined'){
+                                toastr.error(response.message);                                
+                            }else{
+                                list = response;
+                            }
+                        }
+                    });
+                    return list;
+                }
+            }
+        });
+        $('#buscador').on('autocomplete.select', function (evt, item) {
+            console.log(JSON.stringify(item));
+		});
+        
+        function lettersOnly(e) {
+            if (String.fromCharCode(e.which).match(/^[A-Za-z \x08]$/)) {
+                return true;
+            }
+            return false;
+        }
+    </script>
 </body>
 
 </html>

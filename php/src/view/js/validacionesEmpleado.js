@@ -20,6 +20,7 @@ $(document).ready(function () {
         var requerido = "<img src='img/errorr.png'width='22' >     Este campo es requerido";
         var espacios = "<img src='img/errorr.png'width='22' >     Espacios vacios no permitidos";
         var notEmail = "<img src='img/errorr.png'width='22' >     Formato de correo no permitido";
+        var fecha = "<img src='img/errorr.png'width='22' >    La fecha es muy reciente";
 
         //CAMPOS A VALIDAR
         var name1 = document.getElementById("nombre1");
@@ -67,14 +68,19 @@ $(document).ready(function () {
             status8 = true;
         }
 
-        //VALIDACION FECHA DE NACIMIENTO
-        if (date.value == null || date.value == 0) {
-            date.focus();
-            error7.innerHTML = requerido;
-        } else {
-            error7.innerHTML = "";
-            status7 = true;
-        }
+       //VALIDACION FECHA DE NACIMIENTO
+       n = new Date();
+       fechaL =  n.getFullYear()-18 + "-" + (n.getMonth() + 1) + "-" +  n.getDate();
+       if (date.value == null || date.value == 0) {
+           date.focus();
+           error7.innerHTML = requerido;
+       } else if (date.value > fechaL) {
+           date.focus();
+           error7.innerHTML = fecha;
+       } else {
+           error7.innerHTML = "";
+           status7 = true;
+       }
 
 
         //VALIDACION NUMERO DE TELEFONO

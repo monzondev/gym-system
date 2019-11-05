@@ -131,7 +131,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" name="fecha" required id="fecha">
+                            <input type="date" class="form-control" name="fecha"  required id="fecha">
                             <p id="error12" class="text-danger error"> </p>
                         </div>
                     </div>

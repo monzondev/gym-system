@@ -22,6 +22,7 @@ $(document).ready(function () {
         var espacios = "<img src='img/errorr.png'width='22' >     Espacios vacios no permitidos";
         var notEmail = "<img src='img/errorr.png'width='22' >     Formato de correo no permitido";
         var image = "<img src='img/errorr.png'width='22' >     Solo imagenes jpg permitidas";
+        var fecha = "<img src='img/errorr.png'width='22' >    La fecha es muy reciente";
 
         //CAMPOS A VALIDAR
         var name1 = document.getElementById("nombre1");
@@ -37,7 +38,7 @@ $(document).ready(function () {
         var peso = document.getElementById("peso");
         var date = document.getElementById("fecha");
         var type = document.getElementById("tipomembresia");
-        
+
 
 
 
@@ -65,17 +66,22 @@ $(document).ready(function () {
             status13 = true;
         }
 
-         //VALIDACION FECHA DE NACIMIENTO
-         if (date.value == null || date.value == 0) {
+        //VALIDACION FECHA DE NACIMIENTO
+        n = new Date();
+        fechaL =  n.getFullYear()-6 + "-" + (n.getMonth() + 1) + "-" +  n.getDate();
+        if (date.value == null || date.value == 0) {
             date.focus();
             error12.innerHTML = requerido;
+        } else if (date.value > fechaL) {
+            date.focus();
+            error12.innerHTML = fecha;
         } else {
             error12.innerHTML = "";
             status12 = true;
         }
 
-         //VALIDACION PESO
-         if (peso.value == "") {
+        //VALIDACION PESO
+        if (peso.value == "") {
             peso.focus();
             error11.innerHTML = requerido;
         } else if (peso.value.trim() == "") {
@@ -112,7 +118,7 @@ $(document).ready(function () {
         if (foto.files.length == 0) {
             foto.focus();
             error8.innerHTML = requerido;
-        } else if ( extension !== 'jpg' ) {
+        } else if (extension !== 'jpg') {
             foto.focus();
             error8.innerHTML = image;
         } else {
@@ -210,7 +216,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7  && status8 && status9 && status10 && status11 && status12 && status13) {
+        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12 && status13) {
 
             var username = $.trim($("#usuario").val());
 

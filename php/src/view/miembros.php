@@ -100,7 +100,7 @@ $login->ValidateSession();
             border-bottom: 2px solid #0062cc;
         }
 
-        .active {
+        .actives {
             border: none;
             border-bottom: 2px solid #0062cc;
         }
@@ -210,10 +210,11 @@ $login->ValidateSession();
                     <div class="card-header  text-center" style="background-color: #4B515D; color:white; ">
                         <strong>
                             <p class="lead">Informaci&oacute;n del miembro</p>
+                            <button type="button" class="close " style="color:white;" onclick="cerrar();" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </strong>
-                        <button type="button"class="btn close btn-light" style="color:white;" onclick="cerrar();"  aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+
                     </div>
 
                     <div class="card-body" id="cargando" style="display:none">
@@ -267,7 +268,7 @@ $login->ValidateSession();
                         </div>
 
                         <div class=" row justify-content-end">
-                            <div class="col-md-8 ">
+                            <div class="col-md-7 ">
                                 <div id="personal">
                                     <div class="row profile-tab">
                                         <div class="col-md-4">
@@ -370,11 +371,11 @@ $login->ValidateSession();
 
             $("#link-personal").css("color", "#0062cc");
             $("#link-personal").css("font-weight", "bold");
-            $("#link-personal").addClass("active");
+            $("#link-personal").addClass("actives");
 
             $("#link-gimnasio").css("color", "#000000");
             $("#link-gimnasio").css("font-weight", "normal");
-            $("#link-gimnasio").removeClass("active");
+            $("#link-gimnasio").removeClass("actives");
         }
 
         function mostrarExtra() {
@@ -382,11 +383,11 @@ $login->ValidateSession();
             $("#perfil").css("display", "block");
             $("#link-gimnasio").css("color", "#0062cc");
             $("#link-gimnasio").css("font-weight", "bold");
-            $("#link-gimnasio").addClass("active");
+            $("#link-gimnasio").addClass("actives");
 
             $("#link-personal").css("color", "#000000");
             $("#link-personal").css("font-weight", "normal");
-            $("#link-personal").removeClass("active");
+            $("#link-personal").removeClass("actives");
         }
 
         function cerrar() {
@@ -421,7 +422,7 @@ $login->ValidateSession();
                     $("#personal").css("display", "block");
                     $("#link-personal").css("color", "#0062cc");
                     $("#link-personal").css("font-weight", "bold");
-                    $("#link-personal").addClass("active");
+                    $("#link-personal").addClass("actives");
 
                     $("#perfil").css("display", "none");
                     $("#link-gimnasio").css("color", "#000000");

@@ -146,12 +146,12 @@ $login->ValidateSession();
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <h3>Buscar Miembro:</h3>
-                    <input id="buscador" class="form-control basicAutoSelect" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                    <br>
+                    <input id="buscador" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                    <button id="btn_buscar" class="btn btn-primary">Filtrar</button>
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            
+            <br>            
             <table class="table text-center table-striped table-hover" id="table_body">
                 <thead class="thead-dark">
                     <tr>
@@ -506,31 +506,46 @@ $login->ValidateSession();
             minLength: 1,
             events: {
                 searchPost: function (resultFromServer) {
-                    var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
-                    var query = $('#buscador').val();
-                    var list = [];
-                    $.ajax({
-                        type: "POST",
-                        async: false,
-                        url: "../controller/miembroController.php?filtrar=true",
-                        data: JSON.stringify({"id_empleado":id_empleado,"query":query}),
-                        success:function (data) {                            
-                            var response = jQuery.parseJSON(data);
-                            if(typeof response.code !== 'undefined'){
-                                toastr.error(response.message);                                
-                            }else{
-                                list = response;
-                            }
-                        }
+                    var txt = $('#buscador').val();
+                    var list = searchList(txt);
+                    var formatList = [];
+                    $.each( list, function( key, value ) {
+                        var text = value.primer_nombre+" "+value.segundo_nombre+" "+value.primer_apellido+" "+value.segundo_apellido+" - "+value.identificador;
+                        var item = {"value":value.id_miembro, "text":text};
+                        formatList.push(item);
                     });
-                    return list;
+                    return formatList;
                 }
             }
         });
         $('#buscador').on('autocomplete.select', function (evt, item) {
-            console.log(JSON.stringify(item));
             cargarDatos(item.value);
 		});
+
+        function searchList(txt){
+            var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
+            //var txt = $('#buscador').val();
+            var list = [];
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "../controller/miembroController.php?filtrar=true",
+                data: JSON.stringify({"id_empleado":id_empleado,"txt":txt}),
+                success:function (data) {                            
+                    var response = jQuery.parseJSON(data);
+                    if(typeof response.code !== 'undefined'){
+                        toastr.error(response.message);                                
+                    }else{
+                        list = response;
+                    }
+                }
+            });
+            return list;
+        }
+        
+        function updateTable(){
+
+        }
         
         
         function lettersOnly(e) {

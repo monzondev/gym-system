@@ -17,6 +17,7 @@
 -- DROP TABLE IF EXISTS public.miembro CASCADE;
 CREATE TABLE public.miembro (
 	id_miembro serial NOT NULL,
+	id_estado integer,
 	id_tipo_membresia integer NOT NULL,
 	primer_nombre character varying(64) NOT NULL,
 	segundo_nombre character varying(64) NOT NULL,
@@ -32,20 +33,8 @@ CREATE TABLE public.miembro (
 	peso double precision,
 	activo boolean NOT NULL,
 	fecha_nacimiento date NOT NULL,
-	fecha_inicio date NOT NULL,
-	id_estado integer,
 	CONSTRAINT miembro_pk PRIMARY KEY (id_miembro)
 
-);
--- ddl-end --
-
--- object: public.estado | type: TABLE --
--- DROP TABLE IF EXISTS public.estado CASCADE;
-CREATE TABLE public.estado (
-	id_estado serial NOT NULL,
-	nombre character varying(64) NOT NULL,
-	descripcion text,
-	CONSTRAINT estado_pk PRIMARY KEY (id_estado)
 );
 -- ddl-end --
 
@@ -108,6 +97,24 @@ CREATE TABLE public.tipo_empleado (
 );
 -- ddl-end --
 
+-- object: public.estado | type: TABLE --
+-- DROP TABLE IF EXISTS public.estado CASCADE;
+CREATE TABLE public.estado (
+	id_estado serial NOT NULL,
+	nombre character varying(64) NOT NULL,
+	descripcion text,
+	CONSTRAINT estado_pk PRIMARY KEY (id_estado)
+
+);
+-- ddl-end --
+
+-- object: miembro_estado_fk | type: CONSTRAINT --
+-- ALTER TABLE public.miembro DROP CONSTRAINT IF EXISTS miembro_estado_fk CASCADE;
+ALTER TABLE public.miembro ADD CONSTRAINT miembro_estado_fk FOREIGN KEY (id_estado)
+REFERENCES public.estado (id_estado) MATCH FULL
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 -- object: empleado_tipo_empleado_fk | type: CONSTRAINT --
 -- ALTER TABLE public.empleado DROP CONSTRAINT IF EXISTS empleado_tipo_empleado_fk CASCADE;
 ALTER TABLE public.empleado ADD CONSTRAINT empleado_tipo_empleado_fk FOREIGN KEY (id_tipo_empleado)
@@ -136,10 +143,4 @@ REFERENCES public.empleado (id_empleado) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
--- object: miembro_estado_fk | type: CONSTRAINT --
--- ALTER TABLE public.miembro DROP CONSTRAINT IF EXISTS miembro_estado_fk CASCADE;
-ALTER TABLE public.miembro ADD CONSTRAINT miembro_estado_fk FOREIGN KEY (id_estado)
-REFERENCES public.estado (id_estado) MATCH FULL
-ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ddl-end --
 

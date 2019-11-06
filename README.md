@@ -16,3 +16,8 @@ administrar sus miembros, además de gestionar los pagos que realizan para membr
 1. Mensual
 2. Quincenal
 3. Semanal
+
+## Estados
+1. Activo
+2. Pendiente
+3. Inactivo

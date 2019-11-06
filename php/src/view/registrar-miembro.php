@@ -189,7 +189,7 @@ $login->ValidateSession();
             if ((keynum == 8) || (keynum == 46) || (keyCode == 37) || (keyCode == 39)) {
                 return true;
             }
-            var patt = new RegExp(/^[A-Za-z\s]+$/g);
+            var patt = new RegExp(/^[A-Za-záéíóú\s]+$/g);
             return patt.test(String.fromCharCode(keynum));
         }
     </script>

@@ -2,10 +2,8 @@
 session_start();
 include_once '../boundary/empleado.php';
 include_once '../boundary/miembro.php';
-include_once '../boundary/tipo_membresia.php';
-$tipoMiembro = new tipo_membresia;
 $miembro = new miembro();
-$activos = $miembro->getAllActiveMiembros();
+//$activos = $miembro->getAllActiveMiembros();
 $login = new empleado();
 $login->ValidateSession();
 ?>
@@ -150,8 +148,8 @@ $login->ValidateSession();
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <br>
-            <table class="table text-center table-striped table-hover" id="table_body">
+            <br>            
+            <table class="table text-center table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Usuario</th>
@@ -163,40 +161,15 @@ $login->ValidateSession();
 
                     </tr>
                 </thead>
-                <tbody>
-                    <?php if (!is_null($activos)) {
-                        foreach ($activos as $miembro) {
-                            $tipoM = $tipoMiembro->getTipoMembresia($miembro['id_tipo_membresia']);
-                            ?>
-
-
-                            <tr id="<?php echo $miembro['id_miembro']; ?>" class="filas">
-                                <th style="padding-top: 5px; padding-bottom: 5px;" scope="row"><img src="../recursos/fotografias/<?php echo $miembro['foto'] ?>" class="rounded-circle" width="50" alt="<?php echo $miembro['usuario'] ?>" title="<?php echo $miembro['usuario'] ?>"></th>
-                                <td style="padding-top: 17px;">
-                                    <?php echo $miembro['primer_nombre'] . ' ' . $miembro['primer_apellido'] ?></td>
-                                <td style="padding-top: 17px;"><?php echo $miembro['telefono'] ?></td>
-                                <td style="padding-top: 17px;"><?php
-                                                                        if ($tipoM != null) {
-                                                                            echo $tipoM['nombre'];
-                                                                        }
-                                                                        ?></td>
-                                <td style="padding-top: 17px;"><?php echo $miembro['fecha_inicio'] ?></td>
-
-                                <td style="padding-top: 17px;"><?php
-                                                                        if ($miembro['activo']) {
-                                                                            echo 'Activo';
-                                                                        } else {
-                                                                            echo 'InActivo';
-                                                                        }
-                                                                        ?></td>
-                            </tr>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <tr>
-                            <td>No hay miembros registrados</td>
-                        </tr>
-                    <?php } ?>
-
+                <tbody id="table_body">                    
+                    <tr>
+                        <td>No disponible</td>
+                        <td>No disponible</td>
+                        <td>No disponible</td>
+                        <td>No disponible</td>
+                        <td>No disponible</td>
+                        <td>No disponible</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -395,15 +368,15 @@ $login->ValidateSession();
         }
     </script>
     <script>
-        $(document).ready(function() {
 
+        function eventoSeleccionar(){
             $('.filas').click(function() {
                 var id = $(this).attr('id');
                 cargarDatos(id);
-            });
-        });
+            });        
+        }
 
-        function cargarDatos(selectedIdMiembro) {
+        function cargarDatos(selectedIdMiembro){
             $("#modalDatos").modal('show');
             //var dataString = 'id=' + $(this).attr('id') + '&getMiembro=1';
             var dataString = 'id=' + selectedIdMiembro + '&getMiembro=1';
@@ -456,9 +429,7 @@ $login->ValidateSession();
                         estado = "Inactivo";
                     }
                     $("#estado").html(estado);
-
                 }
-
             });
         }
 
@@ -505,6 +476,20 @@ $login->ValidateSession();
     ?>
     <script src="js/bootstrap-autocomplete.min.js"></script>
     <script>
+        <?php
+            include_once '../boundary/tipo_membresia.php';
+            $facadeTipoMembrecia = new tipo_membresia;
+        ?>
+        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia());?>;
+
+        function findTipoMebresia(idTipoMebrecia){
+            for (tm of tipoMembrecias) {
+                if(tm.id_tipo_membresia == idTipoMebrecia){
+                    return tm;
+                }                
+            }            
+        }
+
         $('#buscador').autoComplete({
             minLength: 1,
             events: {
@@ -552,11 +537,62 @@ $login->ValidateSession();
             return list;
         }
 
-        function updateTable() {
+        $('#btn_buscar').click(function() {
+            var txt = $('#buscador').val();
+            updateTable(txt);            
+        });
 
+        function updateTable(txt){
+            var listTable = searchList(txt);
+            if(listTable.length > 0){
+                //Vaciar la tabla
+                var tabla = $("#table_body");
+                tabla.html("");
+                //Llenar la tabla
+                $.each( listTable, function( key, value ) {
+                    var tr = document.createElement("tr");
+                    tr.id = value.id_miembro;
+                    tr.classList.add("filas");
+                    var td1 = document.createElement("th");
+                    var img = document.createElement("img");
+                    var td2 = document.createElement("td");
+                    var td3 = document.createElement("td");
+                    var td4 = document.createElement("td");
+                    var td5 = document.createElement("td");
+                    var td6 = document.createElement("td");                    
+                    td1.setAttribute("scope", "row");
+                    td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");                    
+                    img.setAttribute("src", "../recursos/fotografias/"+value.foto);
+                    img.setAttribute("class", "rounded-circle");
+                    img.setAttribute("width", "50");
+                    img.setAttribute("alt", value.usuario);
+                    img.setAttribute("title", value.usuario);
+                    td1.append(img);
+                    td2.setAttribute("style", "padding-top: 17px;");
+                    td2.innerText = value.primer_nombre + " " + value.segundo_nombre;
+                    td3.setAttribute("style", "padding-top: 17px;");
+                    td3.innerText = value.telefono;
+                    td4.setAttribute("style", "padding-top: 17px;");
+                    var tm = findTipoMebresia(value.id_tipo_membresia);
+                    td4.innerText = tm.nombre;
+                    td5.setAttribute("style", "padding-top: 17px;");
+                    td5.innerText = value.fecha_inicio;
+                    td6.setAttribute("style", "padding-top: 17px;");
+                    td6.innerText = value.activo=="t"?"Activo":"Deshabilitado";
+                    tr.append(td1, td2, td3, td4, td5, td6);
+                    tabla.append(tr);
+                });
+                eventoSeleccionar();
+            }else if(listTable == false && txt.length > 0){
+                toastr.warning('No se han encontrado resultados');
+            }
         }
 
-
+        $(document).ready(function() {
+            //Cuando cargue la pagina buscar todos con el filtro vacio
+            updateTable("");
+        });
+        
         function lettersOnly(e) {
             if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {
                 return true;

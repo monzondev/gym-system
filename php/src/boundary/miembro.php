@@ -15,8 +15,8 @@ class miembro extends conector_pg
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
         "findByIdentifier" => "SELECT id_miembro, identificador FROM miembro wHERE identificador   LIKE $1",
         "findByUser" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento,fecha_inicio FROM miembro  WHERE usuario=  $1 ",
-        "findAllActive" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio FROM miembro  WHERE activo=true",
-        "findLikeNameOrID" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento,fecha_inicio FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' (', m.identificador , ')') ~* $1 ORDER BY m.id_miembro ASC LIMIT 3"
+        "findAllActive" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio FROM miembro  WHERE activo=true ORDER BY id_miembro ASC",
+        "findLikeNameOrID" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento,fecha_inicio FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' (', m.identificador , ')') ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3"
     );
     public function __construct()
     {

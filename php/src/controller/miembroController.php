@@ -96,7 +96,7 @@ if (isset($_POST['getMiembro'])) {
 
 if (isset($_GET['filtrar']) && $_GET['filtrar']) {
     $json = file_get_contents('php://input');
-    $txt = (json_decode($json))->query;
+    $txt = (json_decode($json))->txt;
     $id_empleado = (json_decode($json))->id_empleado;
     $empleado = (object) $empleado->getUserbyId($id_empleado);    
     //code 1=Ok, 2=Bad, 3=Warning

@@ -146,12 +146,12 @@ $login->ValidateSession();
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <h3>Buscar Miembro:</h3>
-                    <input id="buscador" class="form-control basicAutoSelect" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                    <br>
+                    <input id="buscador" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                    <button id="btn_buscar" class="btn btn-primary">Filtrar</button>
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            
+            <br>            
             <table class="table text-center table-striped table-hover" id="table_body">
                 <thead class="thead-dark">
                     <tr>
@@ -395,63 +395,69 @@ $login->ValidateSession();
     $(document).ready(function() {
 
         $('.filas').click(function() {
-            $("#modalDatos").modal('show');
-            var dataString = 'id=' + $(this).attr('id') + '&getMiembro=1';
-            $.ajax({
-                type: "POST",
-                url: "../controller/miembroController.php",
-                data: dataString,
-                beforeSend: function() {
-                    $("#datos").css("display", "none");
-                    $("#cargando").css("display", "block");
-                },
-                success: function(response) {
-                    $("#datos").css("display", "block");
-                    $("#cargando").css("display", "none");
-
-                    $("#personal").css("display", "block");
-                    $("#link-personal").css("color", "#0062cc");
-                    $("#link-personal").css("font-weight", "bold");
-                    $("#link-personal").addClass("active");
-
-                    $("#perfil").css("display", "none");
-                    $("#link-gimnasio").css("color", "#000000");
-
-                    selected = jQuery.parseJSON(response)
-                    $("#fotografia").attr("src", "../recursos/fotografias/" +
-                        selected.foto);
-                    $("#fotografia").attr("alt", selected.user);
-                    $("#nombre").html(selected.primer_nombre + " " + selected
-                        .segundo_nombre);
-                    $("#apellidos").html(selected.primer_apellido + " " + selected
-                        .segundo_apellido);
-                    $("#user").html(selected.usuario);
-                    $("#correo").html(selected.correo);
-                    $("#telefono").html(selected.telefono);
-                    edad = calcularEdad(selected.fecha_nacimiento)
-                    $("#fecha").html(edad + " años");
-                    $("#identificador").html(selected.identificador);
-                    if (selected.genero == "t") {
-                        genero = "Masculino";
-                    } else {
-                        genero = "Femenino";
-                    }
-                    $("#genero").html(genero);
-                    $("#fecha_inicio").html(selected.fecha_inicio);
-                    $("#altura").html(selected.altura + ' m');
-                    $("#peso").html(selected.peso) + ' kg';
-                    if (selected.activo) {
-                        estado = "Activo";
-                    } else {
-                        estado = "Inactivo";
-                    }
-                    $("#estado").html(estado);
-
-                }
-
-            });
+            var id = $(this).attr('id');
+            cargarDatos(id);
         });
     });
+
+    function cargarDatos(selectedIdMiembro){
+        $("#modalDatos").modal('show');
+        //var dataString = 'id=' + $(this).attr('id') + '&getMiembro=1';
+        var dataString = 'id=' + selectedIdMiembro + '&getMiembro=1';
+        $.ajax({
+            type: "POST",
+            url: "../controller/miembroController.php",
+            data: dataString,
+            beforeSend: function() {
+                $("#datos").css("display", "none");
+                $("#cargando").css("display", "block");
+            },
+            success: function(response) {
+                $("#datos").css("display", "block");
+                $("#cargando").css("display", "none");
+
+                $("#personal").css("display", "block");
+                $("#link-personal").css("color", "#0062cc");
+                $("#link-personal").css("font-weight", "bold");
+                $("#link-personal").addClass("active");
+
+                $("#perfil").css("display", "none");
+                $("#link-gimnasio").css("color", "#000000");
+
+                selected = jQuery.parseJSON(response)
+                $("#fotografia").attr("src", "../recursos/fotografias/" +
+                    selected.foto);
+                $("#fotografia").attr("alt", selected.user);
+                $("#nombre").html(selected.primer_nombre + " " + selected
+                    .segundo_nombre);
+                $("#apellidos").html(selected.primer_apellido + " " + selected
+                    .segundo_apellido);
+                $("#user").html(selected.usuario);
+                $("#correo").html(selected.correo);
+                $("#telefono").html(selected.telefono);
+                edad = calcularEdad(selected.fecha_nacimiento)
+                $("#fecha").html(edad + " años");
+                $("#identificador").html(selected.identificador);
+                if (selected.genero == "t") {
+                    genero = "Masculino";
+                } else {
+                    genero = "Femenino";
+                }
+                $("#genero").html(genero);
+                $("#fecha_inicio").html(selected.fecha_inicio);
+                $("#altura").html(selected.altura + ' m');
+                $("#peso").html(selected.peso) + ' kg';
+                if (selected.activo) {
+                    estado = "Activo";
+                } else {
+                    estado = "Inactivo";
+                }
+                $("#estado").html(estado);
+
+            }
+
+        });
+    }
 
 
     function calcularEdad(fecha) {
@@ -495,36 +501,52 @@ $login->ValidateSession();
     }
     ?>
     <script src="js/bootstrap-autocomplete.min.js"></script>
-    <script>
-        var selectedId = 0;
+    <script>        
         $('#buscador').autoComplete({
             minLength: 1,
             events: {
                 searchPost: function (resultFromServer) {
-                    var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
-                    var query = $('#buscador').val();
-                    var list = [];
-                    $.ajax({
-                        type: "POST",
-                        async: false,
-                        url: "../controller/miembroController.php?filtrar=true",
-                        data: JSON.stringify({"id_empleado":id_empleado,"query":query}),
-                        success:function (data) {                            
-                            var response = jQuery.parseJSON(data);
-                            if(typeof response.code !== 'undefined'){
-                                toastr.error(response.message);                                
-                            }else{
-                                list = response;
-                            }
-                        }
+                    var txt = $('#buscador').val();
+                    var list = searchList(txt);
+                    var formatList = [];
+                    $.each( list, function( key, value ) {
+                        var text = value.primer_nombre+" "+value.segundo_nombre+" "+value.primer_apellido+" "+value.segundo_apellido+" - "+value.identificador;
+                        var item = {"value":value.id_miembro, "text":text};
+                        formatList.push(item);
                     });
-                    return list;
+                    return formatList;
                 }
             }
         });
         $('#buscador').on('autocomplete.select', function (evt, item) {
-            console.log(JSON.stringify(item));
+            cargarDatos(item.value);
 		});
+
+        function searchList(txt){
+            var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
+            //var txt = $('#buscador').val();
+            var list = [];
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "../controller/miembroController.php?filtrar=true",
+                data: JSON.stringify({"id_empleado":id_empleado,"txt":txt}),
+                success:function (data) {                            
+                    var response = jQuery.parseJSON(data);
+                    if(typeof response.code !== 'undefined'){
+                        toastr.error(response.message);                                
+                    }else{
+                        list = response;
+                    }
+                }
+            });
+            return list;
+        }
+        
+        function updateTable(){
+
+        }
+        
         
         function lettersOnly(e) {
             if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {

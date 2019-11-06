@@ -103,8 +103,14 @@ if (isset($_GET['filtrar']) && $_GET['filtrar']) {
     $response = array('message' => 'Mensaje', 'code' => 1);
     //Verificar si es administrador el que solicita
     if(isset($empleado) && $empleado->id_tipo_empleado == 1){
-        //realizar la busqueda y devolver
-        $miembros = $miembro->getFilterNameId($txt);
+        //Verificar si esta vacio txt
+        if($txt == ''){
+            //Buscar todos si es vacio
+            $miembros = $miembro->getAllActiveMiembros();
+        }else{
+            //Buscar coincidencia mas cercana
+            $miembros = $miembro->getFilterNameId($txt);
+        }
         echo json_encode($miembros);
         exit();
     }else{

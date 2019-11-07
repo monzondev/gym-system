@@ -223,7 +223,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         $("#table_body" ).html("");
                         //Lenar la tabla
                         jQuery.each(response, function(i, val) {
-                            var tr = "<tr id='"+val.id_empleado+"' data-id_empleado='"+val.id_empleado+"'><td>"+val.usuario+"</td><td>"+val.primer_nombre+"</td><td>"+val.primer_apellido+"</td></tr>";
+                            var tr = "<tr id='"+val.usuario+"' data-id_empleado='"+val.id_empleado+"'><td>"+val.usuario+"</td><td>"+val.primer_nombre+"</td><td>"+val.primer_apellido+"</td></tr>";
                             $("#table_body").append(tr);
                         });
                         //Agregar Evento de click por cada item de la tabla

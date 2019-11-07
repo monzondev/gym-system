@@ -42,7 +42,8 @@ $login->ValidateSession();
         }
 
         .profile-img img {
-            height: 100%;
+            width: 210px;
+            
         }
 
         .profile-img .file {

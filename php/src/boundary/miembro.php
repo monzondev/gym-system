@@ -15,6 +15,7 @@ class miembro extends conector_pg
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
         "findByIdentifier" => "SELECT id_miembro, identificador FROM miembro wHERE identificador   LIKE $1",
         "findByUser" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento,fecha_inicio FROM miembro  WHERE usuario=  $1 ",
+        "findByEstado" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio, id_estado FROM miembro  WHERE activo=true AND id_estado=$1 ORDER BY id_miembro ASC",
         "findAllActive" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio FROM miembro  WHERE activo=true ORDER BY id_miembro ASC",
         "findLikeNameOrID" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento,fecha_inicio FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' (', m.identificador , ')') ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3"
     );
@@ -166,5 +167,21 @@ class miembro extends conector_pg
         //devuelve todos los empleados
         return $allRows;
     }
+
+    /*********************************************************************/
+    //Metodo para obtener los miembros por el id del estado
+    public function getFilterByEstado($estado)
+    {
+        $query = $this->Querys['findByEstado'];
+        $result = pg_query_params($this->conexion, $query, array($estado));
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+        } else {
+            $allRows = null;
+        }
+        //devuelve todos los miembros
+        return $allRows;
+    }
+
 
 }

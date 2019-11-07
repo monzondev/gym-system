@@ -39,6 +39,16 @@ if (isset($_POST['agregarMiembro'])) {
                     $imagen = $nombre1;
             }
         }
+        
+        $altura =0.00;
+        if (isset($_POST['altura']) && $_POST['altura'] != null  && $_POST['altura'] != "" ) {
+            $altura = $_POST['altura'];
+        }
+
+        $peso =0.00;
+        if (isset($_POST['peso']) && $_POST['peso'] != null  && $_POST['peso'] != "") {
+            $peso = $_POST['peso'];
+        }
         $arrayMiembro = [
             "tipomembresia" => $_POST['tipomembresia'],
             "primer_nombre" => $_POST['nombre1'],
@@ -51,8 +61,8 @@ if (isset($_POST['agregarMiembro'])) {
             "correo" => $_POST['email'],
             "genero" => $genero,
             "telefono" => $_POST['telefono'],
-            "altura" => $_POST['altura'],
-            "peso" => $_POST['peso'],
+            "altura" => $altura,
+            "peso" => $peso,
             "activo" => true,
             "fecha" => $_POST['fecha']
         ];

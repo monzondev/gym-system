@@ -76,7 +76,7 @@ $login->ValidateSession();
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label>Correo</label>
-                            <input type="email" class="form-control" name="email" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required id="email" maxlength="50" placeholder="Correo Electronico">
+                            <input type="email" class="form-control" name="email"  onkeypress="return justCorreo(event);" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required id="email" maxlength="50" placeholder="Correo Electronico">
                             <p id="error6" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -182,6 +182,13 @@ $login->ValidateSession();
 
             return /\d/.test(String.fromCharCode(keynum));
         }
+        function justCorreo(e) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if ((keynum == 8) || (keynum == 46))
+                return true;
+            var exp =  RegExp(/^[a-zA-Z0-9._@-]+$/g);
+            return exp.test(String.fromCharCode(keynum));
+        }
 
         function notNumbers(e) {
             var keynum = window.event ? window.event.keyCode : e.which;
@@ -189,9 +196,11 @@ $login->ValidateSession();
             if ((keynum == 8) || (keynum == 46) || (keyCode == 37) || (keyCode == 39)) {
                 return true;
             }
-            var patt = new RegExp(/^[A-Za-záéíóú\s]+$/g);
+            var patt = new RegExp(/^[A-Za-z\s]+$/g);
             return patt.test(String.fromCharCode(keynum));
         }
+
+       
     </script>
      <script>
         $('#miembrosOptions').hover(function() {

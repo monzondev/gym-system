@@ -409,7 +409,12 @@ $login->ValidateSession();
                     $("#apellidos").html(selected.primer_apellido + " " + selected
                         .segundo_apellido);
                     $("#user").html(selected.usuario);
-                    $("#correo").html(selected.correo);
+                    if( selected.correo !=""  ){
+                        $("#correo").html(selected.correo);
+                    }else{
+                        $("#correo").html('No registrado');
+                    }
+                    
                     $("#telefono").html(selected.telefono);
                     edad = calcularEdad(selected.fecha_nacimiento)
                     $("#fecha").html(edad + " años");
@@ -421,8 +426,21 @@ $login->ValidateSession();
                     }
                     $("#genero").html(genero);
                     $("#fecha_inicio").html(selected.fecha_inicio);
-                    $("#altura").html(selected.altura + ' m');
-                    $("#peso").html(selected.peso) + ' kg';
+
+                    if( selected.altura != 0  ){
+                        $("#altura").html(selected.altura + ' m');
+                    }else{
+                        $("#altura").html('No registrada');
+                    }
+
+                    if( selected.peso != 0  ){
+                        $("#peso").html(selected.peso + ' kg');
+                    }else{
+                        $("#peso").html('No registrado');
+                    }
+                    
+                    
+                    
                     if (selected.activo) {
                         estado = "Activo";
                     } else {

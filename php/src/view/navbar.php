@@ -12,14 +12,12 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-           
             <li class="nav-item dropdown active" id="miembrosOptions">
                 <?php if ($_SESSION['tipoEmpleado'] == 1) { ?>
                     <a class="nav-link dropdown-toggle" href="index.php" id="navbarDropdownMiembros" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php } else { ?>
                     <a class="nav-link dropdown-toggle" href="index.php" id="miembros" style="padding-right: 750px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php } ?>
-                
                     Miembros
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

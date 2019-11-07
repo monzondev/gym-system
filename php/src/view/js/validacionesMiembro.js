@@ -68,7 +68,7 @@ $(document).ready(function () {
 
         //VALIDACION FECHA DE NACIMIENTO
         n = new Date();
-        fechaL =  n.getFullYear()-6 + "-" + (n.getMonth() + 1) + "-" +  n.getDate();
+        fechaL = n.getFullYear() - 6 + "-" + (n.getMonth() + 1) + "-" + n.getDate();
         if (date.value == null || date.value == 0) {
             date.focus();
             error12.innerHTML = requerido;
@@ -81,24 +81,28 @@ $(document).ready(function () {
         }
 
         //VALIDACION PESO
-        if (peso.value == "") {
-            peso.focus();
-            error11.innerHTML = requerido;
-        } else if (peso.value.trim() == "") {
-            peso.focus();
-            error11.innerHTML = espacios;
+        if (peso.value.length > 0) {
+            if (peso.value.trim() == "") {
+                peso.focus();
+                error11.innerHTML = espacios;
+            }else {
+                error11.innerHTML = "";
+                status11 = true;
+            }
         } else {
             error11.innerHTML = "";
             status11 = true;
         }
 
         //VALIDACION ALTURA
-        if (altura.value == "") {
-            altura.focus();
-            error10.innerHTML = requerido;
-        } else if (altura.value.trim() == "") {
-            altura.focus();
-            error10.innerHTML = espacios;
+        if (altura.value.length > 0) {
+            if (altura.value.trim() == "") {
+                altura.focus();
+                error10.innerHTML = espacios;
+            }else {
+                error10.innerHTML = "";
+                status10 = true;
+            }
         } else {
             error10.innerHTML = "";
             status10 = true;
@@ -138,15 +142,14 @@ $(document).ready(function () {
 
 
         //VALIDACION CORREO ELECTRONICO
-        if (email.value == "") {
-            email.focus();
-            error6.innerHTML = requerido;
-        } else if (email.value.trim() == "") {
-            email.focus();
-            error6.innerHTML = espacios;
-        } else if (!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(email.value))) {
-            email.focus();
-            error6.innerHTML = notEmail;
+        if (email.value.length > 0) {
+            if (!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(email.value))) {
+                email.focus();
+                error6.innerHTML = notEmail;
+            }else {
+                error6.innerHTML = "";
+                status6 = true;
+            }
         } else {
             error6.innerHTML = "";
             status6 = true;

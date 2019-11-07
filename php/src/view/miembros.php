@@ -143,13 +143,21 @@ $login->ValidateSession();
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <h3>Buscar Miembro:</h3>
-                    <input id="buscador" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                    <button id="btn_buscar" class="btn btn-primary">Filtrar</button>
+                    <input id="buscador" class="form-control basicAutoSelect" style="width: 70%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                    <button id="btn_buscar" style="float: left;" class="btn btn-primary">Filtrar</button>
+                    <div class="btn-group">
+                        <button id="btn_estado" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Estado
+                        </button>
+                        <div id="estado_opciones" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                            <!--button class="dropdown-item" type="button">Action</button-->
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-1"></div>
             </div>
             <br>            
-            <table class="table text-center table-striped table-hover">
+            <table id="tablaMiembros" class="table text-center table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Usuario</th>
@@ -335,7 +343,8 @@ $login->ValidateSession();
     </div>
 
     <script src="js/jQuery-3-4.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>    
     <script src="js/toastr.js"></script>
     <script>
         function mostrarPersonal() {
@@ -495,17 +504,28 @@ $login->ValidateSession();
     <script src="js/bootstrap-autocomplete.min.js"></script>
     <script>
         <?php
+            include_once '../boundary/estado.php';            
             include_once '../boundary/tipo_membresia.php';
+            $facadeEstado = new estado;
             $facadeTipoMembrecia = new tipo_membresia;
         ?>
-        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia());?>;
+        var estados = <?php echo json_encode($facadeEstado->findAll());?>;
+        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia());?>;       
+
+        function findEstado(idEstado){
+            for (e of estados) {
+                if(e.id_estado == idEstado){
+                    return e;
+                }
+            }
+        }
 
         function findTipoMebresia(idTipoMebrecia){
             for (tm of tipoMembrecias) {
                 if(tm.id_tipo_membresia == idTipoMebrecia){
                     return tm;
-                }                
-            }            
+                }
+            }
         }
 
         $('#buscador').autoComplete({
@@ -577,9 +597,9 @@ $login->ValidateSession();
                     var td3 = document.createElement("td");
                     var td4 = document.createElement("td");
                     var td5 = document.createElement("td");
-                    var td6 = document.createElement("td");                    
+                    var td6 = document.createElement("td");
                     td1.setAttribute("scope", "row");
-                    td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");                    
+                    td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");
                     img.setAttribute("src", "../recursos/fotografias/"+value.foto);
                     img.setAttribute("class", "rounded-circle");
                     img.setAttribute("width", "50");
@@ -596,7 +616,8 @@ $login->ValidateSession();
                     td5.setAttribute("style", "padding-top: 17px;");
                     td5.innerText = value.fecha_inicio;
                     td6.setAttribute("style", "padding-top: 17px;");
-                    td6.innerText = value.activo=="t"?"Activo":"Deshabilitado";
+                    var estado = findEstado(value.id_estado);
+                    td6.innerText = estado.nombre;
                     tr.append(td1, td2, td3, td4, td5, td6);
                     tabla.append(tr);
                 });
@@ -609,6 +630,7 @@ $login->ValidateSession();
         $(document).ready(function() {
             //Cuando cargue la pagina buscar todos con el filtro vacio
             updateTable("");
+            cargarEstados();
         });
         
         function lettersOnly(e) {
@@ -616,6 +638,35 @@ $login->ValidateSession();
                 return true;
             }
             return false;
+        }
+
+        function cargarEstados(){
+            $('#estado_opciones').html('');
+            for (e of estados) {
+                var button = document.createElement("button");
+                button.setAttribute("class", "dropdown-item");
+                button.setAttribute("type", "button");
+                button.innerText = e.nombre;
+                button.setAttribute("onclick", "sortTable('"+e.nombre+"')");
+                $('#estado_opciones').append(button);
+            }            
+        }
+        
+        function sortTable(txtEstado) {
+            var table, rows, i, x, y;
+            table = document.getElementById("tablaMiembros");
+            
+            rows = table.rows;
+            for (var j = 1; j < (rows.length - 1); j++) {
+                for (i = 1; i < (rows.length - 1); i++) {
+                    x = rows[i].getElementsByTagName("TD")[4];
+                    y = rows[i + 1].getElementsByTagName("TD")[4];                    
+                    if(x.innerText != txtEstado && y.innerText == txtEstado){
+                        shouldSwitch = true;
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    }
+                }
+            }
         }
     </script>
     

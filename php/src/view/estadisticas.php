@@ -27,6 +27,17 @@ if ($_SESSION['tipoEmpleado']!=1) {
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    
+    <script>
+        $('#miembrosOptions').hover(function() {
+            $('#navbarDropdownMiembros').trigger('click')
+        })
+
+        $('#cuentaOptions').hover(function() {
+            $('#navbarDropdownCuenta').trigger('click')
+        })
+        $('#empleadosOptions').hover(function() {
+            $('#empleados').trigger('click')
+        })
+    </script>
 </body>
 </html>

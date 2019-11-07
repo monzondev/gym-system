@@ -19,16 +19,16 @@ $login->ValidateSession();
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-        <div class="row">
-            <div class="col-md-1"></div>            
-            <div class="col-md-10">
-                <h3>Miembros Proximos a Pagar:</h3>
-                <input type="text" class="form-control" placeholder="Nombre del miembro">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <h3>Miembros Proximos a Pagar:</h3>
+                    <input type="text" class="form-control" placeholder="Nombre del miembro">
+                </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1"></div>            
-        </div>
-        <br><br>
-        <table class="table" style="widht: 50%">
+            <br><br>
+            <table class="table" style="widht: 50%">
                 <thead>
                     <tr>
                         <th scope="col">Nombre</th>
@@ -69,6 +69,18 @@ $login->ValidateSession();
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        $('#miembrosOptions').hover(function() {
+            $('#navbarDropdownMiembros').trigger('click')
+        })
+
+        $('#cuentaOptions').hover(function() {
+            $('#navbarDropdownCuenta').trigger('click')
+        })
+        $('#empleadosOptions').hover(function() {
+            $('#empleados').trigger('click')
+        })
+    </script>
 </body>
 
 </html>

@@ -203,6 +203,18 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
         return patt.test(String.fromCharCode(keynum));
     }
     </script>
+     <script>
+        $('#miembrosOptions').hover(function() {
+            $('#navbarDropdownMiembros').trigger('click')
+        })
+
+        $('#cuentaOptions').hover(function() {
+            $('#navbarDropdownCuenta').trigger('click')
+        })
+        $('#empleadosOptions').hover(function() {
+            $('#empleados').trigger('click')
+        })
+    </script>
 </body>
 
 </html>

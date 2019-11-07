@@ -6,18 +6,16 @@ $tipoEmpleado =  new tipo_empleado();
 $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php" style="padding-right: 30px;  "><img src="img/logotipo.png" width="70px" style="padding-right: 15px;" srcset="">Body Master Gym</a>
+    <a class="navbar-brand" href="index.php" style="padding-right: 120px;  "><img src="img/logotipo.png" width="70px" style="padding-right: 15px;" srcset="">Body Master Gym</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php" id="home" style="padding-right: 50px; ">DashBoard</a>
-            </li>
-            <li class="nav-item dropdown active">
+           
+            <li class="nav-item dropdown active" id="miembrosOptions">
                 <?php if ($_SESSION['tipoEmpleado'] == 1) { ?>
-                    <a class="nav-link dropdown-toggle" href="index.php" id="navbarDropdown" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="index.php" id="navbarDropdownMiembros" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php } else { ?>
                     <a class="nav-link dropdown-toggle" href="index.php" id="miembros" style="padding-right: 750px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php } ?>
@@ -30,7 +28,7 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                 </div>
             </li>
             <?php if ($_SESSION['tipoEmpleado'] == 1) { ?>
-                <li class="nav-item dropdown active">
+                <li class="nav-item dropdown active" id="empleadosOptions">
                     <a class="nav-link dropdown-toggle" href="" id="empleados" style="padding-right: 50px; " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Empleados
                     </a>
@@ -44,8 +42,8 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                 </li>
             <?php } ?>
 
-            <li class="nav-item dropdown active" style="float: left;">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" style="float: left;"  id="cuenta"" role=" button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown active" style="float: left;" id="cuentaOptions">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownCuenta" style="float: left;"  id="cuenta"" role=" button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Cuenta
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -57,4 +55,6 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
 
     </div>
 </nav>
+
+
 <br><br>

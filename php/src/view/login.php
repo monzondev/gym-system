@@ -9,14 +9,18 @@ $login->ValidateSessionLogin();
 <head>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>Inicio de Session</title>
+	<title>Inicio de Sesión</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link href="css/toastr.css" rel="stylesheet" />
+	<link rel="icon" type="image/png" href="img/favicon.png">
 	<style>
         .error {
             font-size: 15px;
         }
+		body {
+			background-image: url("img/background.png");			
+		}
     </style>
 </head>
 
@@ -26,7 +30,8 @@ $login->ValidateSessionLogin();
 		<div class="row">
 			<div class="col-md-4" style="height: 100vh"></div>
 			<div class="col-md-4" style="height: 100vh">
-				<form id="form" style="margin-top: 20vh">
+				<form id="form" style="margin-top: 20vh; background-color: rgba(255, 255, 255, 0.9); border-radius: 6px;">
+					<br>
 					<center>
 						<h2 class="form-signin-heading">Body Master Gym</h2>
 					</center>
@@ -36,14 +41,19 @@ $login->ValidateSessionLogin();
 					</center>
 					<br>
 					<label for="inputEmail" class="sr-only">Usuario</label>
-					<input class="form-control" placeholder="Usuario" autocomplete="off" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
+					<center>
+					<input class="form-control" placeholder="Usuario" autocomplete="off" style="width: 90%" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
+					</center>
 					<p id="error1" class="text-danger error"> </p>
 					<br>
 					<label for="inputPassword" class="sr-only">Contraseña</label>
-					<input class="form-control" placeholder="Contraseña" maxlength="15" autocomplete="off" name="clave"  id="clave" type="password" value="">
+					<center>
+					<input class="form-control" placeholder="Contraseña" maxlength="15" style="width: 90%" autocomplete="off" name="clave"  id="clave" type="password" value="">
+					</center>
 					<p id="error2" class="text-danger error"> </p>
 					<br>
 					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-primary btn-block" type="button" style="width: 50%">Iniciar</button></center>
+					<br>
 				</form>
 
 			</div>

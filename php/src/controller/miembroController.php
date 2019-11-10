@@ -50,6 +50,7 @@ if (isset($_POST['agregarMiembro'])) {
             $peso = $_POST['peso'];
         }
         $arrayMiembro = [
+            "id_estado" => 2,
             "tipomembresia" => $_POST['tipomembresia'],
             "primer_nombre" => $_POST['nombre1'],
             "segundo_nombre" => $_POST['nombre2'],

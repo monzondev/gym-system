@@ -7,7 +7,7 @@ class miembro extends conector_pg
 
     //consultas sql para la entidad miembro
     private $Querys  = array(
-        "create" => "INSERT INTO miembro(id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)",
+        "create" => "INSERT INTO miembro(id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)",
         "delete" => "DELETE FROM miembro WHERE id_miembro = $1",
         "update"  => "UPDATE miembro SET  id_tipo_membresia = $1, primer_nombre =$2, segundo_nombre =$3, primer_apellido = $4,  segundo_apellido= $5, usuario = $6, identificador = $7, foto=$8, correo = $9, genero = $10, telefono = $11,altura=$12, peso =$13 activo= $14, fecha_nacimiento= $15, fecha_inicio= $16 WHERE id_empleado = $17",
         "findAll" => "SELECT id_miembro, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, identificador, foto, correo, genero, telefono,altura,peso, activo, fecha_nacimiento, fecha_inicio FROM miembro",
@@ -111,7 +111,7 @@ class miembro extends conector_pg
             $array['genero'] = ($array['genero']) ? 'true':'false';
         }
         $query = $this->Querys['create'];
-        $result = pg_query_params($this->conexion, $query, array($array['tipomembresia'],$array['primer_nombre'], $array['segundo_nombre'],
+        $result = pg_query_params($this->conexion, $query, array($array['id_estado'], $array['tipomembresia'],$array['primer_nombre'], $array['segundo_nombre'],
                                                                 $array['primer_apellido'], $array['segundo_apellido'], $array['usuario'],
                                                                 $array['identificador'], $array['foto'],$array['correo'], $array['genero'],
                                                                 $array['telefono'], $array['altura'], $array['peso'], $array['activo'],$array['fecha'],$fecha));

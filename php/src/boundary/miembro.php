@@ -184,4 +184,44 @@ class miembro extends conector_pg
     }
 
 
+    /*********************************************************************/
+    //Metodo para obtener los miembros que tengan proximos pagos
+    public function getMiembrosProximosPagos()
+    {
+        $fecha = "".date("Y")."-".date("m")."-".date("d")."";
+        $query = $this->Querys['miembrosSinPagos'];
+        $result = pg_query($this->conexion, $query);
+        $result2 = pg_query($this->conexion, "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.identificador, m.foto, m.correo, m.genero, m.telefono,m.altura,m.peso, m.activo, m.fecha_nacimiento,m.fecha_inicio FROM miembro as m JOIN pago as p ON m.id_miembro=p.id_miembro WHERE m.id_tipo_membresia=3 AND ((timestamp '{$fecha}')- p.date_time)>=interval '5 days'");
+        $result3 = pg_query($this->conexion, "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.identificador, m.foto, m.correo, m.genero, m.telefono,m.altura,m.peso, m.activo, m.fecha_nacimiento,m.fecha_inicio FROM miembro as m JOIN pago as p ON m.id_miembro=p.id_miembro WHERE m.id_tipo_membresia=2 AND ((timestamp '{$fecha}')- p.date_time)>=interval '13 days'");
+        $result4 = pg_query($this->conexion, "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.identificador, m.foto, m.correo, m.genero, m.telefono,m.altura,m.peso, m.activo, m.fecha_nacimiento,m.fecha_inicio FROM miembro as m JOIN pago as p ON m.id_miembro=p.id_miembro WHERE m.id_tipo_membresia=1 AND ((timestamp '{$fecha}')- p.date_time)>=interval '28 days'");
+
+        //$miembros = array();
+        if ($result) {
+            $allRows = pg_fetch_all($result);
+            if (!empty($allRows)) {
+                if($result2){
+                    $allRows2 = pg_fetch_all($result2);
+                    if(!empty($allRows2)){
+                        $allRows = array_merge($allRows, $allRows2);
+                    }
+                }
+                if($result3){
+                    $allRows3 = pg_fetch_all($result3);
+                    if(!empty($allRows3)){
+                        $allRows = array_merge($allRows, $allRows3);
+                    }
+                }
+                if($result4){
+                    $allRows4 = pg_fetch_all($result4);
+                    if (!empty($allRows4)) {
+                        $allRows = array_merge($allRows, $allRows4);
+                    }
+                }
+            }
+        } else {
+            $allRows = null;
+        }
+        return $allRows;
+    }
+
 }

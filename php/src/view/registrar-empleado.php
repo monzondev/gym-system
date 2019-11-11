@@ -87,7 +87,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                             <label>Usuario</label>
                             <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false"
                                 onDrop="return false" onPaste="return false" name="usuario" required id="usuario"
-                                maxlength="15" placeholder="Nombre de usuario">
+                                maxlength="15" onkeypress="return username(event);" placeholder="Nombre de usuario">
                             <p id="error3" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -200,8 +200,15 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
         if ((keynum == 8) || (keynum == 46) || (keyCode == 37) || (keyCode == 39)) {
             return true;
         }
-        var patt = new RegExp(/^[A-Za-záéíóú\s]+$/g);
+        var patt = new RegExp(/^[A-Za-záéíóúñ\s]+$/g);
         return patt.test(String.fromCharCode(keynum));
+    }
+
+    function username(e) {        
+        if (String.fromCharCode(e.which).match(/^[A-Za-z0-9\x08]$/)) {
+            return true;
+        }
+        return false;
     }
     </script>
      <script>

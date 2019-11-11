@@ -579,10 +579,10 @@ $login->ValidateSession();
 
         $('#btn_buscar').click(function() {
             var txt = $('#buscador').val();
-            updateTable(txt);            
+            updateTable(txt, 0);            
         });
 
-        function updateTable(txt){
+        function updateTable(txt, id_estado){
             var listTable = searchList(txt);
             if(listTable.length > 0){
                 //Vaciar la tabla
@@ -590,38 +590,10 @@ $login->ValidateSession();
                 tabla.html("");
                 //Llenar la tabla
                 $.each( listTable, function( key, value ) {
-                    var tr = document.createElement("tr");
-                    tr.id = value.id_miembro;
-                    tr.classList.add("filas");
-                    var td1 = document.createElement("th");
-                    var img = document.createElement("img");
-                    var td2 = document.createElement("td");
-                    var td3 = document.createElement("td");
-                    var td4 = document.createElement("td");
-                    var td5 = document.createElement("td");
-                    var td6 = document.createElement("td");
-                    td1.setAttribute("scope", "row");
-                    td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");
-                    img.setAttribute("src", "../recursos/fotografias/"+value.foto);
-                    img.setAttribute("class", "rounded-circle");
-                    img.setAttribute("width", "50");
-                    img.setAttribute("alt", value.usuario);
-                    img.setAttribute("title", value.usuario);
-                    td1.append(img);
-                    td2.setAttribute("style", "padding-top: 17px;");
-                    td2.innerText = value.primer_nombre + " " + value.segundo_nombre;
-                    td3.setAttribute("style", "padding-top: 17px;");
-                    td3.innerText = value.telefono;
-                    td4.setAttribute("style", "padding-top: 17px;");
-                    var tm = findTipoMebresia(value.id_tipo_membresia);
-                    td4.innerText = tm.nombre;
-                    td5.setAttribute("style", "padding-top: 17px;");
-                    td5.innerText = value.fecha_inicio;
-                    td6.setAttribute("style", "padding-top: 17px;");
-                    var estado = findEstado(value.id_estado);
-                    td6.innerText = estado.nombre;
-                    tr.append(td1, td2, td3, td4, td5, td6);
-                    tabla.append(tr);
+                    if(value.id_estado == id_estado || id_estado == 0){
+                        var tr = createTableRowWith(value);
+                        tabla.append(tr);
+                    }                    
                 });
                 eventoSeleccionar();
             }else if(listTable == false && txt.length > 0){
@@ -629,9 +601,44 @@ $login->ValidateSession();
             }
         }
 
+        function createTableRowWith(value){
+            var tr = document.createElement("tr");
+            tr.id = value.id_miembro;
+            tr.classList.add("filas");
+            var td1 = document.createElement("th");
+            var img = document.createElement("img");
+            var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var td4 = document.createElement("td");
+            var td5 = document.createElement("td");
+            var td6 = document.createElement("td");
+            td1.setAttribute("scope", "row");
+            td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");
+            img.setAttribute("src", "../recursos/fotografias/"+value.foto);
+            img.setAttribute("class", "rounded-circle");
+            img.setAttribute("width", "50");
+            img.setAttribute("alt", value.usuario);
+            img.setAttribute("title", value.usuario);
+            td1.append(img);
+            td2.setAttribute("style", "padding-top: 17px;");
+            td2.innerText = value.primer_nombre + " " + value.segundo_nombre;
+            td3.setAttribute("style", "padding-top: 17px;");
+            td3.innerText = value.telefono;
+            td4.setAttribute("style", "padding-top: 17px;");
+            var tm = findTipoMebresia(value.id_tipo_membresia);
+            td4.innerText = tm.nombre;
+            td5.setAttribute("style", "padding-top: 17px;");
+            td5.innerText = value.fecha_inicio;
+            td6.setAttribute("style", "padding-top: 17px;");
+            var estado = findEstado(value.id_estado);
+            td6.innerText = estado.nombre;
+            tr.append(td1, td2, td3, td4, td5, td6);
+            return tr;
+        }
+
         $(document).ready(function() {
             //Cuando cargue la pagina buscar todos con el filtro vacio
-            updateTable("");
+            updateTable("", 0);
             cargarEstados();
         });
         
@@ -644,12 +651,18 @@ $login->ValidateSession();
 
         function cargarEstados(){
             $('#estado_opciones').html('');
+            var allBtn = document.createElement("button");
+            allBtn.setAttribute("class", "dropdown-item");
+            allBtn.setAttribute("type", "button");
+            allBtn.innerText = "Todos";
+            allBtn.setAttribute("onclick", "updateTable('', 0)");
+            $('#estado_opciones').append(allBtn);
             for (e of estados) {
                 var button = document.createElement("button");
                 button.setAttribute("class", "dropdown-item");
                 button.setAttribute("type", "button");
                 button.innerText = e.nombre;
-                button.setAttribute("onclick", "sortTable('"+e.nombre+"')");
+                button.setAttribute("onclick", "updateTable('','"+e.id_estado+"')");
                 $('#estado_opciones').append(button);
             }            
         }

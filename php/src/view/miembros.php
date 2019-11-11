@@ -168,7 +168,6 @@ $login->ValidateSession();
                         <th scope="col">Membres&iacute;a</th>
                         <th scope="col">Inicio</th>
                         <th scope="col">Estado</th>
-
                     </tr>
                 </thead>
                 <tbody id="table_body">                    
@@ -561,10 +560,7 @@ $login->ValidateSession();
                 type: "POST",
                 async: false,
                 url: "../controller/miembroController.php?filtrar=true",
-                data: JSON.stringify({
-                    "id_empleado": id_empleado,
-                    "txt": txt
-                }),
+                data: JSON.stringify({"id_empleado": id_empleado, "txt": txt}),
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
                     if (typeof response.code !== 'undefined') {
@@ -593,7 +589,7 @@ $login->ValidateSession();
                     if(value.id_estado == id_estado || id_estado == 0){
                         var tr = createTableRowWith(value);
                         tabla.append(tr);
-                    }                    
+                    }
                 });
                 eventoSeleccionar();
             }else if(listTable == false && txt.length > 0){
@@ -665,23 +661,6 @@ $login->ValidateSession();
                 button.setAttribute("onclick", "updateTable('','"+e.id_estado+"')");
                 $('#estado_opciones').append(button);
             }            
-        }
-        
-        function sortTable(txtEstado) {
-            var table, rows, i, x, y;
-            table = document.getElementById("tablaMiembros");
-            
-            rows = table.rows;
-            for (var j = 1; j < (rows.length - 1); j++) {
-                for (i = 1; i < (rows.length - 1); i++) {
-                    x = rows[i].getElementsByTagName("TD")[4];
-                    y = rows[i + 1].getElementsByTagName("TD")[4];                    
-                    if(x.innerText != txtEstado && y.innerText == txtEstado){
-                        shouldSwitch = true;
-                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    }
-                }
-            }
         }
     </script>
     

@@ -132,6 +132,26 @@ if (isset($_GET['filtrar']) && $_GET['filtrar']) {
     exit();
 }
 
+if (isset($_GET['proximosPagos']) && $_GET['proximosPagos']) {    
+    $json = file_get_contents('php://input');
+    $id_empleado = (json_decode($json))->id_empleado;
+    $empleado = (object) $empleado->getUserbyId($id_empleado);    
+    //code 1=Ok, 2=Bad, 3=Warning
+    $response = array('message' => 'Mensaje', 'code' => 1);
+    //Verificar si es administrador el que solicita
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+        //Buscar todos los miembros con proximos pagos
+        $miembros = $miembro->getMiembrosProximosPagos();        
+        echo json_encode($miembros);
+        exit();
+    }else{
+        $response['code'] = 2;
+        $response['message'] = 'No tiene permisos de administrador';        
+    }
+    echo json_encode($response);
+    exit();
+}
+
 
 header('Location: /view/index.php');
 exit();

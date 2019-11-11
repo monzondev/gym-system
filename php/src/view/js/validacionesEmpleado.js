@@ -158,7 +158,7 @@ $(document).ready(function () {
             status2 = true;
         }
 
-         //VALIDACION NOMBRE2
+       /*  //VALIDACION NOMBRE2
          if (name2.value == "") {
             name2.focus();
             error10.innerHTML = requerido;
@@ -168,7 +168,7 @@ $(document).ready(function () {
         } else {
             error10.innerHTML = "";
             status10 = true;
-        }
+        }*/
 
 
 

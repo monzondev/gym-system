@@ -191,7 +191,7 @@ $(document).ready(function () {
             status3 = true;
         }
 
-        //VALIDACION NOMBRE2
+       /* //VALIDACION NOMBRE2
         if (name2.value == "") {
             name2.focus();
             error2.innerHTML = requerido;
@@ -201,7 +201,7 @@ $(document).ready(function () {
         } else {
             error2.innerHTML = "";
             status2 = true;
-        }
+        }*/
 
 
 

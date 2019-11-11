@@ -253,7 +253,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                             //selectedEmpleado se convierte en el objeto completo
                             selectedEmpleado = response;
                             //Cargamos el formulario modal con los datos del objeto
-                            cargarDatos(selectedEmpleado);
+                            cargarDatos(selectedEmpleado);                            
                         }                        
                     }
                 });
@@ -302,6 +302,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             $("#changePassDiv").removeClass('d-none');
             $("#password").val("");
             $("#password").prop("disabled", true);
+            setTimeout(function(){
+                $("#form_editar").valid();
+            }, 500);
         });
         $("#btn_password").click(function() {
             $("#passDiv").removeClass('d-none');

@@ -42,7 +42,6 @@ if (isset($_POST['agregarEmpleado'])) {
         "activo" => true,
         "fecha" => $_POST['fecha']
     ];
-
     if ($Empleado->agregarEmpleado($array)) {
         if (isset($_SESSION['AE'])) {
             $_SESSION['AE'] = '1';
@@ -74,7 +73,7 @@ if (isset($_GET['allEmpleados']) && $_GET['allEmpleados']) {
         echo json_encode($empleados);
     }else{
         $response = array('message' => 'No tiene permisos de administrador', 'code' => 2);
-        echo json_encode($response);        
+        echo json_encode($response);
     }
     exit();
 }

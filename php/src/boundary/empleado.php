@@ -9,7 +9,7 @@ class empleado extends conector_pg
 
     //consultas sql para la entidad empleado
     private $Querys  = array(
-        "create" => "INSERT INTO empleado(id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
+        "create" => "INSERT INTO empleado(id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
         "delete" => "DELETE FROM empleado WHERE id_empleado = $1",
         "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, primer_nombre=$2, segundo_nombre=$3, primer_apellido=$4,segundo_apellido=$5, usuario = $6, password = $7, correo = $8, genero = $9, telefono = $10, activo= $11, fecha_nacimiento= $12 WHERE id_empleado = $13",
         "disable"  => "UPDATE empleado SET  activo = false WHERE id_empleado = $1",
@@ -150,10 +150,11 @@ class empleado extends conector_pg
             $array['genero'] = ($array['genero']) ? 'true':'false';
         }
         $query = $this->Querys['create'];
-        $result = pg_query_params($this->conexion, $query, array($array['tipoempleado'],$array['primer_nombre'], $array['segundo_nombre'],
-                                                                $array['primer_apellido'], $array['segundo_apellido'],$array['usuario'],
-                                                                 $array['password'],$array['correo'], $array['genero'], $array['telefono'],
-                                                                  $array['activo'],$array['fecha']));
+        $result = pg_query_params($this->conexion, $query, array(
+            $array['tipoempleado'], $array['primer_nombre'], $array['segundo_nombre'],
+            $array['primer_apellido'], $array['segundo_apellido'], $array['usuario'],
+            $array['password'], $array['email'], $array['genero'], $array['telefono'],
+            $array['activo'], $array['fecha']));
         if ($result) {
             $resultado = true;
         } else {

@@ -27,6 +27,11 @@ $login->ValidateSession();
             border-bottom:none;
         }
     </style-->
+    <style>
+    .filas:hover {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -79,9 +84,33 @@ $login->ValidateSession();
         </div>
         <div class="col-md-1"></div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade"  data-backdrop="static" data-keyboard="false" id="modalPago" tabindex="-1"  aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModal">Registrar Pago</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    Contenido del pago
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Realizar pago</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
+
+
         <?php
             include_once '../boundary/estado.php';            
             include_once '../boundary/tipo_membresia.php';
@@ -147,7 +176,8 @@ $login->ValidateSession();
         function eventoSeleccionar(){
             $('.filas').click(function() {
                 var id_empleado = $(this).attr('id');
-                alert("Modal en Desarrollo con id_empleado="+id_empleado);
+                //alert("Modal en Desarrollo con id_empleado="+id_empleado);
+                $("#modalPago").modal('show');
                 //cargarModal(id_empleado);
             });        
         }

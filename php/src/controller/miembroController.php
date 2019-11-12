@@ -139,7 +139,7 @@ if (isset($_GET['proximosPagos']) && $_GET['proximosPagos']) {
     //code 1=Ok, 2=Bad, 3=Warning
     $response = array('message' => 'Mensaje', 'code' => 1);
     //Verificar si es administrador el que solicita
-    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+    if(isset($empleado) && ($empleado->id_tipo_empleado == 1 || $empleado->id_tipo_empleado == 2)){
         //Buscar todos los miembros con proximos pagos
         $miembros = $miembro->getMiembrosProximosPagos();        
         echo json_encode($miembros);

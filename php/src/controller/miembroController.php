@@ -113,7 +113,7 @@ if (isset($_GET['filtrar']) && $_GET['filtrar']) {
     //code 1=Ok, 2=Bad, 3=Warning
     $response = array('message' => 'Mensaje', 'code' => 1);
     //Verificar si es administrador el que solicita
-    if(isset($empleado) && $empleado->id_tipo_empleado == 1){
+    if(isset($empleado) && ($empleado->id_tipo_empleado == 1 || $empleado->id_tipo_empleado == 2)){
         //Verificar si esta vacio txt
         if($txt == ''){
             //Buscar todos si es vacio

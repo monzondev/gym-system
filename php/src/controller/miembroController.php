@@ -20,74 +20,74 @@ if (isset($_POST['userValidate'])) {
 
 if (isset($_POST['agregarMiembro'])) {
 
-
     $identificador = $miembro->generateCode($_POST['apellido1'], $_POST['apellido2'], date("Y"));
 
+    if ($_POST['genero'] == 1) {
+        $genero = 'true';
+    } elseif ($_POST['genero'] == 0) {
+        $genero = 'false';
+    }
 
-
-        if ($_POST['genero'] == 1) {
-            $genero = true;
-        } elseif ($_POST['genero'] == 0) {
-            $genero = false;
+    if (isset($_FILES["foto"])) {
+        if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
+                $nombre1 = "foto" . "_" . $_POST['usuario'].'.jpg';
+                $ruta1 = "../recursos/fotografias/" . $nombre1;
+                move_uploaded_file($_FILES['foto']['tmp_name'], $ruta1);
+                $imagen = $nombre1;
         }
+    }
 
-        if (isset($_FILES["foto"])) {
-            if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-                    $nombre1 = "foto" . "_" . $_POST['usuario'].'.jpg';
-                    $ruta1 = "../recursos/fotografias/" . $nombre1;
-                    move_uploaded_file($_FILES['foto']['tmp_name'], $ruta1);
-                    $imagen = $nombre1;
-            }
-        }
-        
-        $altura =0.00;
-        if (isset($_POST['altura']) && $_POST['altura'] != null  && $_POST['altura'] != "" ) {
-            $altura = $_POST['altura'];
-        }
+    $altura =0.00;
+    if (isset($_POST['altura']) && $_POST['altura'] != null  && $_POST['altura'] != "" ) {
+        $altura = $_POST['altura'];
+    }
 
-        $peso =0.00;
-        if (isset($_POST['peso']) && $_POST['peso'] != null  && $_POST['peso'] != "") {
-            $peso = $_POST['peso'];
-        }
-        $arrayMiembro = [
-            "id_estado" => 2,
-            "tipomembresia" => $_POST['tipomembresia'],
-            "primer_nombre" => $_POST['nombre1'],
-            "segundo_nombre" => $_POST['nombre2'],
-            "primer_apellido" => $_POST['apellido1'],
-            "segundo_apellido" => $_POST['apellido2'],
-            "usuario" => $_POST['usuario'],
-            "foto" =>  $imagen,
-            "identificador" => $identificador,
-            "correo" => $_POST['email'],
-            "genero" => $genero,
-            "telefono" => $_POST['telefono'],
-            "altura" => $altura,
-            "peso" => $peso,
-            "activo" => true,
-            "fecha" => $_POST['fecha']
-        ];
+    $peso =0.00;
+    if (isset($_POST['peso']) && $_POST['peso'] != null  && $_POST['peso'] != "") {
+        $peso = $_POST['peso'];
+    }
 
-              if ($miembro->agregarMiembro($arrayMiembro)) {
-                if (isset($_SESSION['AE'])) {
-                    $_SESSION['AM'] = '1';
-                    echo "<script language='javascript'>window.location='../view/miembros.php?'</script>;";
-                    exit();
-                } else {
-                    $_SESSION['AM'] = '1';
-                    echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
-                    exit();
-                }
-            } else {
-                if (isset($_SESSION['AE'])) {
-                    $_SESSION['AM'] = '2';
-                    echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
-                } else {
-                    $_SESSION['AM'] = '2';
-                    echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
-                    exit();
-                }
-            }
+    $arrayMiembro = [
+        "id_estado" => 2,
+        "id_tipo_membresia" => null,
+        "primer_nombre" => $_POST['nombre1'],
+        "segundo_nombre" => $_POST['nombre2'],
+        "primer_apellido" => $_POST['apellido1'],
+        "segundo_apellido" => $_POST['apellido2'],
+        "usuario" => $_POST['usuario'],
+        "foto" =>  $imagen,
+        "correo" => $_POST['email'],
+        "genero" => $genero,
+        "telefono" => $_POST['telefono'],
+        "altura" => $altura,
+        "peso" => $peso,
+        "activo" => true,
+        "fecha_nacimiento" => $_POST['fecha'],
+        "fecha_inicio" => date("Y-m-d"),
+        "inicio_membresia" => null,
+        "fin_membresia" => null
+    ];
+
+    if ($miembro->agregarMiembro($arrayMiembro)) {
+        if (isset($_SESSION['AE'])) {
+            $_SESSION['AM'] = '1';
+            echo "<script language='javascript'>window.location='../view/miembros.php?'</script>;";
+            exit();
+        } else {
+            $_SESSION['AM'] = '1';
+            echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
+            exit();
+        }
+    } else {
+        if (isset($_SESSION['AE'])) {
+            $_SESSION['AM'] = '2';
+            echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
+        } else {
+            $_SESSION['AM'] = '2';
+            echo "<script language='javascript'>window.location='../view/miembros.php'</script>;";
+            exit();
+        }
+    }
 }
 
 if (isset($_POST['getMiembro'])) {

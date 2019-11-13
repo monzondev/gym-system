@@ -174,7 +174,9 @@ class empleado extends conector_pg
             $empleado->id_tipo_empleado, $empleado->primer_nombre, $empleado->segundo_nombre,
             $empleado->primer_apellido, $empleado->segundo_apellido,$empleado->usuario,
             $empleado->password,$empleado->correo, $empleado->genero, $empleado->telefono,
-            $empleado->activo,$empleado->fecha_nacimiento, $empleado->id_empleado));
+            $empleado->activo,$empleado->fecha_nacimiento, $empleado->id_empleado
+        ));
+        
         if ($result) {
             $resultado = true;
         } else {

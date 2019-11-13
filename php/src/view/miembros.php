@@ -505,13 +505,13 @@ $login->ValidateSession();
     <script src="js/bootstrap-autocomplete.min.js"></script>
     <script>
         <?php
-            include_once '../boundary/estado.php';            
+            include_once '../boundary/estado.php';
             include_once '../boundary/tipo_membresia.php';
             $facadeEstado = new estado;
             $facadeTipoMembrecia = new tipo_membresia;
         ?>
         var estados = <?php echo json_encode($facadeEstado->findAll());?>;
-        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia());?>;       
+        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia());?>;
 
         function findEstado(idEstado){
             for (e of estados) {
@@ -537,7 +537,7 @@ $login->ValidateSession();
                     var list = searchList(txt);
                     var formatList = [];
                     $.each(list, function(key, value) {
-                        var text = value.primer_nombre + " " + value.segundo_nombre + " " + value.primer_apellido + " " + value.segundo_apellido + " - " + value.identificador;
+                        var text = value.primer_nombre + " " + value.segundo_nombre + " " + value.primer_apellido + " " + value.segundo_apellido + " - " + value.usuario;
                         var item = {
                             "value": value.id_miembro,
                             "text": text
@@ -622,7 +622,11 @@ $login->ValidateSession();
             td3.innerText = value.telefono;
             td4.setAttribute("style", "padding-top: 17px;");
             var tm = findTipoMebresia(value.id_tipo_membresia);
-            td4.innerText = tm.nombre;
+            if(typeof tm === 'undefined'){
+                td4.innerText = "Ninguna";
+            }else{
+                td4.innerText = tm.nombre;
+            }            
             td5.setAttribute("style", "padding-top: 17px;");
             td5.innerText = value.fecha_inicio;
             td6.setAttribute("style", "padding-top: 17px;");

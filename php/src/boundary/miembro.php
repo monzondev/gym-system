@@ -106,15 +106,16 @@ class miembro extends conector_pg
     /*********************************************************************/
     //Metodo que crea un nuevo miembro  al sistema
     public function agregarMiembro($array){
-        $fecha =date("Y-m-d");
-        if (is_bool($array['genero'])){
-            $array['genero'] = ($array['genero']) ? 'true':'false';
-        }
+        
         $query = $this->Querys['create'];
-        $result = pg_query_params($this->conexion, $query, array($array['id_estado'], $array['tipomembresia'],$array['primer_nombre'], $array['segundo_nombre'],
-                                                                $array['primer_apellido'], $array['segundo_apellido'], $array['usuario'],
-                                                                $array['identificador'], $array['foto'],$array['correo'], $array['genero'],
-                                                                $array['telefono'], $array['altura'], $array['peso'], $array['activo'],$array['fecha'],$fecha));
+        $result = pg_query_params($this->conexion, $query, array(
+            $array['id_estado'], $array['id_tipo_membresia'], $array['primer_nombre'],
+            $array['segundo_nombre'], $array['primer_apellido'], $array['segundo_apellido'],
+            $array['usuario'], $array['foto'], $array['correo'], $array['genero'],
+            $array['telefono'], $array['altura'], $array['peso'], $array['activo'],
+            $array['fecha_nacimiento'], $array['fecha_inicio'], $array['inicio_membresia'], $array['fin_membresia']
+        ));
+
         if ($result) {
             $resultado = true;
         } else {

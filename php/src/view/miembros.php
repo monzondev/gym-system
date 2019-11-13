@@ -288,14 +288,6 @@ $login->ValidateSession();
                                 <div id="perfil">
                                     <div class="row profile-tab">
                                         <div class=" col-md-4">
-                                            <label>Identificador:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="identificador"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
                                             <label>Fecha inicio:</label>
                                         </div>
                                         <div class="col-md-8">
@@ -428,7 +420,6 @@ $login->ValidateSession();
                     $("#telefono").html(selected.telefono);
                     edad = calcularEdad(selected.fecha_nacimiento)
                     $("#fecha").html(edad + " años");
-                    $("#identificador").html(selected.identificador);
                     if (selected.genero == "t") {
                         genero = "Masculino";
                     } else {

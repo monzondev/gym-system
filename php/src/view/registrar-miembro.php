@@ -174,29 +174,6 @@ $login->ValidateSession();
     <script src="js/toastr.js"></script>
     <script src="js/validacionesMiembro.js"></script>
     <script>
-       //CAMPOS A VALIDAR
-       var name1 = document.getElementById("nombre1");
-        var name2 = document.getElementById("nombre2");
-        var lastName1 = document.getElementById("apellido1");
-        var lastName2 = document.getElementById("apellido2");
-        var user = document.getElementById("usuario");
-        var email = document.getElementById("email");
-        var tel = document.getElementById("telefono");
-        var foto = document.getElementById("foto");
-        var generoM = document.getElementById("R1M");
-        var altura = document.getElementById("altura");
-        var peso = document.getElementById("peso");
-        var date = document.getElementById("fecha");
-        var type = document.getElementById("tipomembresia");
-
-        name1.value = "Rigoberto";
-        name2.value = "Alexander";
-        lastName1.value = "Monzón";
-        lastName2.value = "Mazariego";
-        user.value = "alex";
-        email.value = "alexandermm2011@gmail.com";
-        tel.value = "75523179";
-        date.value = "1997-09-16";
 
 
     </script>

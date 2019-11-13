@@ -17,14 +17,13 @@
 -- DROP TABLE IF EXISTS public.miembro CASCADE;
 CREATE TABLE public.miembro (
 	id_miembro serial NOT NULL,
-	id_estado integer,
-	id_tipo_membresia integer NOT NULL,
+	id_estado integer NOT NULL,
+	id_tipo_membresia integer,
 	primer_nombre character varying(64) NOT NULL,
-	segundo_nombre character varying(64) NOT NULL,
+	segundo_nombre character varying(64),
 	primer_apellido character varying(64) NOT NULL,
-	segundo_apellido character varying(64) NOT NULL,
+	segundo_apellido character varying(64),
 	usuario character varying(32) NOT NULL,
-	identificador character varying(10) NOT NULL,
 	foto character varying(256),
 	correo character varying(64),
 	genero boolean NOT NULL,
@@ -34,6 +33,8 @@ CREATE TABLE public.miembro (
 	activo boolean NOT NULL,
 	fecha_nacimiento date NOT NULL,
 	fecha_inicio date NOT NULL,
+	inicio_membresia date,
+	fin_membresia date,
 	CONSTRAINT miembro_pk PRIMARY KEY (id_miembro)
 
 );
@@ -67,6 +68,7 @@ CREATE TABLE public.tipo_membresia (
 	nombre character varying(32) NOT NULL,
 	precio numeric(5,2) NOT NULL,
 	activo boolean NOT NULL,
+	dias integer NOT NULL,
 	descripcion text,
 	CONSTRAINT tipo_membresia_pk PRIMARY KEY (id_tipo_membresia)
 
@@ -80,7 +82,7 @@ CREATE TABLE public.pago (
 	id_miembro integer NOT NULL,
 	id_empleado integer,
 	id_tipo_membresia integer,
-	date_time timestamp DEFAULT CURRENT_TIMESTAMP,
+	fecha date DEFAULT CURRENT_DATE,
 	monto numeric(5,2) NOT NULL,
 	CONSTRAINT pago_pk PRIMARY KEY (id_pago)
 
@@ -116,6 +118,13 @@ REFERENCES public.estado (id_estado) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+-- object: miembro_tipo_membresia_fk | type: CONSTRAINT --
+-- ALTER TABLE public.miembro DROP CONSTRAINT IF EXISTS miembro_tipo_membresia_fk CASCADE;
+ALTER TABLE public.miembro ADD CONSTRAINT miembro_tipo_membresia_fk FOREIGN KEY (id_tipo_membresia)
+REFERENCES public.tipo_membresia (id_tipo_membresia) MATCH FULL
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 -- object: empleado_tipo_empleado_fk | type: CONSTRAINT --
 -- ALTER TABLE public.empleado DROP CONSTRAINT IF EXISTS empleado_tipo_empleado_fk CASCADE;
 ALTER TABLE public.empleado ADD CONSTRAINT empleado_tipo_empleado_fk FOREIGN KEY (id_tipo_empleado)
@@ -127,13 +136,6 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ALTER TABLE public.pago DROP CONSTRAINT IF EXISTS pago_miembro_fk CASCADE;
 ALTER TABLE public.pago ADD CONSTRAINT pago_miembro_fk FOREIGN KEY (id_miembro)
 REFERENCES public.miembro (id_miembro) MATCH FULL
-ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ddl-end --
-
--- object: pago_tipo_membresia_fk | type: CONSTRAINT --
--- ALTER TABLE public.pago DROP CONSTRAINT IF EXISTS pago_tipo_membresia_fk CASCADE;
-ALTER TABLE public.pago ADD CONSTRAINT pago_tipo_membresia_fk FOREIGN KEY (id_tipo_membresia)
-REFERENCES public.tipo_membresia (id_tipo_membresia) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 

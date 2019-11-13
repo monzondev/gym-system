@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta1" last-position="3,0" last-zoom="1" max-obj-count="7"
+<dbmodel pgmodeler-ver="0.9.2-beta1" last-position="0,0" last-zoom="1" max-obj-count="7"
 	 default-owner="postgres">
 <database name="gym" is-template="false" allow-conns="true">
 </database>
@@ -11,35 +11,32 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="miembro" layer="0" collapse-mode="1" max-obj-count="21">
+<table name="miembro" layer="0" collapse-mode="1" max-obj-count="22">
 	<schema name="public"/>
-	<position x="40" y="100"/>
+	<position x="60" y="220"/>
 	<column name="id_miembro" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="id_estado">
+	<column name="id_estado" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="id_tipo_membresia" not-null="true">
+	<column name="id_tipo_membresia">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="primer_nombre" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
-	<column name="segundo_nombre" not-null="true">
+	<column name="segundo_nombre">
 		<type name="character varying" length="64"/>
 	</column>
 	<column name="primer_apellido" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
-	<column name="segundo_apellido" not-null="true">
+	<column name="segundo_apellido">
 		<type name="character varying" length="64"/>
 	</column>
 	<column name="usuario" not-null="true">
 		<type name="character varying" length="32"/>
-	</column>
-	<column name="identificador" not-null="true">
-		<type name="character varying" length="10"/>
 	</column>
 	<column name="foto">
 		<type name="character varying" length="256"/>
@@ -68,6 +65,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha_inicio" not-null="true">
 		<type name="date" length="0"/>
 	</column>
+	<column name="inicio_membresia">
+		<type name="date" length="0"/>
+	</column>
+	<column name="fin_membresia">
+		<type name="date" length="0"/>
+	</column>
 	<constraint name="miembro_pk" type="pk-constr" table="public.miembro">
 		<columns names="id_miembro" ref-type="src-columns"/>
 	</constraint>
@@ -75,7 +78,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="empleado" layer="0" collapse-mode="1" max-obj-count="15">
 	<schema name="public"/>
-	<position x="960" y="320"/>
+	<position x="980" y="280"/>
 	<column name="id_empleado" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -120,9 +123,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="tipo_membresia" layer="0" collapse-mode="1" max-obj-count="6">
+<table name="tipo_membresia" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="public"/>
-	<position x="40" y="500"/>
+	<position x="60" y="720"/>
 	<column name="id_tipo_membresia" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -135,6 +138,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
 	</column>
+	<column name="dias" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
 	<column name="descripcion">
 		<type name="text" length="0"/>
 	</column>
@@ -145,7 +151,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="pago" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="public"/>
-	<position x="540" y="360"/>
+	<position x="540" y="340"/>
 	<column name="id_pago" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -158,8 +164,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_tipo_membresia">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="date_time" default-value="CURRENT_TIMESTAMP">
-		<type name="timestamp" length="0"/>
+	<column name="fecha" default-value="CURRENT_DATE">
+		<type name="date" length="0"/>
 	</column>
 	<column name="monto" not-null="true">
 		<type name="numeric" length="5" precision="2"/>
@@ -171,7 +177,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="tipo_empleado" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="public"/>
-	<position x="1480" y="380"/>
+	<position x="980" y="40"/>
 	<column name="id_tipo_empleado" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -188,7 +194,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="estado" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="public"/>
-	<position x="520" y="120"/>
+	<position x="80" y="20"/>
 	<column name="id_estado" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -209,6 +215,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id_estado" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="miembro_tipo_membresia_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_membresia" table="public.miembro">
+	<columns names="id_tipo_membresia" ref-type="src-columns"/>
+	<columns names="id_tipo_membresia" ref-type="dst-columns"/>
+</constraint>
+
 <constraint name="empleado_tipo_empleado_fk" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_empleado" table="public.empleado">
 	<columns names="id_tipo_empleado" ref-type="src-columns"/>
@@ -221,12 +233,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id_miembro" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="pago_tipo_membresia_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_membresia" table="public.pago">
-	<columns names="id_tipo_membresia" ref-type="src-columns"/>
-	<columns names="id_tipo_membresia" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="pago_empleado_fk" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.empleado" table="public.pago">
 	<columns names="id_empleado" ref-type="src-columns"/>
@@ -236,16 +242,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_empleado_tipo_empleado" type="relfk" layer="0"
 	 src-table="public.empleado"
 	 dst-table="public.tipo_empleado" reference-fk="empleado_tipo_empleado_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="7.83918" y="-9.29137"/>
+	</label>
+</relationship>
 
 <relationship name="rel_pago_miembro" type="relfk" layer="0"
 	 src-table="public.pago"
 	 dst-table="public.miembro" reference-fk="pago_miembro_fk"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_pago_tipo_membresia" type="relfk" layer="0"
-	 src-table="public.pago"
-	 dst-table="public.tipo_membresia" reference-fk="pago_tipo_membresia_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_pago_empleado" type="relfk" layer="0"
@@ -256,6 +261,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_miembro_estado" type="relfk" layer="0"
 	 src-table="public.miembro"
 	 dst-table="public.estado" reference-fk="miembro_estado_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_miembro_tipo_membresia" type="relfk" layer="0"
+	 src-table="public.miembro"
+	 dst-table="public.tipo_membresia" reference-fk="miembro_tipo_membresia_fk"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

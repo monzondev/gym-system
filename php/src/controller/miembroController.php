@@ -137,12 +137,16 @@ if (isset($_GET['proximosPagos']) && $_GET['proximosPagos']) {
     $id_empleado = (json_decode($json))->id_empleado;
     $empleado = (object) $empleado->getUserbyId($id_empleado);    
     //code 1=Ok, 2=Bad, 3=Warning
-    $response = array('message' => 'Mensaje', 'code' => 1);
+    $response = array('message' => 'Mensaje', 'code' => 1);    
     //Verificar si es administrador el que solicita
     if(isset($empleado) && ($empleado->id_tipo_empleado == 1 || $empleado->id_tipo_empleado == 2)){
         //Buscar todos los miembros con proximos pagos
-        $miembros = $miembro->getMiembrosProximosPagos();        
-        echo json_encode($miembros);
+        $miembros = $miembro->getMiembrosProximosPagos();
+        if($miembros != null){
+            echo json_encode($miembros);
+        }else{
+            echo json_encode([]);
+        }
         exit();
     }else{
         $response['code'] = 2;

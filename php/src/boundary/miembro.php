@@ -14,6 +14,7 @@ class miembro extends conector_pg
         "findById" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro WHERE id_miembro= $1 ",
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
         "miembrosSinPagos" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE (SELECT count(p.monto) FROM pago as p WHERE p.id_miembro = m.id_miembro)=0",
+        "proximosPagar" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE m.fin_membresia IS NULL OR (EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp))) BETWEEN 0 AND 3",
         "findByUser" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE usuario = $1",
         "findByEstado" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo = true AND id_estado = $1 ORDER BY id_miembro ASC",
         "findAllActive" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo=true ORDER BY id_miembro ASC",
@@ -189,39 +190,14 @@ class miembro extends conector_pg
     //Metodo para obtener los miembros que tengan proximos pagos
     public function getMiembrosProximosPagos()
     {
-        $fecha = "".date("Y")."-".date("m")."-".date("d")."";
-        $query = $this->Querys['miembrosSinPagos'];
+        $query = $this->Querys['proximosPagar'];
         $result = pg_query($this->conexion, $query);
-        $result2 = pg_query($this->conexion, "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.identificador, m.foto, m.correo, m.genero, m.telefono,m.altura,m.peso, m.activo, m.fecha_nacimiento,m.fecha_inicio FROM miembro as m JOIN pago as p ON m.id_miembro=p.id_miembro WHERE m.id_tipo_membresia=3 AND ((timestamp '{$fecha}')- p.date_time)>=interval '5 days'");
-        $result3 = pg_query($this->conexion, "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.identificador, m.foto, m.correo, m.genero, m.telefono,m.altura,m.peso, m.activo, m.fecha_nacimiento,m.fecha_inicio FROM miembro as m JOIN pago as p ON m.id_miembro=p.id_miembro WHERE m.id_tipo_membresia=2 AND ((timestamp '{$fecha}')- p.date_time)>=interval '13 days'");
-        $result4 = pg_query($this->conexion, "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.identificador, m.foto, m.correo, m.genero, m.telefono,m.altura,m.peso, m.activo, m.fecha_nacimiento,m.fecha_inicio FROM miembro as m JOIN pago as p ON m.id_miembro=p.id_miembro WHERE m.id_tipo_membresia=1 AND ((timestamp '{$fecha}')- p.date_time)>=interval '28 days'");
-
-        //$miembros = array();
         if ($result) {
             $allRows = pg_fetch_all($result);
-            if (!empty($allRows)) {
-                if($result2){
-                    $allRows2 = pg_fetch_all($result2);
-                    if(!empty($allRows2)){
-                        $allRows = array_merge($allRows, $allRows2);
-                    }
-                }
-                if($result3){
-                    $allRows3 = pg_fetch_all($result3);
-                    if(!empty($allRows3)){
-                        $allRows = array_merge($allRows, $allRows3);
-                    }
-                }
-                if($result4){
-                    $allRows4 = pg_fetch_all($result4);
-                    if (!empty($allRows4)) {
-                        $allRows = array_merge($allRows, $allRows4);
-                    }
-                }
-            }
         } else {
             $allRows = null;
         }
+        //devuelve todos los miembros
         return $allRows;
     }
 

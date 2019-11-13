@@ -626,7 +626,7 @@ $login->ValidateSession();
                 td4.innerText = "Ninguna";
             }else{
                 td4.innerText = tm.nombre;
-            }            
+            }
             td5.setAttribute("style", "padding-top: 17px;");
             td5.innerText = value.fecha_inicio;
             td6.setAttribute("style", "padding-top: 17px;");

@@ -137,23 +137,23 @@ $login->ValidateSession();
                         </div>
                     </div>
                 </div>
-                <div class="form-row text-center tab-content">
+                <!-- <div class="form-row text-center tab-content">
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label class="control-label">Tipo de membresia:</label>
                             <select class="form-control" name="tipomembresia" id="tipomembresia" required>
                                 < <option value="0" disabled selected="selected">Seleccione un tipo...</option>
                                     <?php
-                                    foreach ($tipos as $valores) {
-                                        echo '<option value="' . $valores['id_tipo_membresia'] . '">' . $valores['nombre'] . '</option>';
-                                    }
+                                    //foreach ($tipos as $valores) {
+                                      //  echo '<option value="' . $valores['id_tipo_membresia'] . '">' . $valores['nombre'] . '</option>';
+                                    //}
                                     ?>
                             </select>
 
                             <p id="error13" class="text-danger error"> </p>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <input type="text" name="agregarMiembro" hidden>
 
                 <br>

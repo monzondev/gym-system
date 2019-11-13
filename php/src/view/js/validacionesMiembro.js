@@ -14,7 +14,7 @@ $(document).ready(function () {
         var status10 = false;
         var status11 = false;
         var status12 = false;
-        var status13 = false;
+        //var status13 = false;
 
 
         //MENSAJES PARA LAS VALIDACIONES
@@ -37,7 +37,7 @@ $(document).ready(function () {
         var altura = document.getElementById("altura");
         var peso = document.getElementById("peso");
         var date = document.getElementById("fecha");
-        var type = document.getElementById("tipomembresia");
+        //var type = document.getElementById("tipomembresia");
 
 
 
@@ -55,16 +55,16 @@ $(document).ready(function () {
         var error10 = document.getElementById("error10");
         var error11 = document.getElementById("error11");
         var error12 = document.getElementById("error12");
-        var error13 = document.getElementById("error13");
+       // var error13 = document.getElementById("error13");
 
         //VALIDACION TIPO DE MEMBRESIA
-        if (type.value == 0) {
+        /*if (type.value == 0) {
             type.focus();
             error13.innerHTML = requerido;
         } else {
             error13.innerHTML = "";
             status13 = true;
-        }
+        }*/
 
         //VALIDACION FECHA DE NACIMIENTO
         n = new Date();
@@ -219,7 +219,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status4 && status3  && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12 && status13) {
+        if (status1 && status4 && status3  && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12 ) {
 
             var username = $.trim($("#usuario").val());
 

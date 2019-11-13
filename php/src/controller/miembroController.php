@@ -20,7 +20,9 @@ if (isset($_POST['userValidate'])) {
 
 if (isset($_POST['agregarMiembro'])) {
 
-    $identificador = $miembro->generateCode($_POST['apellido1'], $_POST['apellido2'], date("Y"));
+
+
+
 
     if ($_POST['genero'] == 1) {
         $genero = 'true';

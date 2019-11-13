@@ -4,8 +4,8 @@ $(document).ready(function () {
 
         //ESTADOS PARA LAS VALIDACIONES
         var status1 = false;
-        var status2 = false;
         var status3 = false;
+        var status4 = false;
         var status5 = false;
         var status6 = false;
         var status7 = false;
@@ -219,7 +219,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12 && status13) {
+        if (status1 && status4 && status3  && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12 && status13) {
 
             var username = $.trim($("#usuario").val());
 

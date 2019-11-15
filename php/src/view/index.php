@@ -13,6 +13,7 @@ $login->ValidateSession();
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/toastr.css">
     <!--style>
         fieldset.scheduler-border {
             border: 1px groove #ddd !important;
@@ -38,49 +39,88 @@ $login->ValidateSession();
     <?php include_once("navbar.php"); ?>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10">            
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                    <h3>Miembros Proximos a Pagar:</h3>
-                    <input id="buscador" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                    <button id="btn_buscar" style="float: left;" class="btn btn-primary">Filtrar</button>
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-            <br><br>
-            <!--fieldset class="scheduler-border">
-                <legend class="scheduler-border">Start Time</legend>
-                <div class="control-group">
-                    <label class="control-label input-label" for="startTime">Start :</label>
-                    <div class="controls bootstrap-timepicker">
-                        <input type="text" class="datetime" id="startTime" name="startTime" placeholder="Start Time" />
-                        <i class="icon-time"></i>
+        <div class="col-md-10">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">Proximos a Pagar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Gestionar Pagos</a>
+            </li>        
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="proximos-a-pagar" role="tabpanel" aria-labelledby="tab-proximos-a-pagar">
+                <br>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">                        
+                        <h3>Miembros Proximos a Pagar:</h3>
+                        <input id="buscador_proximos_pagos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                        <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn-primary">Filtrar</button>
                     </div>
+                    <div class="col-md-1"></div>
                 </div>
-            </fieldset-->
-            <table id="tablaProximosPagos" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                    <th scope="col">Usuario</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Membres&iacute;a</th>
-                        <th scope="col">Inicio</th>
-                        <th scope="col">Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="table_body">
-                    <tr>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                    </tr>
-                </tbody>
-            </table>
+                <br>
+                <table id="tablaProximosPagos" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Usuario</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Membres&iacute;a</th>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_body_proximos_pagos">
+                        <tr>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="pagos-en-proceso" role="tabpanel" aria-labelledby="tab-pagos-en-proceso">                
+                <br>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">                        
+                        <h3>Miembros en Proceso de pago:</h3>
+                        <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                        <button id="btn_buscar_pagos_proceso" style="float: left;" class="btn btn-primary">Filtrar</button>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <br>
+                <table id="tablaPagosProceso" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Usuario</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Membres&iacute;a</th>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_body_pagos_proceso">
+                        <tr>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                            <td>No disponible</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            
         </div>
         <div class="col-md-1"></div>
     </div>
@@ -108,9 +148,8 @@ $login->ValidateSession();
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/toastr.js"></script>
     <script>
-
-
         <?php
             include_once '../boundary/estado.php';            
             include_once '../boundary/tipo_membresia.php';
@@ -146,13 +185,13 @@ $login->ValidateSession();
         $('#empleadosOptions').hover(function() {
             $('#empleados').trigger('click')
         })
-        $('#btn_buscar').click(function() {
+        $('#btn_buscar_proximos_pagos').click(function() {
             alert("En Desarrollo");
             //var txt = $('#buscador').val();
             //updateTable(txt, 0);
         })
 
-        function getList(txt) {
+        function getProximosPagar() {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             //var txt = $('#buscador').val();
             var list = [];
@@ -173,8 +212,29 @@ $login->ValidateSession();
             return list;
         }
 
+        function getPagosProceso() {
+            var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
+            //var txt = $('#buscador').val();
+            var list = [];
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "../controller/miembroController.php?pagosEnProceso=true",
+                data: JSON.stringify({"id_empleado": id_empleado}),
+                success: function(data) {
+                    var response = jQuery.parseJSON(data);
+                    if (typeof response.code !== 'undefined') {
+                        toastr.error(response.message);
+                    } else {
+                        list = response;
+                    }
+                }
+            });
+            return list;
+        }
+
         function eventoSeleccionar(){
-            $('.filas').click(function() {
+            $('#table_body_pagos_proceso .filas').click(function() {
                 var id_empleado = $(this).attr('id');
                 //alert("Modal en Desarrollo con id_empleado="+id_empleado);
                 $("#modalPago").modal('show');
@@ -182,11 +242,28 @@ $login->ValidateSession();
             });        
         }
         
-        function updateTable(txt){
-            var listTable = getList(txt);
+        function updateTableProximosPagos(){
+            var listTable = getProximosPagar();            
             if(listTable.length > 0){
                 //Vaciar la tabla
-                var tabla = $("#table_body");
+                var tabla = $("#table_body_proximos_pagos");
+                tabla.html("");
+                //Llenar la tabla                
+                $.each( listTable, function( key, value ) {                    
+                    var tr = createTableRowWith(value);
+                    tabla.append(tr);                    
+                });
+                //eventoSeleccionar();
+            }else if(listTable == false){
+                toastr.warning('No se han encontrado miembros proximos a pagar');
+            }
+        }
+
+        function updateTablePagosEnProceso(){
+            var listTable = getPagosProceso();
+            if(listTable.length > 0){
+                //Vaciar la tabla
+                var tabla = $("#table_body_pagos_proceso");
                 tabla.html("");
                 //Llenar la tabla
                 $.each( listTable, function( key, value ) {                    
@@ -194,8 +271,8 @@ $login->ValidateSession();
                     tabla.append(tr);                    
                 });
                 eventoSeleccionar();
-            }else if(listTable == false && txt.length > 0){
-                toastr.warning('No se han encontrado resultados');
+            }else if(listTable == false){
+                toastr.warning('No se han encontrado miembros con pagos pendiente');
             }
         }
 
@@ -245,7 +322,8 @@ $login->ValidateSession();
         }
         $(document).ready(function() {
             //Cuando cargue la pagina buscar todos
-            updateTable("");
+            updateTableProximosPagos();
+            updateTablePagosEnProceso();
         });
     </script>
 </body>

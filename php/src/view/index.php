@@ -162,30 +162,31 @@ $login->ValidateSession();
                         <p class="" id="descripcion"></p>
                         <p class="" id="monto"></p>
                         <p class="" id="duracion"></p>
+                        <p class="" id="nuevaCuota"></p>
                     </div>
 
                     <button type="button" style="display: none;" class="btn btn-info" id="editarMonto" onclick="editarMonto();">Editar Monto a pagar</button>
                     <div class="" style="display: none;" id="form-monto">
                         <hr>
                         <div class="row">
-                        <div class="col-md-6 mb-6 text-center">
+                            <div class="col-md-6 mb-6 text-center">
 
-                            <label>Ingresa el monto</label>
-                            <input id="nuevoMonto" name="nuevoMonto" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="5" placeholder="Precio a cobrar" required class="form-control">
-                            <p id="error1" class="text-danger error"> </p>
-                        </div>
-                        <div class=" col-md-6 mb-6 text-center">
-                            <br>
-                            <button type="button" class="btn btn-secondary"  onclick="cancelarEditarMonto();">Cancelar</button>
-                            <button type="button" class="btn btn-info" onclick="realizarPago();">Aceptar</button>
-                        </div>
+                                <label>Ingresa el monto</label>
+                                <input id="nuevoMonto" name="nuevoMonto" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="5" placeholder="Precio a cobrar" required class="form-control">
+                                <p id="error2" class="text-danger error"> </p>
+                            </div>
+                            <div class=" col-md-6 mb-6 text-center">
+                                <br>
+                                <button type="button" class="btn btn-secondary" onclick="cancelarEditarMonto();">Cancelar</button>
+                                <button type="button" class="btn btn-info" onclick="cambiarCuota();">Aceptar</button>
+                            </div>
                         </div>
                         <hr>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reiniciarModal();">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="realizarPago();">Realizar pago</button>
+                    <button type="button" class="btn btn-primary" id="botonPagar" onclick="realizarPago();">Realizar pago</button>
                 </div>
             </div>
         </div>
@@ -436,6 +437,8 @@ $login->ValidateSession();
             $("#editarMonto").css("display", "none");
             $("#form-monto").css("display", "none");
             $("#nuevoMonto").val('');
+            $('#botonPagar').attr("disabled", false);
+            error2.innerHTML = "";
 
         }
 
@@ -451,12 +454,35 @@ $login->ValidateSession();
             $("#editarMonto").css("display", "none")
             $("#form-monto").css("display", "block");
             $("#nuevoMonto").focus();
+            $('#botonPagar').attr("disabled", true);
         }
 
         function cancelarEditarMonto() {
             $("#editarMonto").css("display", "block")
             $("#form-monto").css("display", "none");
             $("#nuevoMonto").val('');
+            $('#botonPagar').attr("disabled", false);
+            error2.innerHTML = "";
+        }
+
+        function cambiarCuota() {
+            var necesario = "<img src='img/errorr.png'width='22' >     Proporcione el nuevo monto";
+
+            //VALIDACION NUEVO MONTO
+            if ($("#nuevoMonto").val() == "") {
+                $("#nuevoMonto").focus();
+                error2.innerHTML = necesario;
+            } else {
+                error2.innerHTML = "";
+                $("#nuevaCuota").html('<strong>Nuevo monton a cobrar: $<span id="cuota">' + $("#nuevoMonto").val() + '</span> </strong>')
+                $("#form-monto").css("display", "none");
+                $("#nuevoMonto").val('');
+                $('#botonPagar').attr("disabled", false);
+            }
+
+
+
+
         }
     </script>
 </body>

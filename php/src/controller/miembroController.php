@@ -103,8 +103,6 @@ if (isset($_POST['getMiembro'])) {
     } else {
         exit(json_encode(null));
     }
-
-   
 }
 
 if (isset($_GET['filtrar']) && $_GET['filtrar']) {

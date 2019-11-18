@@ -158,11 +158,11 @@ $login->ValidateSession();
                             </center>
                         </strong>
 
-                        <p class="" id="titulo"></p>
-                        <p class="" id="descripcion"></p>
-                        <p class="" id="monto"></p>
-                        <p class="" id="duracion"></p>
-                        <p class="" id="nuevaCuota"></p>
+                        <p id="titulo"></p>
+                        <p id="descripcion"></p>
+                        <p id="monto"></p>
+                        <p id="duracion"></p>
+                        <p style="display:none;" id="nuevaCuota"><strong>Nuevo monton a cobrar: $<span id="cuota"></span> </strong> </p>
                     </div>
 
                     <button type="button" style="display: none;" class="btn btn-info" id="editarMonto" onclick="editarMonto();">Editar Monto a pagar</button>
@@ -191,6 +191,10 @@ $login->ValidateSession();
             </div>
         </div>
     </div>
+
+
+
+
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
@@ -287,6 +291,7 @@ $login->ValidateSession();
                 var id_empleado = $(this).attr('id');
                 //alert("Modal en Desarrollo con id_empleado="+id_empleado);
                 $("#modalPago").modal('show');
+                $('#modalPago').attr('data-id', id_empleado);
                 //cargarModal(id_empleado);
             });
         }
@@ -391,7 +396,7 @@ $login->ValidateSession();
                         $("#texto").html('Detalles');
                         $("#titulo").html('<strong>Membresia:</strong> ' + selected.nombre);
                         $("#descripcion").html('<strong>Descripci&oacute;n:</strong> ' + selected.descripcion);
-                        $("#monto").html('<strong>Precio:</strong> $' + selected.precio);
+                        $("#monto").html('<strong>Precio:</strong> $<span id="precio">' + selected.precio + '</span>');
                         $("#duracion").html('<strong>Duracion:</strong> ' + selected.dias + ' d&iacute;as');
                         $("#editarMonto").css("display", "block");
 
@@ -420,7 +425,44 @@ $login->ValidateSession();
                 error1.innerHTML = requerido;
             } else {
                 error1.innerHTML = "";
-                alert('correcto')
+                var precioFinal;
+                var precioInicial = document.getElementById("precio").innerText;
+                var precioModificado = document.getElementById("cuota").innerText;
+                if (precioModificado != "") {
+                    precioFinal = precioModificado;
+                } else {
+                    precioFinal = precioInicial;
+                }
+
+                var f = new Date();
+                var dataString = {'miembro': $('#modalPago').attr('data-id'), 
+                        'membresia': $('#tipomembresia').val(),
+                        'monto': precioFinal,
+                        'fecha': (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate())}
+
+
+                $("#modalPago").modal('toggle');
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/pagoController.php?realizarPago=true",
+                    data: dataString,
+                    success: function(data) {
+                        var responses = jQuery.parseJSON(data);
+                        var tipo = responses.tipo
+                        switch (tipo) {
+                            case '1':
+                                toastr.success(responses.message);
+                                reiniciarModal()
+                                break;
+
+                            case '2':
+                                toastr.error(responses.message);
+                                reiniciarModal()
+                                break;
+                        }
+                    }
+                });
+
             }
 
         }
@@ -438,6 +480,7 @@ $login->ValidateSession();
             $("#form-monto").css("display", "none");
             $("#nuevoMonto").val('');
             $('#botonPagar').attr("disabled", false);
+            $("#nuevaCuota").css("display", "none");
             error2.innerHTML = "";
 
         }
@@ -455,13 +498,17 @@ $login->ValidateSession();
             $("#form-monto").css("display", "block");
             $("#nuevoMonto").focus();
             $('#botonPagar').attr("disabled", true);
+            $("#cuota").html('');
+            $("#nuevaCuota").css("display", "none");
         }
 
         function cancelarEditarMonto() {
-            $("#editarMonto").css("display", "block")
+            $("#editarMonto").css("display", "block");
             $("#form-monto").css("display", "none");
             $("#nuevoMonto").val('');
             $('#botonPagar').attr("disabled", false);
+            $("#cuota").html('');
+
             error2.innerHTML = "";
         }
 
@@ -474,10 +521,13 @@ $login->ValidateSession();
                 error2.innerHTML = necesario;
             } else {
                 error2.innerHTML = "";
-                $("#nuevaCuota").html('<strong>Nuevo monton a cobrar: $<span id="cuota">' + $("#nuevoMonto").val() + '</span> </strong>')
+                $("#nuevaCuota").css("display", "block");
+                $("#cuota").html($("#nuevoMonto").val())
                 $("#form-monto").css("display", "none");
                 $("#nuevoMonto").val('');
                 $('#botonPagar').attr("disabled", false);
+                $("#editarMonto").css("display", "block");
+
             }
 
 

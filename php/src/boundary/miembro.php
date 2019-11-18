@@ -19,7 +19,8 @@ class miembro extends conector_pg
         "findByUser" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE usuario = $1",
         "findByEstado" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo = true AND id_estado = $1 ORDER BY id_miembro ASC",
         "findAllActive" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo=true ORDER BY id_miembro ASC",
-        "findLikeNameOrID" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3"
+        "findLikeNameOrID" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3",
+        "changeStatus"  => "UPDATE miembro SET  id_estado = $1 WHERE id_miembro = $2"
     );
     public function __construct()
     {
@@ -108,7 +109,7 @@ class miembro extends conector_pg
         ));
         if ($result) {
             return true;
-        }        
+        }
         return false;
     }
 
@@ -171,6 +172,20 @@ class miembro extends conector_pg
         }
         //devuelve todos los miembros
         return $allRows;
+    }
+
+     /*********************************************************************/
+    //Metodo para cambiar el estado de un miembro 
+    public function CambiarEstadoMiembro($miembro,$estado){
+        $query = $this->Querys['changeStatus'];
+        $result = pg_query_params($this->conexion, $query, array($estado,$miembro));
+        if ($result) {
+            $resultado = true;
+        } else {
+            $resultado = false;
+        }
+        //devuelve resultado
+        return $resultado;
     }
 
 }

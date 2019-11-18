@@ -452,12 +452,14 @@ $login->ValidateSession();
                         switch (tipo) {
                             case '1':
                                 toastr.success(responses.message);
-                                reiniciarModal()
+                                reiniciarModal();
+                                updateTablePagosEnProceso();
                                 break;
 
                             case '2':
                                 toastr.error(responses.message);
-                                reiniciarModal()
+                                reiniciarModal();
+                                updateTablePagosEnProceso();
                                 break;
                         }
                     }

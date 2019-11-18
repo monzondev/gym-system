@@ -20,7 +20,8 @@ class miembro extends conector_pg
         "findByEstado" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo = true AND id_estado = $1 ORDER BY id_miembro ASC",
         "findAllActive" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo=true ORDER BY id_miembro ASC",
         "findLikeNameOrID" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro AS m  WHERE CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3",
-        "changeStatus"  => "UPDATE miembro SET  id_estado = $1 WHERE id_miembro = $2"
+        "changeStatus"  => "UPDATE miembro SET  id_estado = $1 WHERE id_miembro = $2",
+        "changeMembresia"  => "UPDATE miembro SET  id_tipo_membresia = $1, inicio_membresia =$2, fin_membresia=$3 WHERE id_miembro = $4"
     );
     public function __construct()
     {
@@ -30,25 +31,26 @@ class miembro extends conector_pg
 
 
 
-     //Metodo para validar que el usuario este o no este en la base de datos
-     public function validateUser($name)
-     {
-         $query = $this->Querys['findByUser'];
-         $result = pg_query_params($this->conexion, $query, array($name));
-         if (pg_num_rows($result)) {
-             $userFound = true;
-         } else {
-             $userFound = false;
-         }
-         //devuelve el estado de la busqueda
-         return $userFound;
-     }
+    //Metodo para validar que el usuario este o no este en la base de datos
+    public function validateUser($name)
+    {
+        $query = $this->Querys['findByUser'];
+        $result = pg_query_params($this->conexion, $query, array($name));
+        if (pg_num_rows($result)) {
+            $userFound = true;
+        } else {
+            $userFound = false;
+        }
+        //devuelve el estado de la busqueda
+        return $userFound;
+    }
 
 
     /*********************************************************************/
     //Metodo que crea un nuevo miembro  al sistema
-    public function agregarMiembro($array){
-        
+    public function agregarMiembro($array)
+    {
+
         $query = $this->Querys['create'];
         $result = pg_query_params($this->conexion, $query, array(
             $array['id_estado'], $array['id_tipo_membresia'], $array['primer_nombre'],
@@ -67,7 +69,7 @@ class miembro extends conector_pg
         return $resultado;
     }
 
-     /*********************************************************************/
+    /*********************************************************************/
     //Metodos que devuelve a todos los empleados activos
     public function getAllActiveMiembros()
     {
@@ -174,11 +176,12 @@ class miembro extends conector_pg
         return $allRows;
     }
 
-     /*********************************************************************/
+    /*********************************************************************/
     //Metodo para cambiar el estado de un miembro 
-    public function CambiarEstadoMiembro($miembro,$estado){
+    public function CambiarEstadoMiembro($miembro, $estado)
+    {
         $query = $this->Querys['changeStatus'];
-        $result = pg_query_params($this->conexion, $query, array($estado,$miembro));
+        $result = pg_query_params($this->conexion, $query, array($estado, $miembro));
         if ($result) {
             $resultado = true;
         } else {
@@ -188,4 +191,33 @@ class miembro extends conector_pg
         return $resultado;
     }
 
+
+    /*********************************************************************/
+    /*Metodo para cambiar la membresia de un miembro
+
+    / Este metodo puede ser utilizado inclusive para el caso
+    / en el que la membresia haya terminado, y se deba quitar la membresia,
+    / esto se puede hacer enviando los parametros vacios con excepcion de <id_miembro>
+    / y se quitará la membresia de un miembro, que seguidamente se debe hacer uso del
+    / metodo CambiarEstadoMiembro y cambiar el estado a inactivo.
+    */
+
+    public function CambiarMembresia($array)
+    {
+        $query = $this->Querys['changeMembresia'];
+        $result = pg_query_params($this->conexion, $query, array(
+            $array['id_tipo_membresia'],
+            $array['inicio_membresia'],
+            $array['fin_membresia'],
+            $array['id_miembro']
+
+        ));
+        if ($result) {
+            $resultado = true;
+        } else {
+            $resultado = false;
+        }
+        //devuelve resultado
+        return $resultado;
+    }
 }

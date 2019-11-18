@@ -447,6 +447,7 @@ $login->ValidateSession();
                     url: "../controller/pagoController.php?realizarPago=true",
                     data: dataString,
                     success: function(data) {
+                        console.log(data);
                         var responses = jQuery.parseJSON(data);
                         var tipo = responses.tipo
                         switch (tipo) {

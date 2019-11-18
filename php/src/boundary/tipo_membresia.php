@@ -12,7 +12,9 @@ class tipo_membresia extends conector_pg
         "update"  => "UPDATE tipo_membresia SET  nombre = $1, precio =$2, activo = $3, dias = $4 descripcion = $5 WHERE id_tipo_membresia = $5",
         "findAll" => "SELECT id_tipo_membresia, nombre, precio, activo, dias, descripcion FROM tipo_membresia",
         "findById" => "SELECT id_tipo_membresia, nombre, precio, activo, dias, descripcion FROM tipo_membresia  WHERE id_tipo_membresia= $1 ",
-        "count" => "SELECT COUNT(id_tipo_membresia) FROM tipo_membresia"
+        "count" => "SELECT COUNT(id_tipo_membresia) FROM tipo_membresia",
+        "getDaysByMembresia" => "SELECT dias FROM tipo_membresia WHERE id_tipo_membresia = $1"
+
     );
 
     public function __construct()
@@ -45,6 +47,19 @@ class tipo_membresia extends conector_pg
             $row = null;
         }
         //devuelve la membresia encontrada con ese id
+        return $row;
+    }
+
+    public function getDaysByMembresia($id)
+    {
+        $query = $this->Querys['getDaysByMembresia'];
+        $result = pg_query_params($this->conexion, $query, array($id));
+        if (pg_num_rows($result)) {
+            $row = pg_fetch_assoc($result);
+        } else {
+            $row = null;
+        }
+        //devuelve el numero de dias de la membresia
         return $row;
     }
 

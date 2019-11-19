@@ -4,6 +4,7 @@ include_once '../boundary/empleado.php';
 $empleado = new empleado();
 $tipoEmpleado =  new tipo_empleado();
 $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
+$EmpleadoLogueado = $empleado->getUserbyId($_SESSION['idEmpleado']);
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.php" style="padding-right: 120px;  "><img src="img/logotipo.png" width="70px" style="padding-right: 15px;" srcset="">Body Master Gym</a>
@@ -45,7 +46,9 @@ $tipo = $tipoEmpleado->getTipoEmpleado($_SESSION['tipoEmpleado']);
                     Cuenta
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item">Nombre</a>
+                    <a class="dropdown-item"><?php
+                    echo $EmpleadoLogueado['primer_nombre'].' '.$EmpleadoLogueado['primer_apellido'];
+                    ?></a>
                     <a class="dropdown-item" style="cursor: pointer;" id="logout" onclick="location.href='../controller/loginController.php?close=1';">Cerrar Sesi&oacute;n</a>
                 </div>
             </li>

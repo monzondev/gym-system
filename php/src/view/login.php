@@ -60,7 +60,7 @@ $login->ValidateSessionLogin();
 						<p id="error2" class="text-danger error"> </p>
 					</center>
 					<br>
-					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-dark btn-block" type="button" style="width: 50%">Iniciar</button></center>
+					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-dark btn-block" type="button" style="width: 50%">Ingresar</button></center>
 					<br>
 				</form>
 

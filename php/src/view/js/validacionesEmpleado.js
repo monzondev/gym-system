@@ -13,7 +13,8 @@ $(document).ready(function () {
         var status8 = false;
         var status9 = false;
 
-        var status10 = false;
+
+        
         var status11 = false;
 
         //MENSAJES PARA LAS VALIDACIONES
@@ -186,7 +187,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9 && status10 && status11) {
+        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9  && status11) {
 
             var username = $.trim($("#usuario").val());
 

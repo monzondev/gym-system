@@ -127,15 +127,12 @@ $login->ValidateSession();
         <div class="col-md-1"></div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal para realizar el pago -->
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalPago" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModal">Registrar Pago</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body ">
                     <div class="col-md-12 mb-12 ">
@@ -162,35 +159,35 @@ $login->ValidateSession();
                         <p id="descripcion"></p>
                         <p id="monto"></p>
                         <p id="duracion"></p>
-                        <p style="display:none;" id="nuevaCuota"><strong>Nuevo monton a cobrar: $<span id="cuota"></span> </strong> </p>
-                    </div>
 
-                    <button type="button" style="display: none;" class="btn btn-info" id="editarMonto" onclick="editarMonto();">Editar Monto a pagar</button>
-                    <div class="" style="display: none;" id="form-monto">
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6 mb-6 text-center">
-
-                                <label>Ingresa el monto</label>
-                                <input id="nuevoMonto" name="nuevoMonto" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="5" placeholder="Precio a cobrar" required class="form-control">
-                                <p id="error2" class="text-danger error"> </p>
-                            </div>
-                            <div class=" col-md-6 mb-6 text-center">
-                                <br>
-                                <button type="button" class="btn btn-secondary" onclick="cancelarEditarMonto();">Cancelar</button>
-                                <button type="button" class="btn btn-info" onclick="cambiarCuota();">Aceptar</button>
-                            </div>
-                        </div>
-                        <hr>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reiniciarModal();">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="botonPagar" onclick="realizarPago();">Realizar pago</button>
+                    <button type="button" class="btn btn-primary" id="botonPagar" onclick="confirmarPago();">Realizar pago</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal de confirmacion de pago -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="confirmacionP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="  background-color: #f2f4f4; height: 250px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmacion para realizar el pago</h5>
+                </div>
+                <div class="modal-body">
+                    <center> <p id="montoPagar"></p></center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelarPago();">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="realizarPago();">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -224,7 +221,7 @@ $login->ValidateSession();
             }
         }
 
-       
+
         $('#btn_buscar_proximos_pagos').click(function() {
             alert("En Desarrollo");
             //var txt = $('#buscador').val();
@@ -233,7 +230,6 @@ $login->ValidateSession();
 
         function getProximosPagar() {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
-            //var txt = $('#buscador').val();
             var list = [];
             $.ajax({
                 type: "POST",
@@ -256,7 +252,6 @@ $login->ValidateSession();
 
         function getPagosProceso() {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
-            //var txt = $('#buscador').val();
             var list = [];
             $.ajax({
                 type: "POST",
@@ -280,10 +275,8 @@ $login->ValidateSession();
         function eventoSeleccionar() {
             $('#table_body_pagos_proceso .filas').click(function() {
                 var id_empleado = $(this).attr('id');
-                //alert("Modal en Desarrollo con id_empleado="+id_empleado);
                 $("#modalPago").modal('show');
                 $('#modalPago').attr('data-id', id_empleado);
-                //cargarModal(id_empleado);
             });
         }
 
@@ -300,7 +293,7 @@ $login->ValidateSession();
                 });
                 //eventoSeleccionar();
             } else if (listTable == false) {
-                toastr.warning('No se han encontrado miembros proximos a pagar');
+                //toastr.warning('No se han encontrado miembros proximos a pagar');
             }
         }
 
@@ -317,7 +310,7 @@ $login->ValidateSession();
                 });
                 eventoSeleccionar();
             } else if (listTable == false) {
-                toastr.warning('No se han encontrado miembros con pagos pendiente');
+                //toastr.warning('No se han encontrado miembros con pagos pendiente');
             }
         }
 
@@ -394,7 +387,6 @@ $login->ValidateSession();
                         $("#descripcion").html('<strong>Descripci&oacute;n:</strong> ' + selected.descripcion);
                         $("#monto").html('<strong>Precio:</strong> $<span id="precio">' + selected.precio + '</span>');
                         $("#duracion").html('<strong>Duracion:</strong> ' + selected.dias + ' d&iacute;as');
-                        $("#editarMonto").css("display", "block");
 
                     } else {
                         $("#texto").html('No se encontr&oacute; la membresia');
@@ -402,8 +394,6 @@ $login->ValidateSession();
                         $("#descripcion").html('');
                         $("#monto").html('');
                         $("#duracion").html('');
-                        $("#editarMonto").css("display", "none");
-                        $("#form-monto").css("display", "none");
                     }
 
                 }
@@ -421,23 +411,18 @@ $login->ValidateSession();
                 error1.innerHTML = requerido;
             } else {
                 error1.innerHTML = "";
-                var precioFinal;
-                var precioInicial = document.getElementById("precio").innerText;
-                var precioModificado = document.getElementById("cuota").innerText;
-                if (precioModificado != "") {
-                    precioFinal = precioModificado;
-                } else {
-                    precioFinal = precioInicial;
+                var precio = document.getElementById("precio").innerText;
+                var f = new Date();
+                var dataString = {
+                    'miembro': $('#modalPago').attr('data-id'),
+                    'membresia': $('#tipomembresia').val(),
+                    'monto': precio,
+                    'fecha': (f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate())
                 }
 
-                var f = new Date();
-                var dataString = {'miembro': $('#modalPago').attr('data-id'), 
-                        'membresia': $('#tipomembresia').val(),
-                        'monto': precioFinal,
-                        'fecha': (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate())}
 
 
-                $("#modalPago").modal('toggle');
+                $("#confirmacionP").modal('toggle');
                 $.ajax({
                     type: "POST",
                     url: "../controller/pagoController.php?realizarPago=true",
@@ -475,12 +460,8 @@ $login->ValidateSession();
             $("#descripcion").html('');
             $("#monto").html('');
             $("#duracion").html('');
-            $("#editarMonto").css("display", "none");
-            $("#form-monto").css("display", "none");
-            $("#nuevoMonto").val('');
-            $('#botonPagar').attr("disabled", false);
-            $("#nuevaCuota").css("display", "none");
-            error2.innerHTML = "";
+            $("#montoPagar").html('');
+
 
         }
 
@@ -492,47 +473,32 @@ $login->ValidateSession();
             return /\d/.test(String.fromCharCode(keynum));
         }
 
-        function editarMonto() {
-            $("#editarMonto").css("display", "none")
-            $("#form-monto").css("display", "block");
-            $("#nuevoMonto").focus();
-            $('#botonPagar').attr("disabled", true);
-            $("#cuota").html('');
-            $("#nuevaCuota").css("display", "none");
-        }
+        function confirmarPago() {
+            var type = document.getElementById("tipomembresia");
+            var error1 = document.getElementById("error1");
+            var requerido = "<img src='img/errorr.png'width='22' >     Selecciona una membresia";
 
-        function cancelarEditarMonto() {
-            $("#editarMonto").css("display", "block");
-            $("#form-monto").css("display", "none");
-            $("#nuevoMonto").val('');
-            $('#botonPagar').attr("disabled", false);
-            $("#cuota").html('');
-
-            error2.innerHTML = "";
-        }
-
-        function cambiarCuota() {
-            var necesario = "<img src='img/errorr.png'width='22' >     Proporcione el nuevo monto";
-
-            //VALIDACION NUEVO MONTO
-            if ($("#nuevoMonto").val() == "") {
-                $("#nuevoMonto").focus();
-                error2.innerHTML = necesario;
+            //VALIDACION TIPO DE MEMBRESIA
+            if (type.value == 0) {
+                type.focus();
+                error1.innerHTML = requerido;
             } else {
-                error2.innerHTML = "";
-                $("#nuevaCuota").css("display", "block");
-                $("#cuota").html($("#nuevoMonto").val())
-                $("#form-monto").css("display", "none");
-                $("#nuevoMonto").val('');
-                $('#botonPagar').attr("disabled", false);
-                $("#editarMonto").css("display", "block");
-
+                var precio = document.getElementById("precio").innerText;
+                error1.innerHTML = "";
+                $('#modalPago').modal('toggle');
+                $("#confirmacionP").modal('show');
+                $("#montoPagar").html('<strong>Precio de la membres&iacute;a: </strong> $<span id="precioPagar">' + precio + '</span>');
             }
-
-
-
-
         }
+
+        function cancelarPago() {
+            $("#montoPagar").html('');
+            $("#confirmacionP").modal('toggle');
+            $('#modalPago').modal('show');
+        }
+
+
+
         /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')

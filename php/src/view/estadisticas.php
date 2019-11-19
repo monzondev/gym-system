@@ -29,6 +29,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
+        /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })
@@ -39,6 +40,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
         $('#empleadosOptions').hover(function() {
             $('#empleados').trigger('click')
         })
+        */
     </script>
 </body>
 </html>

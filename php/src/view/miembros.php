@@ -660,6 +660,7 @@ $login->ValidateSession();
     </script>
     
      <script>
+         /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })
@@ -670,6 +671,7 @@ $login->ValidateSession();
         $('#empleadosOptions').hover(function() {
             $('#empleados').trigger('click')
         })
+        */
     </script>
 </body>
 

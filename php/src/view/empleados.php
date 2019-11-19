@@ -509,6 +509,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         }
     </script>
      <script>
+        /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })
@@ -518,7 +519,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         })
         $('#empleadosOptions').hover(function() {
             $('#empleados').trigger('click')
+           
         })
+         */
     </script>
 </body>
 

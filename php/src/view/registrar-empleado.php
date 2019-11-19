@@ -212,6 +212,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
     }
     </script>
      <script>
+         /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })
@@ -222,6 +223,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
         $('#empleadosOptions').hover(function() {
             $('#empleados').trigger('click')
         })
+        */
     </script>
 </body>
 

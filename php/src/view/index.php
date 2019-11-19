@@ -224,16 +224,7 @@ $login->ValidateSession();
             }
         }
 
-        $('#miembrosOptions').hover(function() {
-            $('#navbarDropdownMiembros').trigger('click')
-        })
-
-        $('#cuentaOptions').hover(function() {
-            $('#navbarDropdownCuenta').trigger('click')
-        })
-        $('#empleadosOptions').hover(function() {
-            $('#empleados').trigger('click')
-        })
+       
         $('#btn_buscar_proximos_pagos').click(function() {
             alert("En Desarrollo");
             //var txt = $('#buscador').val();
@@ -537,6 +528,18 @@ $login->ValidateSession();
 
 
         }
+        /*
+        $('#miembrosOptions').hover(function() {
+            $('#navbarDropdownMiembros').trigger('click')
+        })
+
+        $('#cuentaOptions').hover(function() {
+            $('#navbarDropdownCuenta').trigger('click')
+        })
+        $('#empleadosOptions').hover(function() {
+            $('#empleados').trigger('click')
+        })
+        */
     </script>
 </body>
 

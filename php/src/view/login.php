@@ -15,13 +15,19 @@ $login->ValidateSessionLogin();
 	<link href="css/toastr.css" rel="stylesheet" />
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<style>
-        .error {
-            font-size: 15px;
-        }
-		body {
-			background-image: url("img/background.png");			
+		.error {
+			font-size: 15px;
 		}
-    </style>
+
+		body {
+			background: url(img/fondoGym.jpg) no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			
+		}
+	</style>
 </head>
 
 <body>
@@ -30,8 +36,9 @@ $login->ValidateSessionLogin();
 		<div class="row">
 			<div class="col-md-4" style="height: 100vh"></div>
 			<div class="col-md-4" style="height: 100vh">
-				<form id="form" style="margin-top: 20vh; background-color: rgba(255, 255, 255, 0.9); border-radius: 6px;">
+				<form id="form" style="margin-top: 20vh; background-color: rgba(0, 0, 0, 0.05); border-radius: 4px;">
 					<br>
+					
 					<center>
 						<h2 class="form-signin-heading">Body Master Gym</h2>
 					</center>
@@ -42,17 +49,18 @@ $login->ValidateSessionLogin();
 					<br>
 					<label for="inputEmail" class="sr-only">Usuario</label>
 					<center>
-					<input class="form-control" placeholder="Usuario" autocomplete="off" style="width: 90%" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
+						<input class="form-control" placeholder="Usuario" autocomplete="off" style="width: 90%" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
+						<p id="error1" class="text-danger error"> </p>
 					</center>
-					<p id="error1" class="text-danger error"> </p>
+					
 					<br>
 					<label for="inputPassword" class="sr-only">Contraseña</label>
 					<center>
-					<input class="form-control" placeholder="Contraseña" maxlength="15" style="width: 90%" autocomplete="off" name="clave"  id="clave" type="password" value="">
+						<input class="form-control" placeholder="Contraseña" maxlength="15" style="width: 90%" autocomplete="off" name="clave" id="clave" type="password" value="">
+						<p id="error2" class="text-danger error"> </p>
 					</center>
-					<p id="error2" class="text-danger error"> </p>
 					<br>
-					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-primary btn-block" type="button" style="width: 50%">Iniciar</button></center>
+					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-dark btn-block" type="button" style="width: 50%">Iniciar</button></center>
 					<br>
 				</form>
 
@@ -156,8 +164,8 @@ $login->ValidateSessionLogin();
 								toastr.error('Usuario incorrecto');
 								user.focus();
 
+							}
 						}
-					}
 					});
 				}
 

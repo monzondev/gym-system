@@ -293,7 +293,7 @@ $login->ValidateSession();
                 });
                 //eventoSeleccionar();
             } else if (listTable == false) {
-                toastr.warning('No se han encontrado miembros proximos a pagar');
+                //toastr.warning('No se han encontrado miembros proximos a pagar');
             }
         }
 
@@ -310,7 +310,7 @@ $login->ValidateSession();
                 });
                 eventoSeleccionar();
             } else if (listTable == false) {
-                toastr.warning('No se han encontrado miembros con pagos pendiente');
+                //toastr.warning('No se han encontrado miembros con pagos pendiente');
             }
         }
 

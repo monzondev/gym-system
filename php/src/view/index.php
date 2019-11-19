@@ -67,12 +67,12 @@ $login->ValidateSession();
                     <table id="tablaProximosPagos" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
+                                <th scope="col">Foto</th>
                                 <th scope="col">Usuario</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Telefono</th>
+                                <th scope="col">Nombres</th>
                                 <th scope="col">Membres&iacute;a</th>
-                                <th scope="col">Inicio</th>
                                 <th scope="col">Estado</th>
+                                <th scope="col">Fecha de Pago</th>
                             </tr>
                         </thead>
                         <tbody id="table_body_proximos_pagos">
@@ -102,12 +102,12 @@ $login->ValidateSession();
                     <table id="tablaPagosProceso" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
+                                <th scope="col">Foto</th>
                                 <th scope="col">Usuario</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Telefono</th>
+                                <th scope="col">Nombres</th>
                                 <th scope="col">Membres&iacute;a</th>
-                                <th scope="col">Inicio</th>
                                 <th scope="col">Estado</th>
+                                <th scope="col">Fecha Pago</th>
                             </tr>
                         </thead>
                         <tbody id="table_body_pagos_proceso">
@@ -341,21 +341,26 @@ $login->ValidateSession();
             img.setAttribute("title", value.usuario);
             td1.append(img);
             td2.setAttribute("style", "padding-top: 17px;");
-            td2.innerText = value.primer_nombre + " " + value.segundo_nombre;
+            td2.innerText = value.usuario;
             td3.setAttribute("style", "padding-top: 17px;");
-            td3.innerText = value.telefono;
+            td3.innerText = value.primer_nombre + " " + value.segundo_nombre;
             td4.setAttribute("style", "padding-top: 17px;");
             var tm = findTipoMebresia(value.id_tipo_membresia);
             if (typeof tm === 'undefined') {
                 td4.innerText = "Ninguna";
             } else {
                 td4.innerText = tm.nombre;
-            }
+            }            
             td5.setAttribute("style", "padding-top: 17px;");
-            td5.innerText = value.fecha_inicio;
-            td6.setAttribute("style", "padding-top: 17px;");
             var estado = findEstado(value.id_estado);
-            td6.innerText = estado.nombre;
+            td5.innerText = estado.nombre;
+            td6.setAttribute("style", "padding-top: 17px;");
+            if(typeof value.fin_membresia === 'undefined'){
+                td6.innerText = "No definida";
+            }else{
+                td6.innerText = value.fin_membresia;
+            }
+            
             tr.append(td1, td2, td3, td4, td5, td6);
             return tr;
         }

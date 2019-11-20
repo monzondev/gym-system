@@ -17,3 +17,7 @@ RUN wget -O /opt/phpunit https://phar.phpunit.de/phpunit-8.phar
 RUN chown 1000:1000 /opt/phpunit
 RUN chmod +x /opt/phpunit
 RUN echo "alias phpunit='/opt/phpunit'" >> /root/.bashrc
+
+# Cron se ejecutara cada minuto para actualizar los miembros
+RUN apt-get install -y cron
+RUN echo "* * * * * /usr/local/bin/php /var/www/html/utils/cron/updateMiembros.php >> /var/www/html/utils/cron/cron_logs" | crontab -

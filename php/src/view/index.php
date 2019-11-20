@@ -250,6 +250,33 @@ $login->ValidateSession();
             updateTableProximosPagos(item.text);
         });
 
+        $('#btn_buscar_pagos_proceso').click(function() {
+            var txt = $('#buscador_pagos_proceso').val();
+            updateTablePagosEnProceso(txt);
+        });
+        $('#buscador_pagos_proceso').autoComplete({
+            minLength: 1,
+            events: {
+                searchPost: function(resultFromServer) {
+                    var txt = $('#buscador_pagos_proceso').val();
+                    var list = getPagosProceso(txt);
+                    var formatList = [];
+                    $.each(list, function(key, value) {
+                        var text = value.primer_nombre + " " + value.segundo_nombre + " " + value.primer_apellido + " " + value.segundo_apellido + " - " + value.usuario;
+                        var item = {
+                            "value": value.id_miembro,
+                            "text": text
+                        };
+                        formatList.push(item);
+                    });
+                    return formatList;
+                }
+            }
+        });
+        $('#buscador_pagos_proceso').on('autocomplete.select', function(evt, item) {
+            updateTablePagosEnProceso(item.text);
+        });
+
         function getProximosPagar(txt) {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             var list = [];
@@ -272,7 +299,7 @@ $login->ValidateSession();
             return list;
         }
 
-        function getPagosProceso() {
+        function getPagosProceso(txt) {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             var list = [];
             $.ajax({
@@ -280,7 +307,7 @@ $login->ValidateSession();
                 async: false,
                 url: "../controller/miembroController.php?pagosEnProceso=true",
                 data: JSON.stringify({
-                    "id_empleado": id_empleado
+                    "id_empleado": id_empleado, "txt": txt
                 }),
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
@@ -319,8 +346,8 @@ $login->ValidateSession();
             }
         }
 
-        function updateTablePagosEnProceso() {
-            var listTable = getPagosProceso();
+        function updateTablePagosEnProceso(txt) {
+            var listTable = getPagosProceso(txt);
             if (listTable.length > 0) {
                 //Vaciar la tabla
                 var tabla = $("#table_body_pagos_proceso");
@@ -389,7 +416,7 @@ $login->ValidateSession();
         $(document).ready(function() {
             //Cuando cargue la pagina buscar todos
             updateTableProximosPagos("");
-            updateTablePagosEnProceso();
+            updateTablePagosEnProceso("");
         });
 
         $('select#tipomembresia').on('change', function() {
@@ -457,13 +484,13 @@ $login->ValidateSession();
                             case '1':
                                 toastr.success(responses.message);
                                 reiniciarModal();
-                                updateTablePagosEnProceso();
+                                updateTablePagosEnProceso("");
                                 break;
 
                             case '2':
                                 toastr.error(responses.message);
                                 reiniciarModal();
-                                updateTablePagosEnProceso();
+                                updateTablePagosEnProceso("");
                                 break;
                         }
                     }

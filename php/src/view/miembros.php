@@ -608,7 +608,7 @@ $login->ValidateSession();
             img.setAttribute("title", value.usuario);
             td1.append(img);
             td2.setAttribute("style", "padding-top: 17px;");
-            td2.innerText = value.primer_nombre + " " + value.segundo_nombre;
+            td2.innerText = value.primer_nombre + " " + value.primer_apellido;
             td3.setAttribute("style", "padding-top: 17px;");
             td3.innerText = value.telefono;
             td4.setAttribute("style", "padding-top: 17px;");

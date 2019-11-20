@@ -28,12 +28,17 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             <br>
             <button id="btn_editar" type="button" data-target="#editarModal" data-toggle="modal" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
             <button id="btn_eliminarModal" type="button" data-target="#eliminarModal" data-toggle="modal" class="btn btn-danger float-right mr-2" title="Seleccione un Empleado" disabled="true">Eliminar Empleado</button>
-            <table class="table table-hover table-bordered">
-                <thead>
+            <table class="table text-center table-striped table-hover">
+                <thead class="thead-dark text-center">
+                    <tr>
+                        <th colspan="5"><h5>Empleados registrados en el sistema</h5></th>
+                    </tr>
                     <tr>
                         <th scope="col">Usuario</th>
                         <th scope="col">Nombres</th>
                         <th scope="col">Apellidos</th>
+                        <th scope="col">Coreo</th>
+                        <th scope="col">Tel&eacute;fono</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
@@ -41,14 +46,16 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <td>No disponibles</td>
                         <td>No disponibles</td>
                         <td>No disponibles</td>
-                    </tr>                    
+                        <td>No disponibles</td>
+                        <td>No disponibles</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-1"></div>
     </div>
 
-    <!-- Modal -->    
+    <!-- Modal -->
     <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -63,7 +70,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">ID:</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." onDrag="return false" onDrop="return false" onPaste="return false" readonly="readonly" required/>
+                                <input type="number" class="form-control" id="id_empleado" name="id_empleado" placeholder="ID..." onDrag="return false" onDrop="return false" onPaste="return false" readonly="readonly" required />
                                 <div class="invalid-feedback">
                                     ID no valido
                                 </div>
@@ -92,37 +99,37 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="usuario" class="col-sm-4 col-form-label">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return username(event);" required/>                                
+                                <input type="text" class="form-control" id="usuario" name="usuario" maxlength="32" placeholder="Usuario..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return username(event);" required />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Primer Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
+                                <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" maxlength="32" placeholder="Primer Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nombres" class="col-sm-4 col-form-label">Segundo Nombre:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
+                                <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" maxlength="64" placeholder="Segundo Nombre..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Primer Apellido:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
+                                <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" maxlength="32" placeholder="Primer Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="apellidos" class="col-sm-4 col-form-label">Apellidos:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required/>
+                                <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" maxlength="32" placeholder="Segundo Apellido..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return notNumbers(event);" required />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="correo" class="col-sm-4 col-form-label">Correo:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." onDrag="return false" onDrop="return false" onPaste="return false" required/>
+                                <input type="email" class="form-control" id="correo" name="correo" maxlength="64" placeholder="Correo..." onDrag="return false" onDrop="return false" onPaste="return false" required />
                             </div>
                         </div>
                         <div id="changePassDiv" class="form-group row">
@@ -153,13 +160,13 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <div class="form-group row">
                             <label for="telefono" class="col-sm-4 col-form-label">Telefono:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" required/>
+                                <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" placeholder="Telefono..." onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" required />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fecha_nacimiento" class="col-sm-4 col-form-label">Fecha Nacimiendo:</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="date" value="" id="fecha_nacimiento" name="fecha_nacimiento" />                                
+                                <input class="form-control" type="date" value="" id="fecha_nacimiento" name="fecha_nacimiento" />
                             </div>
                         </div>
                     </form>
@@ -178,22 +185,23 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Eliminar Empleado</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <div id="eliminarInfo" class="modal-body">
-                Mensaje
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btn_cancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btn_eliminar" class="btn btn-primary">Eliminar</button>
+                <div id="eliminarInfo" class="modal-body">
+                    Mensaje
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_cancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btn_eliminar" class="btn btn-primary">Eliminar</button>
+                </div>
             </div>
         </div>
     </div>
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/jquery.validate.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/toastr.js"></script>    
+    <script src="js/toastr.js"></script>
     <script>
         var selectedEmpleado = null;
         /*
@@ -206,7 +214,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         -PARA CORREGIR ESTO SE DEBE CREAR UNA KEY POR USUARIO QUE PERMITA ESTOS ACCESOS.
         -OTRA FORMA SERIA SOLICITAR Y ENVIAR LA CONTRASEÑA PARA COMPROBAR DESDE EL CONTROLLER.
         */
-        var id_empleado = <?php echo $_SESSION['idEmpleado'];?>;
+        var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
 
         //Funcion para cargar la tabla
         function updateTable() {
@@ -214,17 +222,26 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             $.ajax({
                 type: "POST",
                 url: "../controller/empleadoController.php?allEmpleados=true",
-                data: JSON.stringify({"id_empleado":id_empleado}),
-                success:function (data) {
+                data: JSON.stringify({
+                    "id_empleado": id_empleado
+                }),
+                success: function(data) {
                     var response = jQuery.parseJSON(data);
-                    if(typeof response.code !== 'undefined'){
+                    if (typeof response.code !== 'undefined') {
                         toastr.error(response.message);
-                    }else{
+                    } else {
                         //Vaciar la tabla
-                        $("#table_body" ).html("");
+                        $("#table_body").html("");
                         //Lenar la tabla
                         jQuery.each(response, function(i, val) {
-                            var tr = "<tr id='"+val.usuario+"' data-id_empleado='"+val.id_empleado+"'><td>"+val.usuario+"</td><td>"+val.primer_nombre+"</td><td>"+val.primer_apellido+"</td></tr>";
+                            var tr =
+                                "<tr id='" + val.usuario + "' data-id_empleado='" + val.id_empleado + "'>" +
+                                "<td>" + val.usuario + "</td>" +
+                                "<td>" + val.primer_nombre + ' ' + val.segundo_nombre + "</td>" +
+                                "<td>" + val.primer_apellido + ' ' + val.segundo_apellido + "</td>" +
+                                "<td>" + val.correo + "</td>" +
+                                "<td>" + val.telefono + "</td>" +
+                                "</tr>";
                             $("#table_body").append(tr);
                         });
                         //Agregar Evento de click por cada item de la tabla
@@ -234,7 +251,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             });
         }
         //Funcion para evento de click a una fila
-        function eventoSeleccionar(){
+        function eventoSeleccionar() {
             //Evento del click de un tr obteniendo su id_empleado del atributo data-id_empleado
             $("#table_body tr").click(function() {
                 //Agregar color hover del mouse a la tabla
@@ -244,25 +261,28 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $.ajax({
                     type: "POST",
                     url: "../controller/empleadoController.php?findEmpleado=true",
-                    data: JSON.stringify({"id_empleado":id_empleado, "find_id_empleado":selectedEmpleado}),
-                    success:function (data) {
+                    data: JSON.stringify({
+                        "id_empleado": id_empleado,
+                        "find_id_empleado": selectedEmpleado
+                    }),
+                    success: function(data) {
                         var response = jQuery.parseJSON(data);
-                        if(typeof response.code !== 'undefined'){
+                        if (typeof response.code !== 'undefined') {
                             toastr.error(response.message);
-                        }else{
+                        } else {
                             //selectedEmpleado se convierte en el objeto completo
                             selectedEmpleado = response;
                             //Cargamos el formulario modal con los datos del objeto
-                            cargarDatos(selectedEmpleado);                            
-                        }                        
+                            cargarDatos(selectedEmpleado);
+                        }
                     }
                 });
-                
-                
+
+
             });
         }
 
-        function cargarDatos(selectedEmpleado){
+        function cargarDatos(selectedEmpleado) {
             $("#btn_editar").prop('disabled', false);
             $("#btn_eliminarModal").prop('disabled', false);
             if (selectedEmpleado !== null) {
@@ -275,34 +295,34 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $("#segundo_apellido").val(selectedEmpleado.segundo_apellido);
                 $("#correo").val(selectedEmpleado.correo);
                 $("#password").val("");
-                $("#genero").prop('checked', selectedEmpleado.genero=='t');
-                $("#genero2").prop('checked', selectedEmpleado.genero=='f');
+                $("#genero").prop('checked', selectedEmpleado.genero == 't');
+                $("#genero2").prop('checked', selectedEmpleado.genero == 'f');
                 $("#telefono").val(selectedEmpleado.telefono);
                 $("#fecha_nacimiento").val(selectedEmpleado.fecha_nacimiento);
-            }else{
+            } else {
                 alert("Usuario Invalido");
             }
         }
 
-        function restablecerSeleccion(){
+        function restablecerSeleccion() {
             $("#editarModal").modal('hide');
             $("#eliminarModal").modal('hide');
             $("#btn_editar").prop('disabled', true);
-            $("#btn_eliminarModal").prop('disabled', true);            
+            $("#btn_eliminarModal").prop('disabled', true);
         }
 
         //Al Carga el documento cargar la tabla
         $(document).ready(function() {
             //Cargar Tabla
             updateTable();
-        });        
-        
+        });
+
         $("#btn_editar").click(function() {
             $("#passDiv").addClass('d-none');
             $("#changePassDiv").removeClass('d-none');
             $("#password").val("");
             $("#password").prop("disabled", true);
-            setTimeout(function(){
+            setTimeout(function() {
                 $("#form_editar").valid();
             }, 500);
         });
@@ -316,12 +336,12 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 //Validar campos y Enviar Usuario
                 var formIsValid = $("#form_editar").valid();
                 var password = $("#password");
-                if(!password.prop("disabled") && password.val().length == 0){
+                if (!password.prop("disabled") && password.val().length == 0) {
                     toastr.warning("Favor ingrese contraseña nueva");
                     formIsValid = false;
                 }
 
-                if(formIsValid){
+                if (formIsValid) {
                     selectedEmpleado.id_tipo_empleado = $("#id_tipo_empleado").val();
                     selectedEmpleado.usuario = $("#usuario").val();
                     selectedEmpleado.primer_nombre = $("#primer_nombre").val();
@@ -333,33 +353,33 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     selectedEmpleado.password = $("#password").val();
                     selectedEmpleado.genero = $('#genero').prop('checked');
                     selectedEmpleado.telefono = $("#telefono").val();
-                    selectedEmpleado.fecha_nacimiento =$("#fecha_nacimiento").val();
+                    selectedEmpleado.fecha_nacimiento = $("#fecha_nacimiento").val();
                     $.ajax({
                         type: "POST",
                         url: "../controller/empleadoController.php?editEmpleado=true",
                         data: JSON.stringify(selectedEmpleado),
-                        success:function (data) {
+                        success: function(data) {
                             var response = jQuery.parseJSON(data);
-                            if(response.code == 1){
+                            if (response.code == 1) {
                                 toastr.success(response.message);
                                 updateTable();
                                 restablecerSeleccion();
-                            }else if(response.code == 2){
+                            } else if (response.code == 2) {
                                 toastr.error(response.message);
                             }
                         }
                     });
-                }else{
+                } else {
                     toastr.warning("Favor complete todos los campos");
-                }                
+                }
             } else {
                 alert("No se ha seleccionado un empleado");
             }
         });
         $("#btn_eliminarModal").click(function() {
             if (selectedEmpleado !== null) {
-                var name = selectedEmpleado.primer_nombre+" "+selectedEmpleado.segundo_nombre;
-                $("#eliminarInfo").text("Desea eliminar a "+ name + " de la base de datos?");
+                var name = selectedEmpleado.primer_nombre + " " + selectedEmpleado.segundo_nombre;
+                $("#eliminarInfo").text("Desea eliminar a " + name + " de la base de datos?");
             } else {
                 alert("No se ha seleccionado un empleado");
             }
@@ -370,14 +390,17 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 $.ajax({
                     type: "POST",
                     url: "../controller/empleadoController.php?disableEmpleado=true",
-                    data: JSON.stringify({"id_empleado":id_empleado, "disable_id_empleado":selectedEmpleado.id_empleado}),
-                    success:function (data) {
+                    data: JSON.stringify({
+                        "id_empleado": id_empleado,
+                        "disable_id_empleado": selectedEmpleado.id_empleado
+                    }),
+                    success: function(data) {
                         var response = jQuery.parseJSON(data);
-                        if(response.code == 1){
+                        if (response.code == 1) {
                             toastr.success(response.message);
                             updateTable();
                             restablecerSeleccion();
-                        }else if(response.code == 2){
+                        } else if (response.code == 2) {
                             toastr.error(response.message);
                         }
                     }
@@ -388,18 +411,18 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         });
         jQuery.validator.setDefaults({
             errorElement: 'div',
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 error.addClass('invalid-feedback');
-                if(element.parent('.input-group').length) {
+                if (element.parent('.input-group').length) {
                     error.insertAfter(element.parent());
                 } else {
                     error.insertAfter(element);
                 }
             },
-            highlight: function (element, errorClass, validClass) {
+            highlight: function(element, errorClass, validClass) {
                 $(element).addClass('is-invalid');
             },
-            unhighlight: function (element, errorClass, validClass) {
+            unhighlight: function(element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             }
         });
@@ -411,7 +434,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                     digits: true
                 },
                 "id_tipo_empleado": {
-                    required: true                    
+                    required: true
                 },
                 "usuario": {
                     required: true,
@@ -489,18 +512,21 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 }
             }
         });
+
         function justNumbers(e) {
             if (String.fromCharCode(e.which).match(/^[0-9\x08]$/)) {
                 return true;
             }
             return false;
         }
+
         function notNumbers(e) {
             if (String.fromCharCode(e.which).match(/^[A-Za-z\x08]$/)) {
                 return true;
             }
             return false;
         }
+
         function username(e) {
             if (String.fromCharCode(e.which).match(/^[A-Za-z0-9\x08]$/)) {
                 return true;
@@ -508,7 +534,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             return false;
         }
     </script>
-     <script>
+    <script>
         /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')

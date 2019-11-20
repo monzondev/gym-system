@@ -193,11 +193,11 @@ class miembro extends conector_pg
     }
 
     /*********************************************************************/
-    //Metodo para contar los miembros con estado activo
-    public function countActivos()
+    //Metodo para contar los miembros por estado
+    public function countByEstado($idEstado)
     {
         $query = $this->Querys['countByEstado'];
-        $result = pg_query_params($this->conexion, $query,array(1));
+        $result = pg_query_params($this->conexion, $query,array($idEstado));
         $row = pg_fetch_row($result);
         return $row[0];
     }
@@ -211,26 +211,6 @@ class miembro extends conector_pg
         $row = pg_fetch_row($result);
         return $row[0];
     }
-
-    /*********************************************************************/
-    //Metodo para contar los miembros con estado pendiente
-    public function countPendientes()
-    {
-        $query = $this->Querys['countByEstado'];
-        $result = pg_query_params($this->conexion, $query,array(2));
-        $row = pg_fetch_row($result);
-        return $row[0];
-    }  
-
-    /*********************************************************************/
-    //Metodo para contar los miembros con estado pendiente
-    public function countInactivos()
-    {
-        $query = $this->Querys['countByEstado'];
-        $result = pg_query_params($this->conexion, $query,array(3));
-        $row = pg_fetch_row($result);
-        return $row[0];
-    } 
 
     /*********************************************************************/
     //Metodo para obtener ventas por fecha

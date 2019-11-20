@@ -1,5 +1,5 @@
 <?php
-    include_once 'miembro.php';
+    include_once '/var/www/html/boundary/miembro.php';
     $miembroFacade = new miembro();
 
     $miembros = $miembroFacade->getAllActiveMiembros();
@@ -55,4 +55,6 @@
 
     $response['counter'] = $counter;
     echo json_encode($response);
+    echo "\r\n";
+    exit();
 ?>

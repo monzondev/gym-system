@@ -20,4 +20,4 @@ RUN echo "alias phpunit='/opt/phpunit'" >> /root/.bashrc
 
 # Cron se ejecutara cada minuto para actualizar los miembros
 RUN apt-get install -y cron
-RUN echo "* * * * * /usr/local/bin/php /var/www/html/utils/cron/updateMiembros.php >> /var/www/html/utils/cron/cron_logs" | crontab -
+RUN echo "* * * * * /usr/local/bin/php /var/www/html/utils/cron/updateMiembros.php >> /var/www/html/utils/cron/logs" | crontab -

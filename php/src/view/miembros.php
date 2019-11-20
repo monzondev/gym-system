@@ -162,7 +162,7 @@ $login->ValidateSession();
             <table id="tablaMiembros" class="table text-center table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Usuario</th>
+                        <th scope="col">Fotograf&iacute;a</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Telefono</th>
                         <th scope="col">Membres&iacute;a</th>

@@ -21,6 +21,10 @@ $login->ValidateSession();
         .error {
             font-size: 15px;
         }
+
+        #contenido:hover{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -91,7 +95,8 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3 ">
                         <div class="form-group">
                             <label>Fotograf&iacute;a</label>
-                            <input type="file" class="form-control-file" required id="foto" name="foto">
+                            <input type="file" class="form-control-file" required id="foto" name="foto" onchange="opcionQuitar();">
+                            <p id="contenido" class="text-info error" style="padding-top: 10px;  display: none;" onclick="removerFotografia();"></p>
                             <p id="error8" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -137,23 +142,6 @@ $login->ValidateSession();
                         </div>
                     </div>
                 </div>
-                <!-- <div class="form-row text-center tab-content">
-                    <div class="col-md-3 mb-3">
-                        <div class="form-group">
-                            <label class="control-label">Tipo de membresia:</label>
-                            <select class="form-control" name="tipomembresia" id="tipomembresia" required>
-                                < <option value="0" disabled selected="selected">Seleccione un tipo...</option>
-                                    <?php
-                                    //foreach ($tipos as $valores) {
-                                      //  echo '<option value="' . $valores['id_tipo_membresia'] . '">' . $valores['nombre'] . '</option>';
-                                    //}
-                                    ?>
-                            </select>
-
-                            <p id="error13" class="text-danger error"> </p>
-                        </div>
-                    </div>
-                </div>-->
                 <input type="text" name="agregarMiembro" hidden>
 
                 <br>
@@ -212,7 +200,21 @@ $login->ValidateSession();
             return false;
         }
 
-       
+        function opcionQuitar(){
+            var removerF = "<img src='img/remove.png'width='20' >   Quitar fotograf&iacute;a";
+            var opcion = document.getElementById("contenido");
+            opcion.style.display = "block";
+            opcion.innerHTML = removerF;
+        }
+
+        function removerFotografia(){
+            var foto = document.getElementById("foto");
+            var opcion = document.getElementById("contenido");
+            foto.value = "";
+            opcion.innerHTML = "";
+            opcion.style.display = "none";
+        }
+
     </script>
      <script>
          /*

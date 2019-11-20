@@ -203,6 +203,16 @@ class miembro extends conector_pg
     }
 
     /*********************************************************************/
+    //Metodo para contar los miembros con estado activo
+    public function count()
+    {
+        $query = $this->Querys['count'];
+        $result = pg_query($this->conexion, $query);
+        $row = pg_fetch_row($result);
+        return $row[0];
+    }
+
+    /*********************************************************************/
     //Metodo para contar los miembros con estado pendiente
     public function countPendientes()
     {

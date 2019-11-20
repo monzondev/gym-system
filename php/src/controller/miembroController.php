@@ -134,14 +134,15 @@ if (isset($_GET['filtrar']) && $_GET['filtrar']) {
 
 if (isset($_GET['proximosPagos']) && $_GET['proximosPagos']) {    
     $json = file_get_contents('php://input');
+    $txt = (json_decode($json))->txt;
     $id_empleado = (json_decode($json))->id_empleado;
-    $empleado = (object) $empleado->getUserbyId($id_empleado);    
+    $empleado = (object) $empleado->getUserbyId($id_empleado);
     //code 1=Ok, 2=Bad, 3=Warning
     $response = array('message' => 'Mensaje', 'code' => 1);
     //Verificar si es administrador el que solicita
     if(isset($empleado) && ($empleado->id_tipo_empleado == 1 || $empleado->id_tipo_empleado == 2)){
-        //Buscar todos los miembros con proximos pagos
-        $miembros = $miembro->getMiembrosProximosPagos();
+        //Verificar si esta vacio txt
+        $miembros = $miembro->getMiembrosProximosPagos($txt);
         if($miembros != null){
             echo json_encode($miembros);
         }else{
@@ -158,6 +159,7 @@ if (isset($_GET['proximosPagos']) && $_GET['proximosPagos']) {
 
 if (isset($_GET['pagosEnProceso']) && $_GET['pagosEnProceso']) {    
     $json = file_get_contents('php://input');
+    $txt = (json_decode($json))->txt;
     $id_empleado = (json_decode($json))->id_empleado;
     $empleado = (object) $empleado->getUserbyId($id_empleado);    
     //code 1=Ok, 2=Bad, 3=Warning
@@ -165,7 +167,7 @@ if (isset($_GET['pagosEnProceso']) && $_GET['pagosEnProceso']) {
     //Verificar si es administrador el que solicita
     if(isset($empleado) && ($empleado->id_tipo_empleado == 1 || $empleado->id_tipo_empleado == 2)){
         //Buscar todos los miembros con proximos pagos
-        $miembros = $miembro->getMiembrosPagosEnProceso();
+        $miembros = $miembro->getMiembrosPagosEnProceso($txt);
         if($miembros != null){
             echo json_encode($miembros);
         }else{

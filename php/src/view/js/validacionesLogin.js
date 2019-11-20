@@ -114,3 +114,14 @@ function capLock(e) {
         notificacion.innerHTML = '';
     }
 }
+
+function mostrar(){
+    var pass = document.getElementById("clave");
+    estado = pass.getAttribute('type');
+    if(estado == 'text'){
+        pass.setAttribute('type','password');
+    } if (estado =='password') {
+        pass.setAttribute('type','text');
+    }
+   
+}

@@ -19,6 +19,10 @@ $login->ValidateSessionLogin();
 			font-size: 15px;
 		}
 
+		#viewP:hover{
+			cursor: pointer;
+		}
+		
 		body {
 			background: url(img/fondoGym.jpg) no-repeat center center fixed;
 			-webkit-background-size: cover;
@@ -29,16 +33,13 @@ $login->ValidateSessionLogin();
 		}
 	</style>
 </head>
-
 <body>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4" style="height: 100vh"></div>
 			<div class="col-md-4" style="height: 100vh">
 				<form id="form" style="margin-top: 20vh; background-color: rgba(0, 0, 0, 0.05); border-radius: 4px;">
 					<br>
-
 					<center>
 						<h2 class="form-signin-heading">Body Master Gym</h2>
 					</center>
@@ -52,11 +53,11 @@ $login->ValidateSessionLogin();
 						<input class="form-control" placeholder="Usuario" autocomplete="off" style="width: 90%" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
 						<p id="error1" class="text-danger error"> </p>
 					</center>
-
 					<br>
-					<label for="inputPassword" class="sr-only">Contraseña</label>
 					<center>
+						<label for="inputPassword" class="sr-only">Contraseña</label>
 						<input class="form-control" placeholder="Contraseña" onkeypress="capLock(event)" maxlength="15" style="width: 90%" autocomplete="off" name="clave" id="clave" type="password" value="">
+						<img src='img/viewP.png' width='28' title="Ver contraseña" onclick="mostrar();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; right: -130px;">
 						<p id="error2" class="text-danger error"> </p>
 						<p id="error3" class="text-warning error"> </p>
 					</center>
@@ -64,18 +65,13 @@ $login->ValidateSessionLogin();
 					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-dark btn-block" type="button" style="width: 50%">Ingresar</button></center>
 					<br>
 				</form>
-
 			</div>
 			<div class="col-md-4" style="height: 100vh"></div>
 		</div>
 	</div>
-
-
-
 	<script src="js/jQuery-3-4.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/toastr.js"></script>
 	<script src="js/validacionesLogin.js"></script>
 </body>
-
 </html>

@@ -48,7 +48,10 @@ $login->ValidateSession();
                     <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">Proximos a Pagar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Gestionar Pagos</a>
+                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Pagos en Proceso</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-miembros-inactivos" data-toggle="tab" href="#miembros-inactivos" role="tab" aria-controls="miembros-inactivos" aria-selected="false">Miembros Inactivos</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -111,6 +114,41 @@ $login->ValidateSession();
                             </tr>
                         </thead>
                         <tbody id="table_body_pagos_proceso">
+                            <tr>
+                                <td>No disponible</td>
+                                <td>No disponible</td>
+                                <td>No disponible</td>
+                                <td>No disponible</td>
+                                <td>No disponible</td>
+                                <td>No disponible</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="miembros-inactivos" role="tabpanel" aria-labelledby="tab-miembros-inactivos">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <h3>Miembros Inactivos por Pagar:</h3>
+                            <input id="buscador_miembros_inactivos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                            <button id="btn_buscar_miembros_inactivos" style="float: left;" class="btn btn-primary">Filtrar</button>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <br>
+                    <table id="tablaMiembrosInactivos" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Nombres</th>
+                                <th scope="col">Membres&iacute;a</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Fecha Pago</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_body_miembros_inactivos">
                             <tr>
                                 <td>No disponible</td>
                                 <td>No disponible</td>
@@ -277,6 +315,33 @@ $login->ValidateSession();
             updateTablePagosEnProceso(item.text);
         });
 
+        $('#btn_buscar_miembros_inactivos').click(function() {
+            var txt = $('#buscador_miembros_inactivos').val();
+            updateTableMiembrosInactivos(txt);
+        });
+        $('#buscador_miembros_inactivos').autoComplete({
+            minLength: 1,
+            events: {
+                searchPost: function(resultFromServer) {
+                    var txt = $('#buscador_miembros_inactivos').val();
+                    var list = getMiembrosInactivos(txt);
+                    var formatList = [];
+                    $.each(list, function(key, value) {
+                        var text = value.primer_nombre + " " + value.segundo_nombre + " " + value.primer_apellido + " " + value.segundo_apellido + " - " + value.usuario;
+                        var item = {
+                            "value": value.id_miembro,
+                            "text": text
+                        };
+                        formatList.push(item);
+                    });
+                    return formatList;
+                }
+            }
+        });
+        $('#buscador_miembros_inactivos').on('autocomplete.select', function(evt, item) {
+            updateTableMiembrosInactivos(item.text);
+        });
+
         function getProximosPagar(txt) {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             var list = [];
@@ -321,8 +386,38 @@ $login->ValidateSession();
             return list;
         }
 
+        function getMiembrosInactivos(txt) {
+            var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
+            var list = [];
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "../controller/miembroController.php?miembrosInactivos=true",
+                data: JSON.stringify({
+                    "id_empleado": id_empleado, "txt": txt
+                }),
+                success: function(data) {
+                    var response = jQuery.parseJSON(data);
+                    if (typeof response.code !== 'undefined') {
+                        toastr.error(response.message);
+                    } else {
+                        list = response;
+                    }
+                }
+            });
+            return list;
+        }
+
         function eventoSeleccionar() {
             $('#table_body_pagos_proceso .filas').click(function() {
+                var id_empleado = $(this).attr('id');
+                $("#modalPago").modal('show');
+                $('#modalPago').attr('data-id', id_empleado);
+            });
+        }
+
+        function eventoSeleccionarMiembrosInactivos() {
+            $('#table_body_miembros_inactivos .filas').click(function() {
                 var id_empleado = $(this).attr('id');
                 $("#modalPago").modal('show');
                 $('#modalPago').attr('data-id', id_empleado);
@@ -358,6 +453,23 @@ $login->ValidateSession();
                     tabla.append(tr);
                 });
                 eventoSeleccionar();
+            } else if (listTable == false) {
+                //toastr.warning('No se han encontrado miembros con pagos pendiente');
+            }
+        }
+
+        function updateTableMiembrosInactivos(txt) {
+            var listTable = getMiembrosInactivos(txt);
+            if (listTable.length > 0) {
+                //Vaciar la tabla
+                var tabla = $("#table_body_miembros_inactivos");
+                tabla.html("");
+                //Llenar la tabla
+                $.each(listTable, function(key, value) {
+                    var tr = createTableRowWith(value);
+                    tabla.append(tr);
+                });
+                eventoSeleccionarMiembrosInactivos();
             } else if (listTable == false) {
                 //toastr.warning('No se han encontrado miembros con pagos pendiente');
             }
@@ -417,6 +529,7 @@ $login->ValidateSession();
             //Cuando cargue la pagina buscar todos
             updateTableProximosPagos("");
             updateTablePagosEnProceso("");
+            updateTableMiembrosInactivos("");
         });
 
         $('select#tipomembresia').on('change', function() {
@@ -485,12 +598,14 @@ $login->ValidateSession();
                                 toastr.success(responses.message);
                                 reiniciarModal();
                                 updateTablePagosEnProceso("");
+                                updateTableMiembrosInactivos("");
                                 break;
 
                             case '2':
                                 toastr.error(responses.message);
                                 reiniciarModal();
                                 updateTablePagosEnProceso("");
+                                updateTableMiembrosInactivos("");
                                 break;
                         }
                     }

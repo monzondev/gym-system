@@ -13,6 +13,7 @@ class miembro extends conector_pg
         "findAll" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro",
         "findById" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro WHERE id_miembro= $1 ",
         "count" => "SELECT COUNT(id_miembro) FROM miembro",
+        "countByEstado" => "SELECT count(id_miembro) FROM miembro AS m WHERE m.id_estado = $1",
         "miembrosSinPagos" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE (SELECT count(p.monto) FROM pago as p WHERE p.id_miembro = m.id_miembro)=0",
         "proximosPagos" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE m.id_estado = 1 AND (EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp))) BETWEEN 1 AND 4",
         "pagosEnProceso" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro AS m WHERE m.id_estado = 2 AND ((EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp)) >= 0) OR m.fin_membresia IS NULL)",
@@ -191,6 +192,39 @@ class miembro extends conector_pg
         return $resultado;
     }
 
+    /*********************************************************************/
+    //Metodo para contar los miembros por estado
+    public function countByEstado($idEstado)
+    {
+        $query = $this->Querys['countByEstado'];
+        $result = pg_query_params($this->conexion, $query,array($idEstado));
+        $row = pg_fetch_row($result);
+        return $row[0];
+    }
+
+    /*********************************************************************/
+    //Metodo para contar los miembros con estado activo
+    public function count()
+    {
+        $query = $this->Querys['count'];
+        $result = pg_query($this->conexion, $query);
+        $row = pg_fetch_row($result);
+        return $row[0];
+    }
+
+    /*********************************************************************/
+    //Metodo para obtener ventas por fecha
+    public function obternerVentas($fecha)
+    {
+        $result = pg_query($this->conexion, "SELECT sum(monto) FROM pago WHERE fecha ='{$fecha}'");
+        $row = pg_fetch_row($result);
+        if ($row[0]==null) {
+            return 0;
+        }else{
+            return $row[0];
+        }
+        return $result[0];
+    } 
 
     /*********************************************************************/
     /*Metodo para cambiar la membresia de un miembro

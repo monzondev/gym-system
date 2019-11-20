@@ -57,15 +57,6 @@ $(document).ready(function () {
         var error12 = document.getElementById("error12");
        // var error13 = document.getElementById("error13");
 
-        //VALIDACION TIPO DE MEMBRESIA
-        /*if (type.value == 0) {
-            type.focus();
-            error13.innerHTML = requerido;
-        } else {
-            error13.innerHTML = "";
-            status13 = true;
-        }*/
-
         //VALIDACION FECHA DE NACIMIENTO
         n = new Date();
         fechaL = n.getFullYear() - 6 + "-" + (n.getMonth() + 1) + "-" + n.getDate();

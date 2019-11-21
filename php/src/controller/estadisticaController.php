@@ -22,7 +22,7 @@ if (isset($_GET['ingresosPorDia']) && $_GET['ingresosPorDia']) {
         $ingresos->labels = array();
         $ingresos->data = array();
         foreach ($period as $dt) {            
-            $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+            $dias = array("Lunes","Martes","Miercoles","Jueves","Viernes","Sábado", "Domingo");
             $dayName = $dias[$dt->format('N')-1];
             $dayName = $dayName . " " . $dt->format("d");
             $income = $miembroFacade->obternerVentas($dt->format("Y-m-d"));

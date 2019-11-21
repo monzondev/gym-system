@@ -28,7 +28,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
         <div class="col-md-10">
             <br>
             <button id="btn_editar" type="button" data-target="#editarModal" data-toggle="modal" class="btn btn-info float-right" title="Seleccione un Empleado" disabled="true">Editar Empleado</button>
-            <button id="btn_eliminarModal" type="button" data-target="#eliminarModal" data-toggle="modal" class="btn btn-danger float-right mr-2" title="Seleccione un Empleado" disabled="true">Eliminar Empleado</button>
+            <button id="btn_eliminarModal" type="button" data-target="#eliminarModal" data-toggle="modal" class="btn btn-secondary float-right mr-2" title="Seleccione un Empleado" disabled="true">Eliminar Empleado</button>
             <table class="table text-center table-striped table-hover">
                 <thead class="thead-dark text-center">
                     <tr>

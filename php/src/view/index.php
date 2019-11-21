@@ -63,7 +63,7 @@ $login->ValidateSession();
                         <div class="col-md-10">
                             <h3>Miembros Proximos a Pagar:</h3>
                             <input id="buscador_proximos_pagos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn-primary">Filtrar</button>
+                            <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn-info">Filtrar</button>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -98,7 +98,7 @@ $login->ValidateSession();
                         <div class="col-md-10">
                             <h3>Miembros en Proceso de pago:</h3>
                             <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_pagos_proceso" style="float: left;" class="btn btn-primary">Filtrar</button>
+                            <button id="btn_buscar_pagos_proceso" style="float: left;" class="btn btn-info">Filtrar</button>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -133,7 +133,7 @@ $login->ValidateSession();
                         <div class="col-md-10">
                             <h3>Miembros Inactivos por Pagar:</h3>
                             <input id="buscador_miembros_inactivos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_miembros_inactivos" style="float: left;" class="btn btn-primary">Filtrar</button>
+                            <button id="btn_buscar_miembros_inactivos" style="float: left;" class="btn btn-info">Filtrar</button>
                         </div>
                         <div class="col-md-1"></div>
                     </div>

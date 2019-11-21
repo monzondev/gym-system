@@ -147,9 +147,9 @@ $login->ValidateSession();
                 <div class="col-md-10">
                     <h3>Buscar Miembro:</h3>
                     <input id="buscador" class="form-control basicAutoSelect" style="width: 70%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                    <button id="btn_buscar" style="float: left;" class="btn btn-primary">Filtrar</button>
+                    <button id="btn_buscar" style="float: left;" class="btn btn-secondary">Filtrar</button>
                     <div class="btn-group">
-                        <button id="btn_estado" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button id="btn_estado" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Estado
                         </button>
                         <div id="estado_opciones" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">

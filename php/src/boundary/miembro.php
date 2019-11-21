@@ -26,7 +26,8 @@ class miembro extends conector_pg
         "allInactive" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro AS m WHERE activo = true AND id_estado = 3 ORDER BY id_miembro ASC",
         "allInactiveByName" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro AS m WHERE activo = true AND id_estado = 3 AND CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3",
         "changeStatus"  => "UPDATE miembro SET  id_estado = $1 WHERE id_miembro = $2",
-        "changeMembresia"  => "UPDATE miembro SET  id_tipo_membresia = $1, inicio_membresia =$2, fin_membresia=$3 WHERE id_miembro = $4"
+        "changeMembresia"  => "UPDATE miembro SET  id_tipo_membresia = $1, inicio_membresia =$2, fin_membresia=$3 WHERE id_miembro = $4",
+        "getVentas" =>"SELECT sum(monto) FROM pago WHERE fecha =$1"
     );
     public function __construct()
     {
@@ -250,14 +251,15 @@ class miembro extends conector_pg
     //Metodo para obtener ventas por fecha
     public function obternerVentas($fecha)
     {
-        $result = pg_query($this->conexion, "SELECT sum(monto) FROM pago WHERE fecha ='{$fecha}'");
+        $query = $this->Querys['getVentas'];
+        $result = pg_query_params($this->conexion, $query,array($fecha));
         $row = pg_fetch_row($result);
         if ($row[0]==null) {
             return 0;
         }else{
             return $row[0];
         }
-    } 
+    }
 
     /*********************************************************************/
     /*Metodo para cambiar la membresia de un miembro

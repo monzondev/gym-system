@@ -18,6 +18,19 @@ if ($_SESSION['tipoEmpleado']!=1) {
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+    <style>
+     body {
+            background: url(img/fondoSystem.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+        }
+        h1, canvas{
+            background-color:#ffffff;
+        }
+    </style>
 </head>
 <body>
     <?php include_once("navbar.php"); ?>

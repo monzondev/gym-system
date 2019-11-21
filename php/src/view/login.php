@@ -23,6 +23,7 @@ $login->ValidateSessionLogin();
 		#viewP:hover {
 			cursor: pointer;
 		}
+		
 
 		body {
 			background: url(img/fondoGym.jpg) no-repeat center center fixed;

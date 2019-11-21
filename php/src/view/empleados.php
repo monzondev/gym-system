@@ -19,6 +19,19 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+    <style>
+        body {
+            background: url(img/fondoSystem.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+        }
+        h3, table{
+            background-color:#ffffff;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +45,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             <table class="table text-center table-striped table-hover">
                 <thead class="thead-dark text-center">
                     <tr>
-                        <th colspan="5"><h5>Empleados registrados en el sistema</h5></th>
+                        <th colspan="5">
+                            <h5>Empleados registrados en el sistema</h5>
+                        </th>
                     </tr>
                     <tr>
                         <th scope="col">Usuario</th>
@@ -44,7 +59,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 </thead>
                 <tbody id="table_body">
                     <tr>
-                    <td colspan="5" class="text-center text-secondary">No se encontraron empleados</td>
+                        <td colspan="5" class="text-center text-secondary">No se encontraron empleados</td>
                     </tr>
                 </tbody>
             </table>

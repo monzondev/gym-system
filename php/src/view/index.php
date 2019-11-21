@@ -16,7 +16,7 @@ $login->ValidateSession();
     <title>Gym System</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/icono.png">
     <link rel="stylesheet" href="css/toastr.css">
     <!--style>
         fieldset.scheduler-border {
@@ -36,6 +36,21 @@ $login->ValidateSession();
         .filas:hover {
             cursor: pointer;
         }
+        p, h3, table{
+            background-color:#ffffff;
+        }
+        a p{
+            padding: 10px;
+            margin: 0px;
+        }
+        body {
+			background: url(img/fondoSystem.png) no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+
+		}
     </style>
 </head>
 
@@ -43,10 +58,10 @@ $login->ValidateSession();
     <?php include_once("navbar.php"); ?>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-10" >
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">Proximos a Pagar</a>
+                    <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true"><p>Proximos a Pagar</p></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Gestionar Pagos</a>
@@ -58,14 +73,14 @@ $login->ValidateSession();
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <h3>Miembros Proximos a Pagar:</h3>
+                            <h3 style="width: 400px;" >Miembros Proximos a Pagar:</h3>
                             <input id="buscador_proximos_pagos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
                             <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn-info">Filtrar</button>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
                     <br>
-                    <table id="tablaProximosPagos"  style="widht: 50%" class="table text-center table-striped table-hover">
+                    <table id="tablaProximosPagos"  style="widht: 50%; " class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Foto</th>

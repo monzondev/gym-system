@@ -17,7 +17,7 @@ $login->ValidateSession();
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/icono.png">
     <style>
         .filas:hover {
             cursor: pointer;
@@ -106,25 +106,6 @@ $login->ValidateSession();
             border-bottom: 2px solid #0062cc;
         }
 
-
-        .profile-work p {
-            font-size: 12px;
-            color: #818182;
-            font-weight: 600;
-            margin-top: 10%;
-        }
-
-        .profile-work a {
-            text-decoration: none;
-            color: #495057;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .profile-work ul {
-            list-style: none;
-        }
-
         .profile-tab label {
             font-weight: 600;
         }
@@ -132,6 +113,25 @@ $login->ValidateSession();
         .profile-tab p {
             font-weight: 600;
             color: #0062cc;
+        }
+
+        body {
+            background: url(img/fondoSystem.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+        }
+         h3, table{
+            background-color:#ffffff;
+        }
+        a p{
+            padding: 10px;
+            margin: 0px;
+        }
+        h3{
+            width: 250px;
         }
     </style>
 </head>
@@ -183,7 +183,7 @@ $login->ValidateSession();
     <!-- Large modal -->
     <div class="modal fade bd-example-modal-lg" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" >
+            <div class="modal-content">
                 <div class="card" style="border: none;">
                     <div class="card-header  text-center" style="background-color: #4B515D; color:white; ">
                         <button type="button" class="close " style="color:white; " onclick="cerrar();" aria-label="Close">
@@ -203,131 +203,131 @@ $login->ValidateSession();
                             </div>
                         </div>
                     </div>
-                        <div class="card-body" id="datos">
-                            <div class="container emp-profile">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="profile-img">
-                                            <img id="fotografia" class="rounded-circle shadow-lg" alt="Miembro" />
-                                        </div>
+                    <div class="card-body" id="datos">
+                        <div class="container emp-profile">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="profile-img">
+                                        <img id="fotografia" class="rounded-circle shadow-lg" alt="Miembro" />
                                     </div>
-                                    <div class="col-md-7 text-center">
-                                        <div class="profile-head">
-                                            <br>
-                                            <h2 id="nombre">
-                                            </h2>
-                                            <h3 id="apellidos">
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <div class="profile-head">
+                                        <br>
+                                        <h2 id="nombre">
+                                        </h2>
+                                        <h3 id="apellidos">
 
-                                            </h3>
-                                            <h5 class="proile-rating"><span id="fecha"></span></h5>
-                                            <br>
+                                        </h3>
+                                        <h5 class="proile-rating"><span id="fecha"></span></h5>
+                                        <br>
 
-                                            <div class="row .nav-tabs">
+                                        <div class="row .nav-tabs">
 
-                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">Informaci&oacute;n Personal</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Informaci&oacute;n Gimnasio</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="proximos-a-pagar" role="tabpanel" aria-labelledby="tab-proximos-a-pagar">
-                                                        <div class="row">
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">Informaci&oacute;n Personal</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Informaci&oacute;n Gimnasio</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="proximos-a-pagar" role="tabpanel" aria-labelledby="tab-proximos-a-pagar">
+                                                <div class="row">
 
-                                                            <div class="col-md-12">
+                                                    <div class="col-md-12">
 
-                                                                <div id="personal">
-                                                                    <div class="row profile-tab">
-                                                                        <div class="col-md-5">
-                                                                            <label>Usuario:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="user"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>G&eacute;nero:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="genero"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>Correo:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="correo" style="font-size: 14px;"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>Tel&eacute;fono:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="telefono"></p>
-                                                                        </div>
-                                                                    </div>
+                                                        <div id="personal">
+                                                            <div class="row profile-tab">
+                                                                <div class="col-md-5">
+                                                                    <label>Usuario:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="user"></p>
                                                                 </div>
                                                             </div>
-
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>G&eacute;nero:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="genero"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>Correo:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="correo" style="font-size: 14px;"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>Tel&eacute;fono:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="telefono"></p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-
                                                     </div>
-                                                    <div class="tab-pane fade" id="pagos-en-proceso" role="tabpanel" aria-labelledby="tab-pagos-en-proceso">
-                                                        <div class="row">
-                                                            <div class="col-md-12 text-center">
-                                                                <div id="profile">
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>Fecha inicio:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="fecha_inicio"></p>
-                                                                        </div>
-                                                                    </div>
 
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>Altura:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="altura"></p>
-                                                                        </div>
-                                                                    </div>
+                                                </div>
 
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>Peso:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="peso"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row profile-tab">
-                                                                        <div class=" col-md-5">
-                                                                            <label>Estado:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7 text-md-left text-sm-center">
-                                                                            <p id="estado"></p>
-                                                                        </div>
-                                                                    </div>
-
+                                            </div>
+                                            <div class="tab-pane fade" id="pagos-en-proceso" role="tabpanel" aria-labelledby="tab-pagos-en-proceso">
+                                                <div class="row">
+                                                    <div class="col-md-12 text-center">
+                                                        <div id="profile">
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>Fecha inicio:</label>
                                                                 </div>
-
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="fecha_inicio"></p>
+                                                                </div>
                                                             </div>
+
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>Altura:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="altura"></p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>Peso:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="peso"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row profile-tab">
+                                                                <div class=" col-md-5">
+                                                                    <label>Estado:</label>
+                                                                </div>
+                                                                <div class="col-md-7 text-md-left text-sm-center">
+                                                                    <p id="estado"></p>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
+
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

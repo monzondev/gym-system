@@ -134,7 +134,7 @@ $login->ValidateSession();
                             <tr>
                                 <th scope="col">Foto</th>
                                 <th scope="col">Usuario</th>
-                                <th scope="col">Nombres</th>
+                                <th scope="col">Nombre</th>
                                 <th scope="col">Membres&iacute;a</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Fin de membres&iacute;a </th>
@@ -472,7 +472,7 @@ $login->ValidateSession();
             td2.setAttribute("style", "padding-top: 17px;");
             td2.innerText = value.usuario;
             td3.setAttribute("style", "padding-top: 17px;");
-            td3.innerText = value.primer_nombre + " " + value.segundo_nombre;
+            td3.innerText = value.primer_nombre + " " + value.primer_apellido;
             td4.setAttribute("style", "padding-top: 17px;");
             var tm = findTipoMebresia(value.id_tipo_membresia);
             if (typeof tm === 'undefined') {

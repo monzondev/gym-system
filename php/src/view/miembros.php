@@ -403,10 +403,19 @@ $login->ValidateSession();
                     $("#fotografia").attr("src", "../recursos/fotografias/" +
                         selected.foto);
                     $("#fotografia").attr("alt", selected.user);
-                    $("#nombre").html(selected.primer_nombre + " " + selected
+                    if (selected.segundo_nombre != null) {
+                        $("#nombre").html(selected.primer_nombre + " " + selected
                         .segundo_nombre);
-                    $("#apellidos").html(selected.primer_apellido + " " + selected
+                    }else{
+                        $("#nombre").html(selected.primer_nombre );
+                    }
+                    if (selected.segundo_apellido != null) {
+                        $("#apellidos").html(selected.primer_apellido + " " + selected
                         .segundo_apellido);
+                    }else{
+                        $("#apellidos").html(selected.primer_apellido);
+                    }
+                   
                     $("#user").html(selected.usuario);
                     if (selected.correo != "") {
                         $("#correo").html(selected.correo);

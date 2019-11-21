@@ -9,14 +9,14 @@
         //usuario de conexion
         var $usuario='admin';
         //clave del usuario de conexion
-        var $password='admin';
+        var $word='admin';
         //almacenamos el link para luego destruirlo
         var $link;
 
         //constructor en el constructor colocamos los datos por defecto
         function __construct(){
             //emsamblamos el string de conexion
-            $datos_bd="host='$this->host' dbname='$this->bd' user='$this->usuario' password='$this->password'";
+            $datos_bd="host='$this->host' dbname='$this->bd' user='$this->usuario' password='$this->word'";
             //establecemos el link
             $this->link=pg_connect($datos_bd);
             return $this->link;

@@ -18,10 +18,11 @@ $(document).ready(function () {
         var status11 = false;
 
         //MENSAJES PARA LAS VALIDACIONES
-        var requerido = "<img src='img/errorr.png'width='22' >     Este campo es requerido";
-        var espacios = "<img src='img/errorr.png'width='22' >     Espacios vacios no permitidos";
-        var notEmail = "<img src='img/errorr.png'width='22' >     Formato de correo no permitido";
-        var fecha = "<img src='img/errorr.png'width='22' >    La fecha es muy reciente";
+        var imagen = "<img src='img/errorr.png'width='22' alt='Error' >"
+        var requerido = imagen +"     Este campo es requerido";
+        var espacios = imagen +"    Espacios vacios no permitidos";
+        var notEmail = imagen +"     Formato de correo no permitido";
+        var fecha = imagen +"    La fecha es muy reciente";
 
         //CAMPOS A VALIDAR
         var name1 = document.getElementById("nombre1");

@@ -8,6 +8,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     exit();
 }
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>

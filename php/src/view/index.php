@@ -7,6 +7,7 @@ $tipos = $tipoMembresia->getAllTipoMembresia();
 $login = new empleado();
 $login->ValidateSession();
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -188,9 +189,7 @@ $login->ValidateSession();
                             <p id="error1" class="text-danger error"> </p>
                         </div>
                         <strong>
-                            <center>
-                                <h5 id="texto"></h5>
-                            </center>
+                                <h5 id="texto" class="text-center" ></h5>
                         </strong>
 
                         <p id="titulo"></p>
@@ -216,7 +215,7 @@ $login->ValidateSession();
                     <h5 class="modal-title" id="exampleModalLabel">Confirmacion para realizar el pago</h5>
                 </div>
                 <div class="modal-body">
-                    <center> <p id="montoPagar"></p></center>
+                    <p id="montoPagar" class="text-center" ></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelarPago();">Cancelar</button>
@@ -566,7 +565,7 @@ $login->ValidateSession();
         function realizarPago() {
             var type = document.getElementById("tipomembresia");
             var error1 = document.getElementById("error1");
-            var requerido = "<img src='img/errorr.png'width='22' >     Selecciona una membresia";
+            var requerido = "<img src='img/errorr.png'width='22' alt='Error'>     Selecciona una membresia";
             //VALIDACION TIPO DE MEMBRESIA
             if (type.value == 0) {
                 type.focus();
@@ -640,7 +639,7 @@ $login->ValidateSession();
         function confirmarPago() {
             var type = document.getElementById("tipomembresia");
             var error1 = document.getElementById("error1");
-            var requerido = "<img src='img/errorr.png'width='22' >     Selecciona una membresia";
+            var requerido = "<img src='img/errorr.png'width='22' alt='Error' >     Selecciona una membresia";
 
             //VALIDACION TIPO DE MEMBRESIA
             if (type.value == 0) {

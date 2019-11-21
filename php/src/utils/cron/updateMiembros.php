@@ -19,7 +19,7 @@
                 $fecha_inicio = new DateTime($m->fecha_inicio);
                 $diffInDays = $date->diff($fecha_inicio)->format("%r%a");
                 echo $diffInDays;
-                if($diffInDays >= 7){
+                if($diffInDays >= 30){
                     $m->id_estado = 3;  //3 es estado Inactivo
                     $memberChange = true;
                 }
@@ -40,7 +40,7 @@
             if($m->id_estado == 2 && $m->fin_membresia != null){
                 $fin_membresia = new DateTime($m->fin_membresia);
                 $diffInDays = $date->diff($fin_membresia)->format("%r%a");
-                if($diffInDays >= 7){
+                if($diffInDays >= 30){
                     $m->id_estado = 3;  //3 es estado Inactivo
                     $memberChange = true;
                 }

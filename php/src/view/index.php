@@ -36,8 +36,11 @@ $login->ValidateSession();
         .filas:hover {
             cursor: pointer;
         }
-        p, h3, table{
-            background-color:#f2f2f2;
+        p, h3, {
+            background-color:#fbfbfb;
+        }
+        table{
+            background-color:#fbfbfb;
         }
         a p{
             padding: 10px;

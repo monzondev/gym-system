@@ -28,7 +28,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
 
         }
         h1, canvas{
-            background-color:#f2f2f2;
+            background-color:#fbfbfb;
         }
     </style>
 </head>

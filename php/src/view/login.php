@@ -57,7 +57,7 @@ $login->ValidateSessionLogin();
 					<center>
 						<label for="inputPassword" class="sr-only">Contraseña</label>
 						<input class="form-control" placeholder="Contraseña" onkeypress="capLock(event)" maxlength="15" style="width: 90%" autocomplete="off" name="clave" id="clave" type="password" value="">
-						<img src='img/viewP.png' width='28' title="Ver contraseña" onclick="mostrar();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; right: -130px;">
+						<img src='img/viewP.png' width='28' title="Ver contraseña" onclick="mostrar();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; right: -130px;" alt='Ver'>
 						<p id="error2" class="text-danger error"> </p>
 						<p id="error3" class="text-warning error"> </p>
 					</center>

@@ -80,7 +80,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                         <div class="form-group">
                             <label>Contraseña</label>
                             <input type="password" class="form-control" onkeypress="capLock(event)" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="password" required id="password" maxlength="15" placeholder="Contraseña">
-                            <img src='img/viewP.png' width='28' title="Ver contraseña" onclick="viewPass();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; left: 100px;">
+                            <img src='img/viewP.png' width='28' title="Ver contraseña" onclick="viewPass();" id="viewP" alt="Ver" style="padding-top: 10px; position: relative; top: -35px; left: 100px;">
                             <p id="error4" class="text-danger error" style="position: relative; top: -25px;"> </p>
                             <p id="errorMay" class="text-warning error"  style="position: relative; top: -35px;"> </p>
                         </div>
@@ -202,7 +202,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
 
         function capLock(e) {
             var notificacion = document.getElementById("errorMay");
-            var mayuscula = "<img src='img/warning.png'width='22' >     Mayuscula activada";
+            var mayuscula = "<img src='img/warning.png'width='22' alt='Cuidado ' >     Mayuscula activada";
 
             kc = e.keyCode ? e.keyCode : e.which;
             sk = e.shiftKey ? e.shiftKey : ((kc == 16) ? true : false);

@@ -203,7 +203,7 @@ $login->ValidateSession();
                         <div class="row text-center">
                             <div class="col-md-12">
                                 <br><br><br>
-                                <img src="img/cargando3.gif" width="230">
+                                <img src="img/cargando3.gif" width="230" alt="Cargando..."/>>
                                 <br><br><br>
                             </div>
                         </div>
@@ -213,7 +213,7 @@ $login->ValidateSession();
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="profile-img">
-                                        <img id="fotografia" class="rounded-circle" />
+                                        <img id="fotografia" class="rounded-circle"  alt="Miembro" />
                                     </div>
                                 </div>
 

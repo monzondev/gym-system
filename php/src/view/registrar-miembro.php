@@ -201,7 +201,7 @@ $login->ValidateSession();
         }
 
         function opcionQuitar(){
-            var removerF = "<img src='img/remove.png'width='20' >   Quitar fotograf&iacute;a";
+            var removerF = "<img src='img/remove.png'width='20' alt='X'>   Quitar fotograf&iacute;a";
             var opcion = document.getElementById("contenido");
             opcion.style.display = "block";
             opcion.innerHTML = removerF;

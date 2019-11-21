@@ -13,8 +13,9 @@ $(document).ready(function() {
         var status2 = false;
 
         //MENSAJES PARA LAS VALIDACIONES
-        var requerido = "<img src='img/errorr.png'width='22' >     Este campo es requerido";
-        var espacios = "<img src='img/errorr.png'width='22' >     Espacios vacios no permitidos";
+        var imagen = "<img src='img/errorr.png'width='22' alt='Error' >"
+        var requerido = imagen +"     Este campo es requerido";
+        var espacios = imagen +"    Espacios vacios no permitidos";
 
         //CAMPOS A VALIDAR
         var user = document.getElementById("usuario");

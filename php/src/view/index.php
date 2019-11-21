@@ -566,7 +566,7 @@ $login->ValidateSession();
         function realizarPago() {
             var type = document.getElementById("tipomembresia");
             var error1 = document.getElementById("error1");
-            var requerido = "<img src='img/errorr.png'width='22' >     Selecciona una membresia";
+            var requerido = "<img src='img/errorr.png'width='22' alt='Error'>     Selecciona una membresia";
             //VALIDACION TIPO DE MEMBRESIA
             if (type.value == 0) {
                 type.focus();
@@ -640,7 +640,7 @@ $login->ValidateSession();
         function confirmarPago() {
             var type = document.getElementById("tipomembresia");
             var error1 = document.getElementById("error1");
-            var requerido = "<img src='img/errorr.png'width='22' >     Selecciona una membresia";
+            var requerido = "<img src='img/errorr.png'width='22' alt='Error' >     Selecciona una membresia";
 
             //VALIDACION TIPO DE MEMBRESIA
             if (type.value == 0) {

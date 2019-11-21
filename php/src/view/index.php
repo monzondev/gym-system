@@ -77,8 +77,8 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
                             <h3 style="width: 400px;" >Miembros Proximos a Pagar:</h3>
-                            <input id="buscador_proximos_pagos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn-info">Filtrar</button>
+                            <input id="buscador_proximos_pagos" class="form-control basicAutoSelect" style="width: 70%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                            <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn btn-secondary">Filtrar</button>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -107,8 +107,16 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
                             <h3>Miembros en Proceso de pago:</h3>
-                            <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_pagos_proceso" style="float: left;" class="btn btn-info">Filtrar</button>
+                            <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 70%; display: inline-block;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                            <button id="btn_buscar_pagos_proceso" style="display: inline-block;" class="btn btn btn-secondary">Filtrar</button>
+                            <div class="btn-group">
+                                <button id="btn_estado" type="button" class="btn btn-info dropdown-toggle" style="display: inline-block;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Estado
+                                </button>
+                                <div id="estado_opciones" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                                    <!--button class="dropdown-item" type="button">Action</button-->
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -200,16 +208,18 @@ $login->ValidateSession();
 
 
     <script src="js/jQuery-3-4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
     <script src="js/bootstrap-autocomplete.min.js"></script>
     <script>
         <?php
-        include_once '../boundary/estado.php';
-        include_once '../boundary/tipo_membresia.php';
-        $facadeEstado = new estado;
-        $facadeTipoMembrecia = new tipo_membresia;
+            include_once '../boundary/estado.php';
+            include_once '../boundary/tipo_membresia.php';
+            $facadeEstado = new estado;
+            $facadeTipoMembrecia = new tipo_membresia;            
         ?>
+        var selectedEstado = 2;
         var estados = <?php echo json_encode($facadeEstado->findAll()); ?>;
         var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia()); ?>;
 
@@ -225,6 +235,20 @@ $login->ValidateSession();
             for (tm of tipoMembrecias) {
                 if (tm.id_tipo_membresia == idTipoMebrecia) {
                     return tm;
+                }
+            }
+        }
+
+        function cargarEstados() {
+            $('#estado_opciones').html('');
+            for (e of estados) {
+                var button = document.createElement("button");
+                button.setAttribute("class", "dropdown-item");
+                button.setAttribute("type", "button");
+                button.innerText = e.nombre;
+                button.setAttribute("onclick", "updateTablePagosEnProceso('','" + e.id_estado + "')");
+                if(e.id_estado != 1){ // quitar el 1 de activo
+                    $('#estado_opciones').append(button);
                 }
             }
         }
@@ -259,7 +283,7 @@ $login->ValidateSession();
 
         $('#btn_buscar_pagos_proceso').click(function() {
             var txt = $('#buscador_pagos_proceso').val();
-            updateTablePagosEnProceso(txt);
+            updateTablePagosEnProceso(txt, selectedEstado);
         });
         $('#buscador_pagos_proceso').autoComplete({
             minLength: 1,
@@ -360,16 +384,19 @@ $login->ValidateSession();
             }
         }
 
-        function updateTablePagosEnProceso(txt) {
-            var listTable = getPagosProceso(txt, false);
+        function updateTablePagosEnProceso(txt, id_estado) {
+            selectedEstado = id_estado;
+            var listTable = getPagosProceso(txt, true);
             if (listTable.length > 0) {
                 //Vaciar la tabla
                 var tabla = $("#table_body_pagos_proceso");
                 tabla.html("");
                 //Llenar la tabla
                 $.each(listTable, function(key, value) {
-                    var tr = createTableRowWith(value);
-                    tabla.append(tr);
+                    if(id_estado == value.id_estado){
+                        var tr = createTableRowWith(value);
+                        tabla.append(tr);
+                    }                    
                 });
                 eventoSeleccionar();
             } else if (listTable == false) {
@@ -410,8 +437,6 @@ $login->ValidateSession();
             td5.setAttribute("style", "padding-top: 17px;");
             var estado = findEstado(value.id_estado);
             td5.innerText = estado.nombre;
-            td6.setAttribute("style", "padding-top: 17px;");
-            console.log(value.fin_membresia)
             
             if( value.fin_membresia == null){
                 td6.innerText = "Sin membresia";
@@ -431,7 +456,9 @@ $login->ValidateSession();
         $(document).ready(function() {
             //Cuando cargue la pagina buscar todos
             updateTableProximosPagos("");
-            updateTablePagosEnProceso("");
+            //Actualizar tabla con estados 2 de pendiente
+            updateTablePagosEnProceso("", 2);
+            cargarEstados();
         });
 
         $('select#tipomembresia').on('change', function() {

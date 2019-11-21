@@ -189,9 +189,7 @@ $login->ValidateSession();
                             <p id="error1" class="text-danger error"> </p>
                         </div>
                         <strong>
-                            <center>
-                                <h5 id="texto"></h5>
-                            </center>
+                                <h5 id="texto" class="text-center" ></h5>
                         </strong>
 
                         <p id="titulo"></p>
@@ -217,7 +215,7 @@ $login->ValidateSession();
                     <h5 class="modal-title" id="exampleModalLabel">Confirmacion para realizar el pago</h5>
                 </div>
                 <div class="modal-body">
-                    <center> <p id="montoPagar"></p></center>
+                    <p id="montoPagar" class="text-center" ></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelarPago();">Cancelar</button>

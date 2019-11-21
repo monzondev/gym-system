@@ -20,10 +20,10 @@ $login->ValidateSessionLogin();
 			font-size: 15px;
 		}
 
-		#viewP:hover{
+		#viewP:hover {
 			cursor: pointer;
 		}
-		
+
 		body {
 			background: url(img/fondoGym.jpg) no-repeat center center fixed;
 			-webkit-background-size: cover;
@@ -34,36 +34,35 @@ $login->ValidateSessionLogin();
 		}
 	</style>
 </head>
+
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4" style="height: 100vh"></div>
-			<div class="col-md-4" style="height: 100vh">
-				<form id="form" style="margin-top: 20vh; background-color: rgba(0, 0, 0, 0.05); border-radius: 4px;">
+			<div class="col-md-4 " style="height: 100vh">
+				<form id="form" class="justify-content-center align-items-center " style="margin-top: 20vh; background-color: rgba(0, 0, 0, 0.05); border-radius: 4px;">
 					<br>
-					<center>
-						<h2 class="form-signin-heading">Body Master Gym</h2>
-					</center>
+
+					<h2 class="form-signin-heading text-center">Body Master Gym</h2>
 					<br>
-					<center>
-						<h4 class="form-signin-heading">Iniciar Sesión</h4>
-					</center>
+
+					<h4 class="form-signin-heading text-center">Iniciar Sesión</h4>
 					<br>
-					<label for="inputEmail" class="sr-only">Usuario</label>
-					<center>
-						<input class="form-control" placeholder="Usuario" autocomplete="off" style="width: 90%" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
-						<p id="error1" class="text-danger error"> </p>
-					</center>
+
+					<label for="inputEmail" class="sr-only ">Usuario</label>
+					<input class="form-control " placeholder="Usuario" autocomplete="off" style="width: 90%; margin-left: 16px" maxlength="15" name="usuario" id="usuario" type="text" autofocus="">
+					<p id="error1" class="text-danger error text-center"> </p>
 					<br>
-					<center>
-						<label for="inputPassword" class="sr-only">Contraseña</label>
-						<input class="form-control" placeholder="Contraseña" onkeypress="capLock(event)" maxlength="15" style="width: 90%" autocomplete="off" name="clave" id="clave" type="password" value="">
-						<img src='img/viewP.png' width='28' title="Ver contraseña" onclick="mostrar();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; right: -130px;" alt='Ver'>
-						<p id="error2" class="text-danger error"> </p>
-						<p id="error3" class="text-warning error"> </p>
-					</center>
+
+					<label for="inputPassword" class="sr-only">Contraseña</label>
+					<input class="form-control" placeholder="Contraseña" onkeypress="capLock(event)" maxlength="15" style="width: 90%; margin-left: 16px" autocomplete="off" name="clave" id="clave" type="password" value="">
+					<div class="text-center">
+						<img src='img/viewP.png' width='28' title="Ver contraseña" onclick="mostrar();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; right: -120px;" alt='Ver'>
+					</div>
+					<p id="error2" class="text-danger error text-center"> </p>
+					<p id="error3" class="text-warning error text-center"> </p>
 					<br>
-					<center><button id="login" name="iniciarsesion" class="btn btn-lg btn-dark btn-block" type="button" style="width: 50%">Ingresar</button></center>
+					<button id="login" name="iniciarsesion" class="btn btn-lg btn-dark btn-block display:inline" type="button" style="width: 50%;  margin-left: 82px">Ingresar</button>
 					<br>
 				</form>
 			</div>
@@ -75,4 +74,5 @@ $login->ValidateSessionLogin();
 	<script src="js/toastr.js"></script>
 	<script src="js/validacionesLogin.js"></script>
 </body>
+
 </html>

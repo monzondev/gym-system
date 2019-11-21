@@ -23,7 +23,7 @@ $login->ValidateSession();
             font-size: 15px;
         }
 
-        #contenido:hover{
+        #contenido:hover {
             cursor: pointer;
         }
     </style>
@@ -82,7 +82,7 @@ $login->ValidateSession();
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label>Correo</label>
-                            <input type="email" class="form-control" name="email"  onkeypress="return justCorreo(event);" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required id="email" maxlength="50" placeholder="Correo Electronico">
+                            <input type="email" class="form-control" name="email" onkeypress="return justCorreo(event);" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" required id="email" maxlength="50" placeholder="Correo Electronico">
                             <p id="error6" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso"  onkeypress="return justNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return justNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
                             <p id="error11" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -138,7 +138,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" name="fecha"  required id="fecha">
+                            <input type="date" class="form-control" name="fecha" required id="fecha">
                             <p id="error12" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -146,10 +146,10 @@ $login->ValidateSession();
                 <input type="text" name="agregarMiembro" hidden>
 
                 <br>
-                <center>
+                <div style=" text-align: center;">
                     <input class="btn btn-info btn-lg" style="width: 150px; height: 45px;" name="registrarMiembro" id="registrarM" type="button" value="Registrar">
                     <input class="btn btn-secondary btn-lg" style="width: 150px; height: 45px;" type="button" onclick=" location.href='index.php'" value="Cancelar" />
-                </center>
+                </div>
             </form>
         </div>
         <div class="card-footer">
@@ -176,11 +176,12 @@ $login->ValidateSession();
 
             return /\d/.test(String.fromCharCode(keynum));
         }
+
         function justCorreo(e) {
             var keynum = window.event ? window.event.keyCode : e.which;
             if ((keynum == 8) || (keynum == 46))
                 return true;
-            var exp =  RegExp(/^[a-zA-Z0-9._@-]+$/g);
+            var exp = RegExp(/^[a-zA-Z0-9._@-]+$/g);
             return exp.test(String.fromCharCode(keynum));
         }
 
@@ -201,24 +202,23 @@ $login->ValidateSession();
             return false;
         }
 
-        function opcionQuitar(){
+        function opcionQuitar() {
             var removerF = "<img src='img/remove.png'width='20' alt='X'>   Quitar fotograf&iacute;a";
             var opcion = document.getElementById("contenido");
             opcion.style.display = "block";
             opcion.innerHTML = removerF;
         }
 
-        function removerFotografia(){
+        function removerFotografia() {
             var foto = document.getElementById("foto");
             var opcion = document.getElementById("contenido");
             foto.value = "";
             opcion.innerHTML = "";
             opcion.style.display = "none";
         }
-
     </script>
-     <script>
-         /*
+    <script>
+        /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })

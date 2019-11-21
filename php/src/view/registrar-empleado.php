@@ -83,7 +83,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                             <input type="password" class="form-control" onkeypress="capLock(event)" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="password" required id="password" maxlength="15" placeholder="Contraseña">
                             <img src='img/viewP.png' width='28' title="Ver contraseña" onclick="viewPass();" id="viewP" alt="Ver" style="padding-top: 10px; position: relative; top: -35px; left: 100px;">
                             <p id="error4" class="text-danger error" style="position: relative; top: -25px;"> </p>
-                            <p id="errorMay" class="text-warning error"  style="position: relative; top: -35px;"> </p>
+                            <p id="errorMay" class="text-warning error" style="position: relative; top: -35px;"> </p>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -145,10 +145,10 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                     <input type="text" name="agregarEmpleado" hidden>
                 </div>
                 <br>
-                <center>
+                <div style=" text-align: center;">
                     <input class="btn btn-info btn-lg" style="width: 150px; height: 45px;" name="agregarEmpleado" id="registrarE" type="button" value="Registrar">
                     <input class="btn btn-secondary btn-lg" style="width: 150px; height: 45px;" type="button" onclick=" location.href='index.php'" value="Cancelar" />
-                </center>
+                </div>
             </form>
         </div>
         <div class="card-footer">

@@ -80,12 +80,12 @@ $(document).ready(function() {
                     } else if (datos.success === '2') {
 
                         toastr.remove();
-                        toastr.error('Contraseña incorrecta');
+                        toastr.error('Credenciales incorrectas');
                         pass.focus();
                     } else if (datos.success === '3') {
 
                         toastr.remove();
-                        toastr.error('Usuario incorrecto');
+                        toastr.error('Credenciales incorrectas');
                         user.focus();
 
                     }

@@ -411,8 +411,10 @@ $login->ValidateSession();
             var estado = findEstado(value.id_estado);
             td5.innerText = estado.nombre;
             td6.setAttribute("style", "padding-top: 17px;");
-            if(typeof value.fin_membresia === 'undefined'){
-                td6.innerText = "No definida";
+            console.log(value.fin_membresia)
+            
+            if( value.fin_membresia == null){
+                td6.innerText = "Sin membresia";
             }else{
                 td6.innerText = value.fin_membresia;
             }

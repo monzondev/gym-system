@@ -81,8 +81,8 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                             <label>Contraseña</label>
                             <input type="password" class="form-control" onkeypress="capLock(event)" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="password" required id="password" maxlength="15" placeholder="Contraseña">
                             <img src='img/viewP.png' width='28' title="Ver contraseña" onclick="viewPass();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; left: 100px;">
-                            <p id="error4" class="text-danger error"> </p>
-                            <p id="errorMay" class="text-warning error"> </p>
+                            <p id="error4" class="text-danger error" style="position: relative; top: -25px;"> </p>
+                            <p id="errorMay" class="text-warning error"  style="position: relative; top: -35px;"> </p>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">

@@ -67,7 +67,7 @@ $login->ValidateSession();
                     <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true"><p>Proximos a Pagar</p></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Gestionar Pagos</a>
+                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false"><p>Gestionar Pagos</p></a>
                 </li>                
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -91,7 +91,7 @@ $login->ValidateSession();
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Membres&iacute;a</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Fecha de Pago</th>
+                                <th scope="col">Fin de membres&iacute;a</th>
                             </tr>
                         </thead>
                         <tbody id="table_body_proximos_pagos">
@@ -121,7 +121,7 @@ $login->ValidateSession();
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Membres&iacute;a</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Fecha Pago</th>
+                                <th scope="col">Fin de membres&iacute;a </th>
                             </tr>
                         </thead>
                         <tbody id="table_body_pagos_proceso">
@@ -406,7 +406,7 @@ $login->ValidateSession();
                 td4.innerText = "Ninguna";
             } else {
                 td4.innerText = tm.nombre;
-            }            
+            }
             td5.setAttribute("style", "padding-top: 17px;");
             var estado = findEstado(value.id_estado);
             td5.innerText = estado.nombre;
@@ -416,7 +416,6 @@ $login->ValidateSession();
             }else{
                 td6.innerText = value.fin_membresia;
             }
-            
             tr.append(td1, td2, td3, td4, td5, td6);
             return tr;
         }
@@ -572,13 +571,11 @@ $login->ValidateSession();
             if (e.which == 13) {
                 $('#btn_buscar_pagos_proceso').click();
             }
-            
         });
         $('#buscador_miembros_inactivos').keypress(function(e) {
             if (e.which == 13) {
                 $('#btn_buscar_miembros_inactivos').click();
             }
-            
         });
 
 

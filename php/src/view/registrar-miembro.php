@@ -7,6 +7,7 @@ $tipos = $tipoMembresia->getAllTipoMembresia();
 $login = new empleado();
 $login->ValidateSession();
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>

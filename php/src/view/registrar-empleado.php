@@ -9,6 +9,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
 
 
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>

@@ -7,6 +7,7 @@ $miembro = new miembro();
 $login = new empleado();
 $login->ValidateSession();
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>

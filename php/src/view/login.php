@@ -4,6 +4,7 @@ include_once '../boundary/empleado.php';
 $login = new empleado();
 $login->ValidateSessionLogin();
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>

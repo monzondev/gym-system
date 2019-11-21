@@ -59,7 +59,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
     <script>
-        $('#miembrosOptions').hover(function() {
+        /*$('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })
 
@@ -68,7 +68,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
         })
         $('#empleadosOptions').hover(function() {
             $('#empleados').trigger('click')
-        })
+        })*/
     </script>
     <script>
         <?php

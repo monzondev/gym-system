@@ -465,6 +465,7 @@ $login->ValidateSession();
             img.setAttribute("src", "../recursos/fotografias/" + value.foto);
             img.setAttribute("class", "rounded-circle");
             img.setAttribute("width", "50");
+            img.setAttribute("height", "50");
             img.setAttribute("alt", value.usuario);
             img.setAttribute("title", value.usuario);
             td1.append(img);

@@ -79,9 +79,10 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="password" class="form-control" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="password" required id="password" maxlength="15" placeholder="Contraseña">
+                            <input type="password" class="form-control" onkeypress="capLock(event)" autocomplete="off" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="password" required id="password" maxlength="15" placeholder="Contraseña">
                             <img src='img/viewP.png' width='28' title="Ver contraseña" onclick="viewPass();" id="viewP" style="padding-top: 10px; position: relative; top: -35px; left: 100px;">
                             <p id="error4" class="text-danger error"> </p>
+                            <p id="errorMay" class="text-warning error"> </p>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -197,6 +198,19 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                 pass.setAttribute('type', 'text');
             }
 
+        }
+
+        function capLock(e) {
+            var notificacion = document.getElementById("errorMay");
+            var mayuscula = "<img src='img/warning.png'width='22' >     Mayuscula activada";
+
+            kc = e.keyCode ? e.keyCode : e.which;
+            sk = e.shiftKey ? e.shiftKey : ((kc == 16) ? true : false);
+            if (((kc >= 65 && kc <= 90) && !sk) || ((kc >= 97 && kc <= 122) && sk)) {
+                notificacion.innerHTML = mayuscula;
+            } else {
+                notificacion.innerHTML = '';
+            }
         }
     </script>
     <script>

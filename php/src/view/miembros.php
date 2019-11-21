@@ -173,7 +173,7 @@ $login->ValidateSession();
                 </thead>
                 <tbody id="table_body">
                     <tr>
-                    <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
+                        <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                     </tr>
                 </tbody>
             </table>
@@ -183,153 +183,156 @@ $login->ValidateSession();
     <!-- Large modal -->
     <div class="modal fade bd-example-modal-lg" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" >
                 <div class="card" style="border: none;">
                     <div class="card-header  text-center" style="background-color: #4B515D; color:white; ">
+                        <button type="button" class="close " style="color:white; " onclick="cerrar();" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <strong>
                             <p class="lead">Informaci&oacute;n del miembro</p>
-                            <button type="button" class="close " style="color:white;" onclick="cerrar();" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
                         </strong>
 
                     </div>
-
                     <div class="card-body" id="cargando" style="display:none">
                         <div class="row text-center">
                             <div class="col-md-12">
                                 <br><br><br>
-                                <img src="img/cargando3.gif" width="230" alt="Cargando..."/>>
+                                <img src="img/cargando3.gif" width="230" alt="Cargando..." />>
                                 <br><br><br>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body" id="datos">
-                        <div class="container emp-profile">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="profile-img">
-                                        <img id="fotografia" class="rounded-circle"  alt="Miembro" />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-7 text-center">
-                                    <div class="profile-head">
-                                        <h2 id="nombre">
-                                        </h2>
-                                        <h3 id="apellidos">
-
-                                        </h3>
-                                        <h5 class="proile-rating"><span id="fecha"></span></h5>
-                                        <hr>
-                                        <div class="row .nav-tabs">
-                                            <ul>
-                                                <li style="display:inline;  padding-left:10px; padding-right:75px;">
-                                                    <a class="opciones" id="link-personal" onclick="mostrarPersonal();">Personal</a>
-                                                </li>
-                                                <li style="display:inline; ">
-                                                    <a class="opciones" id="link-gimnasio" onclick="mostrarExtra();">Gimnasio</a>
-                                                </li>
-
-                                            </ul>
-
-                                        </div>
-                                        <div class="col-md-4">
-
-                                        </div>
-                                        <div class="col-md-4">
+                        <div class="card-body" id="datos">
+                            <div class="container emp-profile">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="profile-img">
+                                            <img id="fotografia" class="rounded-circle shadow-lg" alt="Miembro" />
                                         </div>
                                     </div>
-                                    <hr>
+                                    <div class="col-md-7 text-center">
+                                        <div class="profile-head">
+                                            <br>
+                                            <h2 id="nombre">
+                                            </h2>
+                                            <h3 id="apellidos">
+
+                                            </h3>
+                                            <h5 class="proile-rating"><span id="fecha"></span></h5>
+                                            <br>
+
+                                            <div class="row .nav-tabs">
+
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">Informaci&oacute;n Personal</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">Informaci&oacute;n Gimnasio</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade show active" id="proximos-a-pagar" role="tabpanel" aria-labelledby="tab-proximos-a-pagar">
+                                                        <div class="row">
+
+                                                            <div class="col-md-12">
+
+                                                                <div id="personal">
+                                                                    <div class="row profile-tab">
+                                                                        <div class="col-md-5">
+                                                                            <label>Usuario:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="user"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>G&eacute;nero:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="genero"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>Correo:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="correo" style="font-size: 14px;"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>Tel&eacute;fono:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="telefono"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="tab-pane fade" id="pagos-en-proceso" role="tabpanel" aria-labelledby="tab-pagos-en-proceso">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <div id="profile">
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>Fecha inicio:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="fecha_inicio"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>Altura:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="altura"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>Peso:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="peso"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row profile-tab">
+                                                                        <div class=" col-md-5">
+                                                                            <label>Estado:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-md-left text-sm-center">
+                                                                            <p id="estado"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class=" row justify-content-end">
-                            <div class="col-md-7 ">
-                                <div id="personal">
-                                    <div class="row profile-tab">
-                                        <div class="col-md-4">
-                                            <label>Usuario:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="user"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>G&eacute;nero:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="genero"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>Correo:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="correo"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>Tel&eacute;fono:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="telefono"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="perfil">
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>Fecha inicio:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="fecha_inicio"></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>Altura:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="altura"></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>Peso:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="peso"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row profile-tab">
-                                        <div class=" col-md-4">
-                                            <label>Estado:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p id="estado"></p>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
-
             </div>
-
         </div>
     </div>
-    </div>
+
 
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/popper.min.js"></script>

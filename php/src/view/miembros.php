@@ -123,15 +123,13 @@ $login->ValidateSession();
             background-size: cover;
 
         }
-         h3, table{
+          table{
             background-color:#ffffff;
         }
-        a p{
-            padding: 10px;
-            margin: 0px;
-        }
+        
         h3{
             width: 250px;
+            background-color:#f2f2f2;
         }
     </style>
 </head>

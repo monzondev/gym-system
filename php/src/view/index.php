@@ -37,7 +37,7 @@ $login->ValidateSession();
             cursor: pointer;
         }
         p, h3, table{
-            background-color:#ffffff;
+            background-color:#f2f2f2;
         }
         a p{
             padding: 10px;

@@ -28,8 +28,11 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             background-size: cover;
 
         }
-        h3, table{
+         table{
             background-color:#ffffff;
+        }
+        h3{
+            background-color:#f2f2f2;
         }
     </style>
 </head>

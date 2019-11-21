@@ -115,8 +115,16 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
                             <h3>Miembros en Proceso de pago:</h3>
-                            <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_pagos_proceso" style="float: left;" class="btn btn-info">Filtrar</button>
+                            <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 70%; display: inline-block;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
+                            <button id="btn_buscar_pagos_proceso" style="display: inline-block;" class="btn btn btn-secondary">Filtrar</button>
+                            <div class="btn-group">
+                                <button id="btn_estado" type="button" class="btn btn-info dropdown-toggle" style="display: inline-block;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Estado
+                                </button>
+                                <div id="estado_opciones" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                                    <!--button class="dropdown-item" type="button">Action</button-->
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -211,16 +219,18 @@ $login->ValidateSession();
 
 
     <script src="js/jQuery-3-4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
     <script src="js/bootstrap-autocomplete.min.js"></script>
     <script>
         <?php
-        include_once '../boundary/estado.php';
-        include_once '../boundary/tipo_membresia.php';
-        $facadeEstado = new estado;
-        $facadeTipoMembrecia = new tipo_membresia;
+            include_once '../boundary/estado.php';
+            include_once '../boundary/tipo_membresia.php';
+            $facadeEstado = new estado;
+            $facadeTipoMembrecia = new tipo_membresia;            
         ?>
+        var selectedEstado = 2;
         var estados = <?php echo json_encode($facadeEstado->findAll()); ?>;
         var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia()); ?>;
 
@@ -236,6 +246,20 @@ $login->ValidateSession();
             for (tm of tipoMembrecias) {
                 if (tm.id_tipo_membresia == idTipoMebrecia) {
                     return tm;
+                }
+            }
+        }
+
+        function cargarEstados() {
+            $('#estado_opciones').html('');
+            for (e of estados) {
+                var button = document.createElement("button");
+                button.setAttribute("class", "dropdown-item");
+                button.setAttribute("type", "button");
+                button.innerText = e.nombre;
+                button.setAttribute("onclick", "updateTablePagosEnProceso('','" + e.id_estado + "')");
+                if(e.id_estado != 1){ // quitar el 1 de activo
+                    $('#estado_opciones').append(button);
                 }
             }
         }
@@ -271,7 +295,7 @@ $login->ValidateSession();
 
         $('#btn_buscar_pagos_proceso').click(function() {
             var txt = $('#buscador_pagos_proceso').val();
-            updateTablePagosEnProceso(txt);
+            updateTablePagosEnProceso(txt, selectedEstado);
         });
         $('#buscador_pagos_proceso').autoComplete({
             minLength: 1,
@@ -386,40 +410,42 @@ $login->ValidateSession();
             }
         }
 
-        function updateTablePagosEnProceso(txt) {
-            var listTable = getPagosProceso(txt, false);
+        function updateTablePagosEnProceso(txt, id_estado) {
+            selectedEstado = id_estado;
+            var listTable = getPagosProceso(txt, true);
+            var tabla = $("#table_body_pagos_proceso");
             if (listTable.length > 0) {
-                //Vaciar la tabla
-                var tabla = $("#table_body_pagos_proceso");
+                //Vaciar la tabla                
                 tabla.html("");
                 //Llenar la tabla
                 $.each(listTable, function(key, value) {
-                    var tr = createTableRowWith(value);
-                    var td6 = document.createElement("td");
-                    td6.setAttribute("style", "padding-top: 17px;");
+                    if(id_estado == value.id_estado){
+                        var tr = createTableRowWith(value);
+                        var td6 = document.createElement("td");
+                        td6.setAttribute("style", "padding-top: 17px;");
 
-                    if (value.fin_membresia == null) {
-                        td6.innerText = "Sin membresia";
-                    } else {
-                        <?php
-                        $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
-                        ?>
-                        var hoy = "<?php echo $date->format('Y-m-d'); ?>";
-                        var resultado = restaFechas(value.fin_membresia, hoy);
-                        if (resultado == 1) {
-                            td6.innerText = 'hace '+resultado + ' día';
-                        }else{
-                            td6.innerText = resultado + ' días';
+                        if (value.fin_membresia == null) {
+                            td6.innerText = "Sin membresia";
+                        } else {
+                            <?php
+                            $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
+                            ?>
+                            var hoy = "<?php echo $date->format('Y-m-d'); ?>";
+                            var resultado = restaFechas(value.fin_membresia, hoy);
+                            if (resultado == 1) {
+                                td6.innerText = 'hace '+resultado + ' día';
+                            }else{
+                                td6.innerText = resultado + ' días';
+                            }
                         }
-                    }
-
-                    tr.append(td6);
-
-                    tabla.append(tr);
+                        tr.append(td6);
+                        tabla.append(tr);
+                    }                    
                 });
                 eventoSeleccionar();
             } else if (listTable == false) {
-                //toastr.warning('No se han encontrado miembros con pagos pendiente');
+                tabla.html('"<tr><td colspan="6" class="text-center text-secondary">No se encontraron miembros</td></tr>"');
+                toastr.warning('No se han encontrado miembros pendiente');
             }
         }
 
@@ -469,7 +495,9 @@ $login->ValidateSession();
         $(document).ready(function() {
             //Cuando cargue la pagina buscar todos
             updateTableProximosPagos("");
-            updateTablePagosEnProceso("");
+            //Actualizar tabla con estados 2 de pendiente
+            updateTablePagosEnProceso("", 2);
+            cargarEstados();
         });
 
         $('select#tipomembresia').on('change', function() {
@@ -626,10 +654,6 @@ $login->ValidateSession();
             var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
             return diff_in_days;
         }
-
-
-
-
 
         /*
         $('#miembrosOptions').hover(function() {

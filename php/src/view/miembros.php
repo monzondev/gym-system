@@ -214,7 +214,7 @@ $login->ValidateSession();
                                         <br>
                                         <h2 id="nombre">
                                         </h2>
-                                        <h3 id="apellidos">
+                                        <h4 id="apellidos" class="text-center">
 
                                         </h3>
                                         <h5 class="proile-rating"><span id="fecha"></span></h5>

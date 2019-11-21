@@ -3,23 +3,24 @@ session_start();
 include_once '../boundary/empleado.php';
 $login = new empleado();
 $login->ValidateSession();
-if ($_SESSION['tipoEmpleado']!=1) {
+if ($_SESSION['tipoEmpleado'] != 1) {
     header("Location: index.php");
     exit();
 }
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Estadisticas</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>    
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
     <link rel="icon" type="image/png" href="img/icono.png">
     <style>
-     body {
+        body {
             background: url(img/fondoSystem.png) no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
@@ -27,29 +28,42 @@ if ($_SESSION['tipoEmpleado']!=1) {
             background-size: cover;
 
         }
-        h1, canvas{
-            background-color:#fbfbfb;
+
+        h3,
+        canvas {
+            background-color: #fbfbfb;
         }
     </style>
 </head>
+
 <body>
     <?php include_once("navbar.php"); ?>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10 text-center">            
-            <h1>Ingresos de por d&#237;a</h1>
-            <input type="date" class="form-control" style="width: 50%; display: inline-block;" id="fecha">
-            <input class="btn btn-info" id="btn_fecha" type="button" value="Buscar">
-            <br><br>
-            <canvas id="grafica-ingresos" style=""></canvas>
-            <br><hr><br>
-            <h1>Miembros Por Estado</h1>
-            <br>
-            <canvas id="miembros_por_estado" style=""></canvas>
-            <br><hr><br>
-            <h1>Total de miembros registrados</h1>
-            <h1 id="total_miembros">0</h1>
-            <br><hr><br>
+        <div class="col-md-10 text-center">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Ingresos de por d&#237;a</h3>
+                    <input type="date" class="form-control" style="width: 60%; display: inline-block;" id="fecha">
+                    <input class="btn btn-info" id="btn_fecha" type="button" value="Buscar">
+                    <canvas id="grafica-ingresos" style=""></canvas>
+                    <br><br>
+                </div>
+                <div class="col-md-6">
+                    <h3>Miembros Por Estado</h3>
+                    <br>
+                    <canvas id="miembros_por_estado" style=""></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Total de miembros registrados</h4>
+                    <h3 id="total_miembros">0</h3>
+                    <br>
+                    <hr><br>
+                </div>
+
+            </div>
         </div>
         <div class="col-md-1"></div>
     </div>
@@ -72,32 +86,33 @@ if ($_SESSION['tipoEmpleado']!=1) {
     </script>
     <script>
         <?php
-            $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
+        $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
         ?>
-        var date = "<?php echo $date->format('Y-m-d');?>";
+        var date = "<?php echo $date->format('Y-m-d'); ?>";
 
         //Poner fecha de hoy al filto de la fecha
-        $('#fecha').val(date);        
+        $('#fecha').val(date);
         $('#btn_fecha').click(function() {
             var f = $('#fecha').val();
             updateIngresosPorDia(f);
         });
 
-        function updateIngresosPorDia(fecha){
+        function updateIngresosPorDia(fecha) {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             $.ajax({
                 type: "POST",
                 async: false,
                 url: "../controller/estadisticaController.php?ingresosPorDia=true",
                 data: JSON.stringify({
-                    "id_empleado": id_empleado, "fecha": fecha
+                    "id_empleado": id_empleado,
+                    "fecha": fecha
                 }),
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
                     if (typeof response.code !== 'undefined') {
                         toastr.error(response.message);
                     } else {
-                        if(typeof myChart !== 'undefined'){
+                        if (typeof myChart !== 'undefined') {
                             myChart.destroy();
                         }
                         llenarGraficaBar("grafica-ingresos", response);
@@ -106,7 +121,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
             });
         }
 
-        function updateMiembroPorEstado(){
+        function updateMiembroPorEstado() {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             $.ajax({
                 type: "POST",
@@ -126,7 +141,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
             });
         }
 
-        function updateTotalMiembros(){
+        function updateTotalMiembros() {
             var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
             $.ajax({
                 type: "POST",
@@ -145,21 +160,19 @@ if ($_SESSION['tipoEmpleado']!=1) {
                 }
             });
         }
-        
+
 
         $(document).ready(function() {
             var f = $('#fecha').val();
-            updateIngresosPorDia(f);            
+            updateIngresosPorDia(f);
             updateMiembroPorEstado();
             updateTotalMiembros();
         });
-
-
     </script>
     <script>
         var myChart;
         //llenarGrafica(document.getElementById("myChart").getContext('2d'), d)
-        function llenarGraficaBar(id, d){            
+        function llenarGraficaBar(id, d) {
             var ctx = document.getElementById(id).getContext('2d');
             //var ctx = document.getElementById("myChart").getContext('2d');
             myChart = new Chart(ctx, {
@@ -201,7 +214,8 @@ if ($_SESSION['tipoEmpleado']!=1) {
                 }
             });
         }
-        function llenarGraficaPie(id, d){
+
+        function llenarGraficaPie(id, d) {
             var ctxP = document.getElementById(id).getContext('2d');
             //var ctx = document.getElementById("myChart").getContext('2d');            
             var myPieChart = new Chart(ctxP, {
@@ -223,4 +237,5 @@ if ($_SESSION['tipoEmpleado']!=1) {
         }
     </script>
 </body>
+
 </html>

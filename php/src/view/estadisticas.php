@@ -35,7 +35,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
             <canvas id="miembros_por_estado" style=""></canvas>
             <br><hr><br>
             <h1>Total de miembros registrados</h1>
-            <h1>0</h1>
+            <h1 id="total_miembros">0</h1>
             <br><hr><br>
         </div>
         <div class="col-md-1"></div>
@@ -113,12 +113,32 @@ if ($_SESSION['tipoEmpleado']!=1) {
             });
         }
 
+        function updateTotalMiembros(){
+            var id_empleado = <?php echo $_SESSION['idEmpleado']; ?>;
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "../controller/estadisticaController.php?totalMiembros=true",
+                data: JSON.stringify({
+                    "id_empleado": id_empleado
+                }),
+                success: function(data) {
+                    var response = jQuery.parseJSON(data);
+                    if (typeof response.code !== 'undefined') {
+                        toastr.error(response.message);
+                    } else {
+                        $('#total_miembros').text(response);
+                    }
+                }
+            });
+        }
         
 
         $(document).ready(function() {
             var f = $('#fecha').val();
             updateIngresosPorDia(f);            
             updateMiembroPorEstado();
+            updateTotalMiembros();
         });
 
 

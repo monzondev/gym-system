@@ -56,6 +56,20 @@ if (isset($_GET['miembrosPorEstado']) && $_GET['miembrosPorEstado']) {
     exit();
 }
 
+if (isset($_GET['totalMiembros']) && $_GET['totalMiembros']) {
+    $json = file_get_contents('php://input');    
+    $id_empleado = (json_decode($json))->id_empleado;
+    $empleado = (object) $empleadoFacade->getUserbyId($id_empleado);
+    if(isset($empleado) && $empleado->id_tipo_empleado == 1){        
+        $miembros = $miembroFacade->count();
+        echo json_encode($miembros);        
+    }else{
+        $response = array('message' => 'No tiene permisos de administrador', 'code' => 2);
+        echo json_encode($response);
+    }
+    exit();
+}
+
 header('Location: /view/index.php');
 exit();
 ?>

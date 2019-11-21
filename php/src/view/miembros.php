@@ -45,6 +45,7 @@ $login->ValidateSession();
 
         .profile-img img {
             width: 210px;
+           height: 210px;
 
         }
 
@@ -214,7 +215,7 @@ $login->ValidateSession();
                                         <br>
                                         <h2 id="nombre">
                                         </h2>
-                                        <h3 id="apellidos">
+                                        <h4 id="apellidos" class="text-center">
 
                                         </h3>
                                         <h5 class="proile-rating"><span id="fecha"></span></h5>
@@ -402,10 +403,19 @@ $login->ValidateSession();
                     $("#fotografia").attr("src", "../recursos/fotografias/" +
                         selected.foto);
                     $("#fotografia").attr("alt", selected.user);
-                    $("#nombre").html(selected.primer_nombre + " " + selected
+                    if (selected.segundo_nombre != null) {
+                        $("#nombre").html(selected.primer_nombre + " " + selected
                         .segundo_nombre);
-                    $("#apellidos").html(selected.primer_apellido + " " + selected
+                    }else{
+                        $("#nombre").html(selected.primer_nombre );
+                    }
+                    if (selected.segundo_apellido != null) {
+                        $("#apellidos").html(selected.primer_apellido + " " + selected
                         .segundo_apellido);
+                    }else{
+                        $("#apellidos").html(selected.primer_apellido);
+                    }
+                   
                     $("#user").html(selected.usuario);
                     if (selected.correo != "") {
                         $("#correo").html(selected.correo);
@@ -603,6 +613,7 @@ $login->ValidateSession();
             img.setAttribute("src", "../recursos/fotografias/" + value.foto);
             img.setAttribute("class", "rounded-circle");
             img.setAttribute("width", "50");
+            img.setAttribute("height", "50");
             img.setAttribute("alt", value.usuario);
             img.setAttribute("title", value.usuario);
             td1.append(img);

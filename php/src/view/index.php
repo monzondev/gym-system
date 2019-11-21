@@ -45,7 +45,7 @@ $login->ValidateSession();
             background-color: #fbfbfb;
         }
 
-        a p {
+        .nav-itemm {
             padding: 10px;
             margin: 0px;
         }
@@ -69,12 +69,12 @@ $login->ValidateSession();
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">
-                        <p>Membres&iacute;as a expirar</p>
+                        <p class="nav-itemm">Membres&iacute;as a expirar</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">
-                        <p>Gestionar Pagos</p>
+                        <p class="nav-itemm">Gestionar Pagos</p>
                     </a>
                 </li>
             </ul>
@@ -134,7 +134,7 @@ $login->ValidateSession();
                             <tr>
                                 <th scope="col">Foto</th>
                                 <th scope="col">Usuario</th>
-                                <th scope="col">Nombres</th>
+                                <th scope="col">Nombre</th>
                                 <th scope="col">Membres&iacute;a</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Fin de membres&iacute;a </th>
@@ -156,8 +156,9 @@ $login->ValidateSession();
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalPago" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header text-center">
                     <h5 class="modal-title" id="tituloModal">Registrar Pago</h5>
+                    
                 </div>
                 <div class="modal-body ">
                     <div class="col-md-12 mb-12 ">
@@ -174,10 +175,12 @@ $login->ValidateSession();
 
                             <p id="error1" class="text-danger error"> </p>
                         </div>
+                        <h5 id="miembro" class="text-center"></h5>
+                        <br>
                         <strong>
                             <h5 id="texto" class="text-center"></h5>
                         </strong>
-
+                        
                         <p id="titulo"></p>
                         <p id="descripcion"></p>
                         <p id="monto"></p>
@@ -201,7 +204,7 @@ $login->ValidateSession();
                     <h5 class="modal-title" id="exampleModalLabel">Confirmacion para realizar el pago</h5>
                 </div>
                 <div class="modal-body">
-                    <p id="montoPagar" class="text-center"></p>
+                    <p id="montoPagar" style="background-color:#f2f4f4;" class="text-center"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelarPago();">Cancelar</button>
@@ -370,14 +373,16 @@ $login->ValidateSession();
         function eventoSeleccionar() {
             $('#table_body_pagos_proceso .filas').click(function() {
                 var id_empleado = $(this).attr('id');
-                cargarModal(id_empleado);
+                var nombre = $(this).attr('title');
+                cargarModal(id_empleado,nombre);
             });
         }
 
-        function cargarModal(id_empleado) {
+        function cargarModal(id_miembro,nombre) {
             //var id_empleado = $(this).attr('id');
             $("#modalPago").modal('show');
-            $('#modalPago').attr('data-id', id_empleado);
+            $('#modalPago').attr('data-id', id_miembro);
+            $('#miembro').html('<strong>Miembro: </strong>'+nombre); 
         }
 
         function updateTableProximosPagos(txt) {
@@ -447,6 +452,7 @@ $login->ValidateSession();
         function createTableRowWith(value) {
             var tr = document.createElement("tr");
             tr.id = value.id_miembro;
+            tr.setAttribute("title", value.primer_nombre +' ' + value.segundo_nombre+' ' + value.primer_apellido);
             tr.classList.add("filas");
             var td1 = document.createElement("th");
             var img = document.createElement("img");
@@ -459,13 +465,14 @@ $login->ValidateSession();
             img.setAttribute("src", "../recursos/fotografias/" + value.foto);
             img.setAttribute("class", "rounded-circle");
             img.setAttribute("width", "50");
+            img.setAttribute("height", "50");
             img.setAttribute("alt", value.usuario);
             img.setAttribute("title", value.usuario);
             td1.append(img);
             td2.setAttribute("style", "padding-top: 17px;");
             td2.innerText = value.usuario;
             td3.setAttribute("style", "padding-top: 17px;");
-            td3.innerText = value.primer_nombre + " " + value.segundo_nombre;
+            td3.innerText = value.primer_nombre + " " + value.primer_apellido;
             td4.setAttribute("style", "padding-top: 17px;");
             var tm = findTipoMebresia(value.id_tipo_membresia);
             if (typeof tm === 'undefined') {
@@ -506,7 +513,7 @@ $login->ValidateSession();
                 success: function(response) {
                     if (response != null) {
                         selected = jQuery.parseJSON(response)
-                        $("#texto").html('Detalles');
+                        $("#texto").html('Detalles Membresía');
                         $("#titulo").html('<strong>Membresia:</strong> ' + selected.nombre);
                         $("#descripcion").html('<strong>Descripci&oacute;n:</strong> ' + selected.descripcion);
                         $("#monto").html('<strong>Precio:</strong> $<span id="precio">' + selected.precio + '</span>');

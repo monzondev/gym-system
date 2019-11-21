@@ -408,9 +408,9 @@ $login->ValidateSession();
         function updateTablePagosEnProceso(txt, id_estado) {
             selectedEstado = id_estado;
             var listTable = getPagosProceso(txt, true);
+            var tabla = $("#table_body_pagos_proceso");
             if (listTable.length > 0) {
-                //Vaciar la tabla
-                var tabla = $("#table_body_pagos_proceso");
+                //Vaciar la tabla                
                 tabla.html("");
                 //Llenar la tabla
                 $.each(listTable, function(key, value) {
@@ -433,15 +433,14 @@ $login->ValidateSession();
                                 td6.innerText = resultado + ' días';
                             }
                         }
-
                         tr.append(td6);
-
                         tabla.append(tr);
                     }                    
                 });
                 eventoSeleccionar();
             } else if (listTable == false) {
-                //toastr.warning('No se han encontrado miembros con pagos pendiente');
+                tabla.html('"<tr><td colspan="6" class="text-center text-secondary">No se encontraron miembros</td></tr>"');
+                toastr.warning('No se han encontrado miembros pendiente');
             }
         }
 

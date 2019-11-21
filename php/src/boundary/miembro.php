@@ -257,7 +257,6 @@ class miembro extends conector_pg
         }else{
             return $row[0];
         }
-        return $result[0];
     } 
 
     /*********************************************************************/

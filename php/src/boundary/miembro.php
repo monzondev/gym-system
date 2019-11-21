@@ -17,8 +17,8 @@ class miembro extends conector_pg
         "miembrosSinPagos" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE (SELECT count(p.monto) FROM pago as p WHERE p.id_miembro = m.id_miembro)=0",
         "proximosPagos" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE m.id_estado = 1 AND (EXTRACT(DAY FROM (m.fin_membresia::timestamp)-(CURRENT_TIMESTAMP))) BETWEEN 1 AND 3 AND m.activo=true",
         "proximosPagosByName" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro as m WHERE m.id_estado = 1 AND (EXTRACT(DAY FROM (m.fin_membresia::timestamp)-(CURRENT_TIMESTAMP))) BETWEEN 1 AND 3 AND CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3",
-        "pagosEnProceso" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro AS m WHERE m.id_estado = 2 AND ((EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp)) >= 0) OR m.fin_membresia IS NULL)",
-        "pagosEnProcesoByName" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro AS m WHERE m.id_estado = 2 AND ((EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp)) >= 0) OR m.fin_membresia IS NULL) AND CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3",
+        "pagosEnProceso" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro AS m WHERE (m.id_estado BETWEEN 2 AND $1) AND ((EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp)) >= 0) OR m.fin_membresia IS NULL)",
+        "pagosEnProcesoByName" => "SELECT m.id_miembro, m.id_estado, m.id_tipo_membresia, m.primer_nombre, m.segundo_nombre, m.primer_apellido, m.segundo_apellido, m.usuario, m.foto, m.correo, m.genero, m.telefono, m.altura, m.peso, m.activo, m.fecha_nacimiento, m.fecha_inicio, m.inicio_membresia, m.fin_membresia FROM miembro AS m WHERE (m.id_estado BETWEEN 2 AND $2) AND ((EXTRACT(DAY FROM (CURRENT_TIMESTAMP)-(m.fin_membresia::timestamp)) >= 0) OR m.fin_membresia IS NULL) AND CONCAT(m.primer_nombre, ' ', m.segundo_nombre, ' ', m.primer_apellido, ' ', m.segundo_apellido, ' - ', m.usuario) ~* $1 AND m.activo=true ORDER BY m.id_miembro ASC LIMIT 3",
         "findByUser" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE usuario = $1",
         "findByEstado" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo = true AND id_estado = $1 ORDER BY id_miembro ASC",
         "findAllActive" => "SELECT id_miembro, id_estado, id_tipo_membresia, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, foto, correo, genero, telefono, altura, peso, activo, fecha_nacimiento, fecha_inicio, inicio_membresia, fin_membresia FROM miembro  WHERE activo=true ORDER BY fecha_inicio DESC",
@@ -174,14 +174,16 @@ class miembro extends conector_pg
 
     /*********************************************************************/
     //Metodo para obtener los miembros que deban pagar ya
-    public function getMiembrosPagosEnProceso($txt)
-    {
+    public function getMiembrosPagosEnProceso($txt, $all)
+    {   
+        $all = $all?3:2;     
         if($txt == ''){ # TODOS
             $query = $this->Querys['pagosEnProceso'];
-            $result = pg_query($this->conexion, $query);            
+            $result = pg_query_params($this->conexion, $query, array($all));
         }else{ # Por nombre o usuario
             $query = $this->Querys['pagosEnProcesoByName'];
-            $result = pg_query_params($this->conexion, $query, array($txt));
+            
+            $result = pg_query_params($this->conexion, $query, array($txt, $all));
         }        
         if ($result) {
             $allRows = pg_fetch_all($result);

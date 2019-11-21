@@ -44,11 +44,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 </thead>
                 <tbody id="table_body">
                     <tr>
-                        <td>No disponibles</td>
-                        <td>No disponibles</td>
-                        <td>No disponibles</td>
-                        <td>No disponibles</td>
-                        <td>No disponibles</td>
+                    <td colspan="5" class="text-center text-secondary">No se encontraron empleados</td>
                     </tr>
                 </tbody>
             </table>
@@ -174,7 +170,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="btn_guardar" type="submit" class="btn btn-primary">Guardar</button>
+                    <button id="btn_guardar" type="submit" class="btn btn-info">Guardar</button>
                 </div>
             </div>
         </div>
@@ -194,7 +190,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btn_cancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" id="btn_eliminar" class="btn btn-primary">Eliminar</button>
+                    <button type="button" id="btn_eliminar" class="btn btn-info">Eliminar</button>
                 </div>
             </div>
         </div>

@@ -68,7 +68,7 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                     </div>
                     <br>
-                    <table id="tablaProximosPagos" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
+                    <table id="tablaProximosPagos"  style="widht: 50%" class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Foto</th>
@@ -81,12 +81,7 @@ $login->ValidateSession();
                         </thead>
                         <tbody id="table_body_proximos_pagos">
                             <tr>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
+                            <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                             </tr>
                         </tbody>
                     </table>
@@ -103,7 +98,7 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                     </div>
                     <br>
-                    <table id="tablaPagosProceso" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
+                    <table id="tablaPagosProceso"  style="widht: 50%" class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Foto</th>
@@ -116,12 +111,7 @@ $login->ValidateSession();
                         </thead>
                         <tbody id="table_body_pagos_proceso">
                             <tr>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
+                            <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                             </tr>
                         </tbody>
                     </table>
@@ -138,7 +128,7 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                     </div>
                     <br>
-                    <table id="tablaMiembrosInactivos" class="table" style="widht: 50%" class="table text-center table-striped table-hover">
+                    <table id="tablaMiembrosInactivos" style="widht: 50%" class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Foto</th>
@@ -151,12 +141,7 @@ $login->ValidateSession();
                         </thead>
                         <tbody id="table_body_miembros_inactivos">
                             <tr>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
-                                <td>No disponible</td>
+                                <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                             </tr>
                         </tbody>
                     </table>
@@ -201,7 +186,7 @@ $login->ValidateSession();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reiniciarModal();">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="botonPagar" onclick="confirmarPago();">Realizar pago</button>
+                    <button type="button" class="btn btn-info" id="botonPagar" onclick="confirmarPago();">Realizar pago</button>
                 </div>
             </div>
         </div>
@@ -219,7 +204,7 @@ $login->ValidateSession();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelarPago();">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="realizarPago();">Aceptar</button>
+                    <button type="button" class="btn btn-info" onclick="realizarPago();">Aceptar</button>
                 </div>
             </div>
         </div>

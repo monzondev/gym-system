@@ -173,12 +173,7 @@ $login->ValidateSession();
                 </thead>
                 <tbody id="table_body">
                     <tr>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
-                        <td>No disponible</td>
+                    <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                     </tr>
                 </tbody>
             </table>

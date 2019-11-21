@@ -661,6 +661,26 @@ $login->ValidateSession();
             $('#modalPago').modal('show');
         }
 
+        $('#buscador_proximos_pagos').keypress(function(e) {
+            if (e.which == 13) {
+                $('#btn_buscar_proximos_pagos').click();
+            }
+        });
+
+        $('#buscador_pagos_proceso').keypress(function(e) {
+            if (e.which == 13) {
+                $('#btn_buscar_pagos_proceso').click();
+            }
+            
+        });
+        $('#buscador_miembros_inactivos').keypress(function(e) {
+            if (e.which == 13) {
+                $('#btn_buscar_miembros_inactivos').click();
+            }
+            
+        });
+
+
 
 
         /*

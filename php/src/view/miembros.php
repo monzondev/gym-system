@@ -44,7 +44,7 @@ $login->ValidateSession();
 
         .profile-img img {
             width: 210px;
-            
+
         }
 
         .profile-img .file {
@@ -158,7 +158,7 @@ $login->ValidateSession();
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <br>            
+            <br>
             <table id="tablaMiembros" class="table text-center table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -170,7 +170,7 @@ $login->ValidateSession();
                         <th scope="col">Estado</th>
                     </tr>
                 </thead>
-                <tbody id="table_body">                    
+                <tbody id="table_body">
                     <tr>
                         <td>No disponible</td>
                         <td>No disponible</td>
@@ -337,7 +337,7 @@ $login->ValidateSession();
 
     <script src="js/jQuery-3-4.1.min.js"></script>
     <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>    
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/toastr.js"></script>
     <script>
         function mostrarPersonal() {
@@ -370,15 +370,14 @@ $login->ValidateSession();
         }
     </script>
     <script>
-
-        function eventoSeleccionar(){
+        function eventoSeleccionar() {
             $('.filas').click(function() {
                 var id = $(this).attr('id');
                 cargarDatos(id);
-            });        
+            });
         }
 
-        function cargarDatos(selectedIdMiembro){
+        function cargarDatos(selectedIdMiembro) {
             $("#modalDatos").modal('show');
             //var dataString = 'id=' + $(this).attr('id') + '&getMiembro=1';
             var dataString = 'id=' + selectedIdMiembro + '&getMiembro=1';
@@ -411,12 +410,12 @@ $login->ValidateSession();
                     $("#apellidos").html(selected.primer_apellido + " " + selected
                         .segundo_apellido);
                     $("#user").html(selected.usuario);
-                    if( selected.correo !=""  ){
+                    if (selected.correo != "") {
                         $("#correo").html(selected.correo);
-                    }else{
+                    } else {
                         $("#correo").html('No registrado');
                     }
-                    
+
                     $("#telefono").html(selected.telefono);
                     edad = calcularEdad(selected.fecha_nacimiento)
                     $("#fecha").html(edad + " años");
@@ -428,20 +427,20 @@ $login->ValidateSession();
                     $("#genero").html(genero);
                     $("#fecha_inicio").html(selected.fecha_inicio);
 
-                    if( selected.altura != 0  ){
+                    if (selected.altura != 0) {
                         $("#altura").html(selected.altura + ' m');
-                    }else{
+                    } else {
                         $("#altura").html('No registrada');
                     }
 
-                    if( selected.peso != 0  ){
+                    if (selected.peso != 0) {
                         $("#peso").html(selected.peso + ' kg');
-                    }else{
+                    } else {
                         $("#peso").html('No registrado');
                     }
-                    
-                    
-                    
+
+
+
                     if (selected.activo) {
                         estado = "Activo";
                     } else {
@@ -496,25 +495,25 @@ $login->ValidateSession();
     <script src="js/bootstrap-autocomplete.min.js"></script>
     <script>
         <?php
-            include_once '../boundary/estado.php';
-            include_once '../boundary/tipo_membresia.php';
-            $facadeEstado = new estado;
-            $facadeTipoMembrecia = new tipo_membresia;
+        include_once '../boundary/estado.php';
+        include_once '../boundary/tipo_membresia.php';
+        $facadeEstado = new estado;
+        $facadeTipoMembrecia = new tipo_membresia;
         ?>
-        var estados = <?php echo json_encode($facadeEstado->findAll());?>;
-        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia());?>;
+        var estados = <?php echo json_encode($facadeEstado->findAll()); ?>;
+        var tipoMembrecias = <?php echo json_encode($facadeTipoMembrecia->getAllTipoMembresia()); ?>;
 
-        function findEstado(idEstado){
+        function findEstado(idEstado) {
             for (e of estados) {
-                if(e.id_estado == idEstado){
+                if (e.id_estado == idEstado) {
                     return e;
                 }
             }
         }
 
-        function findTipoMebresia(idTipoMebrecia){
+        function findTipoMebresia(idTipoMebrecia) {
             for (tm of tipoMembrecias) {
-                if(tm.id_tipo_membresia == idTipoMebrecia){
+                if (tm.id_tipo_membresia == idTipoMebrecia) {
                     return tm;
                 }
             }
@@ -551,7 +550,10 @@ $login->ValidateSession();
                 type: "POST",
                 async: false,
                 url: "../controller/miembroController.php?filtrar=true",
-                data: JSON.stringify({"id_empleado": id_empleado, "txt": txt}),
+                data: JSON.stringify({
+                    "id_empleado": id_empleado,
+                    "txt": txt
+                }),
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
                     if (typeof response.code !== 'undefined') {
@@ -566,29 +568,29 @@ $login->ValidateSession();
 
         $('#btn_buscar').click(function() {
             var txt = $('#buscador').val();
-            updateTable(txt, 0);            
+            updateTable(txt, 0);
         });
 
-        function updateTable(txt, id_estado){
+        function updateTable(txt, id_estado) {
             var listTable = searchList(txt);
-            if(listTable.length > 0){
+            if (listTable.length > 0) {
                 //Vaciar la tabla
                 var tabla = $("#table_body");
                 tabla.html("");
                 //Llenar la tabla
-                $.each( listTable, function( key, value ) {
-                    if(value.id_estado == id_estado || id_estado == 0){
+                $.each(listTable, function(key, value) {
+                    if (value.id_estado == id_estado || id_estado == 0) {
                         var tr = createTableRowWith(value);
                         tabla.append(tr);
                     }
                 });
                 eventoSeleccionar();
-            }else if(listTable == false && txt.length > 0){
+            } else if (listTable == false && txt.length > 0) {
                 toastr.warning('No se han encontrado resultados');
             }
         }
 
-        function createTableRowWith(value){
+        function createTableRowWith(value) {
             var tr = document.createElement("tr");
             tr.id = value.id_miembro;
             tr.classList.add("filas");
@@ -601,7 +603,7 @@ $login->ValidateSession();
             var td6 = document.createElement("td");
             td1.setAttribute("scope", "row");
             td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");
-            img.setAttribute("src", "../recursos/fotografias/"+value.foto);
+            img.setAttribute("src", "../recursos/fotografias/" + value.foto);
             img.setAttribute("class", "rounded-circle");
             img.setAttribute("width", "50");
             img.setAttribute("alt", value.usuario);
@@ -613,9 +615,9 @@ $login->ValidateSession();
             td3.innerText = value.telefono;
             td4.setAttribute("style", "padding-top: 17px;");
             var tm = findTipoMebresia(value.id_tipo_membresia);
-            if(typeof tm === 'undefined'){
+            if (typeof tm === 'undefined') {
                 td4.innerText = "Ninguna";
-            }else{
+            } else {
                 td4.innerText = tm.nombre;
             }
             td5.setAttribute("style", "padding-top: 17px;");
@@ -632,7 +634,7 @@ $login->ValidateSession();
             updateTable("", 0);
             cargarEstados();
         });
-        
+
         function lettersOnly(e) {
             if (String.fromCharCode(e.which).match(/^[A-Za-z0-9 \x08]$/)) {
                 return true;
@@ -640,7 +642,7 @@ $login->ValidateSession();
             return false;
         }
 
-        function cargarEstados(){
+        function cargarEstados() {
             $('#estado_opciones').html('');
             var allBtn = document.createElement("button");
             allBtn.setAttribute("class", "dropdown-item");
@@ -653,14 +655,20 @@ $login->ValidateSession();
                 button.setAttribute("class", "dropdown-item");
                 button.setAttribute("type", "button");
                 button.innerText = e.nombre;
-                button.setAttribute("onclick", "updateTable('','"+e.id_estado+"')");
+                button.setAttribute("onclick", "updateTable('','" + e.id_estado + "')");
                 $('#estado_opciones').append(button);
-            }            
+            }
         }
+
+        $('#buscador').keypress(function(e) {
+            if (e.which == 13) {
+                $('#btn_buscar').click();
+            }
+        });
     </script>
-    
-     <script>
-         /*
+
+    <script>
+        /*
         $('#miembrosOptions').hover(function() {
             $('#navbarDropdownMiembros').trigger('click')
         })

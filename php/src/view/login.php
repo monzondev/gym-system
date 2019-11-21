@@ -14,7 +14,7 @@ $login->ValidateSessionLogin();
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link href="css/toastr.css" rel="stylesheet" />
-	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="icon" type="image/png" href="img/icono.png">
 	<style>
 		.error {
 			font-size: 15px;

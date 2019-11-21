@@ -36,24 +36,28 @@ $login->ValidateSession();
         .filas:hover {
             cursor: pointer;
         }
-        p, h3, {
-            background-color:#fbfbfb;
+
+        p,h3 {
+            background-color: #fbfbfb;
         }
-        table{
-            background-color:#fbfbfb;
+
+        table {
+            background-color: #fbfbfb;
         }
-        a p{
+
+        a p {
             padding: 10px;
             margin: 0px;
         }
-        body {
-			background: url(img/fondoSystem.png) no-repeat center center fixed;
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
 
-		}
+        body {
+            background: url(img/fondoSystem.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+        }
     </style>
 </head>
 
@@ -61,14 +65,18 @@ $login->ValidateSession();
     <?php include_once("navbar.php"); ?>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10" >
+        <div class="col-md-10">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true"><p>Proximos a Pagar</p></a>
+                    <a class="nav-link active" id="tab-proximos-a-pagar" data-toggle="tab" href="#proximos-a-pagar" role="tab" aria-controls="proximos-a-pagar" aria-selected="true">
+                        <p>Membres&iacute;as a expirar</p>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false"><p>Gestionar Pagos</p></a>
-                </li>                
+                    <a class="nav-link" id="tab-pagos-en-proceso" data-toggle="tab" href="#pagos-en-proceso" role="tab" aria-controls="pagos-en-proceso" aria-selected="false">
+                        <p>Gestionar Pagos</p>
+                    </a>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="proximos-a-pagar" role="tabpanel" aria-labelledby="tab-proximos-a-pagar">
@@ -76,14 +84,14 @@ $login->ValidateSession();
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <h3 style="width: 400px;" >Miembros Proximos a Pagar:</h3>
+                            <h3 style="width: 600px;">Miembros con membres&iacute;a proxima a expirar:</h3>
                             <input id="buscador_proximos_pagos" class="form-control basicAutoSelect" style="width: 85%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
                             <button id="btn_buscar_proximos_pagos" style="float: left;" class="btn btn-info">Filtrar</button>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
                     <br>
-                    <table id="tablaProximosPagos"  style="widht: 50%; " class="table text-center table-striped table-hover">
+                    <table id="tablaProximosPagos" style="widht: 50%; " class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Foto</th>
@@ -96,7 +104,7 @@ $login->ValidateSession();
                         </thead>
                         <tbody id="table_body_proximos_pagos">
                             <tr>
-                            <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
+                                <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                             </tr>
                         </tbody>
                     </table>
@@ -113,7 +121,7 @@ $login->ValidateSession();
                         <div class="col-md-1"></div>
                     </div>
                     <br>
-                    <table id="tablaPagosProceso"  style="widht: 50%" class="table text-center table-striped table-hover">
+                    <table id="tablaPagosProceso" style="widht: 50%" class="table text-center table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Foto</th>
@@ -126,11 +134,11 @@ $login->ValidateSession();
                         </thead>
                         <tbody id="table_body_pagos_proceso">
                             <tr>
-                            <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
+                                <td colspan="6" class="text-center text-secondary">No se encontraron miembros</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>                
+                </div>
             </div>
         </div>
         <div class="col-md-1"></div>
@@ -159,7 +167,7 @@ $login->ValidateSession();
                             <p id="error1" class="text-danger error"> </p>
                         </div>
                         <strong>
-                                <h5 id="texto" class="text-center" ></h5>
+                            <h5 id="texto" class="text-center"></h5>
                         </strong>
 
                         <p id="titulo"></p>
@@ -185,7 +193,7 @@ $login->ValidateSession();
                     <h5 class="modal-title" id="exampleModalLabel">Confirmacion para realizar el pago</h5>
                 </div>
                 <div class="modal-body">
-                    <p id="montoPagar" class="text-center" ></p>
+                    <p id="montoPagar" class="text-center"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelarPago();">Cancelar</button>
@@ -236,6 +244,7 @@ $login->ValidateSession();
         });
         $('#buscador_proximos_pagos').autoComplete({
             minLength: 1,
+            noResultsText: "Sin resultados",
             events: {
                 searchPost: function(resultFromServer) {
                     var txt = $('#buscador_proximos_pagos').val();
@@ -263,6 +272,7 @@ $login->ValidateSession();
         });
         $('#buscador_pagos_proceso').autoComplete({
             minLength: 1,
+            noResultsText: "Sin resultados",
             events: {
                 searchPost: function(resultFromServer) {
                     var txt = $('#buscador_pagos_proceso').val();
@@ -294,7 +304,8 @@ $login->ValidateSession();
                 async: false,
                 url: "../controller/miembroController.php?proximosPagos=true",
                 data: JSON.stringify({
-                    "id_empleado": id_empleado, "txt": txt
+                    "id_empleado": id_empleado,
+                    "txt": txt
                 }),
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
@@ -316,7 +327,9 @@ $login->ValidateSession();
                 async: false,
                 url: "../controller/miembroController.php?pagosEnProceso=true",
                 data: JSON.stringify({
-                    "id_empleado": id_empleado, "txt": txt, "all": pendienteAndInactivo
+                    "id_empleado": id_empleado,
+                    "txt": txt,
+                    "all": pendienteAndInactivo
                 }),
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
@@ -328,7 +341,7 @@ $login->ValidateSession();
                 }
             });
             return list;
-        }        
+        }
 
         function eventoSeleccionar() {
             $('#table_body_pagos_proceso .filas').click(function() {
@@ -337,7 +350,7 @@ $login->ValidateSession();
             });
         }
 
-        function cargarModal(id_empleado){
+        function cargarModal(id_empleado) {
             //var id_empleado = $(this).attr('id');
             $("#modalPago").modal('show');
             $('#modalPago').attr('data-id', id_empleado);
@@ -352,6 +365,14 @@ $login->ValidateSession();
                 //Llenar la tabla
                 $.each(listTable, function(key, value) {
                     var tr = createTableRowWith(value);
+                    var td6 = document.createElement("td");
+                    td6.setAttribute("style", "padding-top: 17px;");
+                    if (value.fin_membresia == null) {
+                        td6.innerText = "Sin membresia";
+                    } else {
+                        td6.innerText = value.fin_membresia;
+                    }
+                    tr.append(td6);
                     tabla.append(tr);
                 });
                 //eventoSeleccionar();
@@ -369,6 +390,26 @@ $login->ValidateSession();
                 //Llenar la tabla
                 $.each(listTable, function(key, value) {
                     var tr = createTableRowWith(value);
+                    var td6 = document.createElement("td");
+                    td6.setAttribute("style", "padding-top: 17px;");
+
+                    if (value.fin_membresia == null) {
+                        td6.innerText = "Sin membresia";
+                    } else {
+                        <?php
+                        $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
+                        ?>
+                        var hoy = "<?php echo $date->format('Y-m-d'); ?>";
+                        var resultado = restaFechas(value.fin_membresia, hoy);
+                        if (resultado == 1) {
+                            td6.innerText = 'hace '+resultado + ' día';
+                        }else{
+                            td6.innerText = resultado + ' días';
+                        }
+                    }
+
+                    tr.append(td6);
+
                     tabla.append(tr);
                 });
                 eventoSeleccionar();
@@ -387,7 +428,6 @@ $login->ValidateSession();
             var td3 = document.createElement("td");
             var td4 = document.createElement("td");
             var td5 = document.createElement("td");
-            var td6 = document.createElement("td");
             td1.setAttribute("scope", "row");
             td1.setAttribute("style", "padding-top: 5px; padding-bottom: 5px;");
             img.setAttribute("src", "../recursos/fotografias/" + value.foto);
@@ -410,15 +450,7 @@ $login->ValidateSession();
             td5.setAttribute("style", "padding-top: 17px;");
             var estado = findEstado(value.id_estado);
             td5.innerText = estado.nombre;
-            td6.setAttribute("style", "padding-top: 17px;");
-            console.log(value.fin_membresia)
-            
-            if( value.fin_membresia == null){
-                td6.innerText = "Sin membresia";
-            }else{
-                td6.innerText = value.fin_membresia;
-            }
-            tr.append(td1, td2, td3, td4, td5, td6);
+            tr.append(td1, td2, td3, td4, td5);
             return tr;
         }
 
@@ -579,6 +611,16 @@ $login->ValidateSession();
                 $('#btn_buscar_miembros_inactivos').click();
             }
         });
+
+        function restaFechas(f1, f2) {
+            var date_1 = new Date(f1);
+            var date_2 = new Date(f2);
+            var day_as_milliseconds = 86400000;
+            var diff_in_millisenconds = date_2 - date_1;
+            var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+            return diff_in_days;
+        }
+
 
 
 

@@ -18,7 +18,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/icono.png">
     <style>
         body {
             background: url(img/fondoSystem.png) no-repeat center center fixed;
@@ -48,7 +48,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
             <table class="table text-center table-striped table-hover">
                 <thead class="thead-dark text-center">
                     <tr>
-                        <th colspan="5">
+                        <th colspan="7">
                             <h5>Empleados registrados en el sistema</h5>
                         </th>
                     </tr>
@@ -58,11 +58,13 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         <th scope="col">Apellidos</th>
                         <th scope="col">Coreo</th>
                         <th scope="col">Tel&eacute;fono</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Puesto</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
                     <tr>
-                        <td colspan="5" class="text-center text-secondary">No se encontraron empleados</td>
+                        <td colspan="7" class="text-center text-secondary">No se encontraron empleados</td>
                     </tr>
                 </tbody>
             </table>
@@ -97,8 +99,9 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                                 <select id="id_tipo_empleado" name="id_tipo_empleado" class="form-control" required>
                                     <!--option>EJEMPLO</option-->
                                     <?php
-                                    include_once '../boundary/tipo_empleado.php';
+                                    include_once '../boundary/tipo_empleado.php.php';
                                     $te = new tipo_empleado();
+                                   
                                     $tiposEmpleados = $te->getAllTipoEmpleado();
                                     if (!is_null($tiposEmpleados)) {
                                         foreach ($tiposEmpleados as $tipoEmpleado) {
@@ -249,6 +252,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                         $("#table_body").html("");
                         //Lenar la tabla
                         jQuery.each(response, function(i, val) {
+                            edad = calcularEdad(val.fecha_nacimiento);
                             var tr =
                                 "<tr id='" + val.usuario + "' data-id_empleado='" + val.id_empleado + "'>" +
                                 "<td>" + val.usuario + "</td>" +
@@ -256,6 +260,8 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                                 "<td>" + val.primer_apellido + ' ' + val.segundo_apellido + "</td>" +
                                 "<td>" + val.correo + "</td>" +
                                 "<td>" + val.telefono + "</td>" +
+                                "<td>" + edad+ " años</td>" +
+                                "<td>" + val.nombre_puesto + "</td>" +
                                 "</tr>";
                             $("#table_body").append(tr);
                         });
@@ -547,6 +553,16 @@ if ($_SESSION['tipoEmpleado'] != 1) {
                 return true;
             }
             return false;
+        }
+        function calcularEdad(fecha) {
+            var hoy = new Date();
+            var cumpleanos = new Date(fecha);
+            var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            var m = hoy.getMonth() - cumpleanos.getMonth();
+            if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+            return edad;
         }
     </script>
     <script>

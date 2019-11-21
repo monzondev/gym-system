@@ -17,7 +17,7 @@ if ($_SESSION['tipoEmpleado']!=1) {
     <meta name='viewport' content='width=device-width, initial-scale=1'>    
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/toastr.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/icono.png">
     <style>
      body {
             background: url(img/fondoSystem.png) no-repeat center center fixed;

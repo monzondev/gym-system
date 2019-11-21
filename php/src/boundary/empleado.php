@@ -14,7 +14,8 @@ class empleado extends conector_pg
         "update"  => "UPDATE empleado SET  id_tipo_empleado = $1, primer_nombre=$2, segundo_nombre=$3, primer_apellido=$4,segundo_apellido=$5, usuario = $6, password = $7, correo = $8, genero = $9, telefono = $10, activo= $11, fecha_nacimiento= $12 WHERE id_empleado = $13",
         "disable"  => "UPDATE empleado SET  activo = false WHERE id_empleado = $1",
         "findAll" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado",
-        "findAllActive" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado WHERE activo = true",
+        //"findAllActive" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado WHERE activo = true",
+        "findAllActive" => "SELECT e.id_empleado, e.id_tipo_empleado, e.primer_nombre, e.segundo_nombre, e.primer_apellido, e.segundo_apellido, e.usuario, e.password, e.correo, e.genero, e.telefono, e.activo, e.fecha_nacimiento, t.nombre AS nombre_puesto FROM public.empleado AS e INNER JOIN tipo_empleado AS t ON t.id_tipo_empleado = e.id_tipo_empleado",
         "findById" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE id_empleado= $1 ",
         "count" => "SELECT COUNT(id_empleado) FROM empleado",
         "findByUser" => "SELECT id_empleado, id_tipo_empleado, primer_nombre, segundo_nombre, primer_apellido,segundo_apellido, usuario, password, correo, genero, telefono, activo, fecha_nacimiento FROM empleado  WHERE usuario=  $1 "

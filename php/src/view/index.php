@@ -571,15 +571,13 @@ $login->ValidateSession();
                             case '1':
                                 toastr.success(responses.message);
                                 reiniciarModal();
-                                updateTablePagosEnProceso("");
-                                updateTableMiembrosInactivos("");
+                                updateTablePagosEnProceso("", 2);
                                 break;
 
                             case '2':
                                 toastr.error(responses.message);
                                 reiniciarModal();
-                                updateTablePagosEnProceso("");
-                                updateTableMiembrosInactivos("");
+                                updateTablePagosEnProceso("", 2);
                                 break;
                         }
                     }

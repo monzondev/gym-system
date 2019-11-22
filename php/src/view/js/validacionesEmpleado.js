@@ -14,15 +14,16 @@ $(document).ready(function () {
         var status9 = false;
 
 
-        
+
         var status11 = false;
 
         //MENSAJES PARA LAS VALIDACIONES
         var imagen = "<img src='img/errorr.png'width='22' alt='Error' >"
-        var requerido = imagen +"     Este campo es requerido";
-        var espacios = imagen +"    Espacios vacios no permitidos";
-        var notEmail = imagen +"     Formato de correo no permitido";
-        var fecha = imagen +"    La fecha es muy reciente";
+        var requerido = imagen + "     Este campo es requerido";
+        var espacios = imagen + "    Espacios vacios no permitidos";
+        var notEmail = imagen + "     Formato de correo no permitido";
+        var fecha = imagen + "    La fecha es muy reciente";
+        var caracteres = imagen + "    Mínimo 3 caracteres";
 
         //CAMPOS A VALIDAR
         var name1 = document.getElementById("nombre1");
@@ -70,19 +71,19 @@ $(document).ready(function () {
             status8 = true;
         }
 
-       //VALIDACION FECHA DE NACIMIENTO
-       n = new Date();
-       fechaL =  n.getFullYear()-18 + "-" + (n.getMonth() + 1) + "-" +  n.getDate();
-       if (date.value == null || date.value == 0) {
-           date.focus();
-           error7.innerHTML = requerido;
-       } else if (date.value > fechaL) {
-           date.focus();
-           error7.innerHTML = fecha;
-       } else {
-           error7.innerHTML = "";
-           status7 = true;
-       }
+        //VALIDACION FECHA DE NACIMIENTO
+        n = new Date();
+        fechaL = n.getFullYear() - 18 + "-" + (n.getMonth() + 1) + "-" + n.getDate();
+        if (date.value == null || date.value == 0) {
+            date.focus();
+            error7.innerHTML = requerido;
+        } else if (date.value > fechaL) {
+            date.focus();
+            error7.innerHTML = fecha;
+        } else {
+            error7.innerHTML = "";
+            status7 = true;
+        }
 
 
         //VALIDACION NUMERO DE TELEFONO
@@ -131,12 +132,15 @@ $(document).ready(function () {
         } else if (user.value.trim() == "") {
             user.focus();
             error3.innerHTML = espacios;
+        } else if (user.value.length < 3) {
+            user.focus();
+            error3.innerHTML = caracteres;
         } else {
             error3.innerHTML = "";
             status3 = true;
         }
-         //VALIDACION APELLIDO2
-         if (lastName2.value == "") {
+        //VALIDACION APELLIDO2
+        if (lastName2.value == "") {
             lastName2.focus();
             error11.innerHTML = requerido;
         } else if (lastName2.value.trim() == "") {
@@ -160,17 +164,17 @@ $(document).ready(function () {
             status2 = true;
         }
 
-       /*  //VALIDACION NOMBRE2
-         if (name2.value == "") {
-            name2.focus();
-            error10.innerHTML = requerido;
-        } else if (name2.value.trim() == "") {
-            name2.focus();
-            error10.innerHTML = espacios;
-        } else {
-            error10.innerHTML = "";
-            status10 = true;
-        }*/
+        /*  //VALIDACION NOMBRE2
+          if (name2.value == "") {
+             name2.focus();
+             error10.innerHTML = requerido;
+         } else if (name2.value.trim() == "") {
+             name2.focus();
+             error10.innerHTML = espacios;
+         } else {
+             error10.innerHTML = "";
+             status10 = true;
+         }*/
 
 
 
@@ -188,7 +192,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9  && status11) {
+        if (status1 && status2 && status3 && status4 && status5 && status6 && status7 && status8 && status9 && status11) {
 
             var username = $.trim($("#usuario").val());
 
@@ -204,20 +208,20 @@ $(document).ready(function () {
                     console.log(response);
                     $("#registrarE").val('Registrar');
                     var datos = JSON.parse(response);
-                     toastr.options.timeOut = 1500; //1.5s
-                     toastr.options.closeButton = true;
-                     if (datos.success === '1') {
-                         document.getElementById("form").submit();
-                     } else if (datos.success === '2') {
+                    toastr.options.timeOut = 1500; //1.5s
+                    toastr.options.closeButton = true;
+                    if (datos.success === '1') {
+                        document.getElementById("form").submit();
+                    } else if (datos.success === '2') {
                         toastr.remove();
-                         toastr.error('El usuario ya existe, prueba con otro!');
-                         user.focus();
-                     }else if (datos.success === '3') {
+                        toastr.error('El usuario ya existe, prueba con otro!');
+                        user.focus();
+                    } else if (datos.success === '3') {
                         toastr.remove();
                         toastr.error('Debe ingresar un nombre de usuario');
                     }
 
-                 }
+                }
             });
 
         }

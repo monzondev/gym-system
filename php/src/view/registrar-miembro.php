@@ -98,7 +98,7 @@ $login->ValidateSession();
                     <div class="col-md-2 mb-3">
                         <div class="form-group">
                             <label>Telefono</label>
-                            <input type="tel" class="form-control" autocomplete="off" required id="telefono" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="telefono" onkeypress="return justNumbers(event);" minlength="8" maxlength="8" placeholder="Telefono">
+                            <input type="tel" class="form-control" autocomplete="off" required id="telefono" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="telefono" onkeypress="return Justtelefono(event);" minlength="8" maxlength="8" placeholder="Telefono">
                             <p id="error7" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -131,7 +131,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Altura</label>
-                            <input id="altura" name="altura" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="7" placeholder="Altura" required class="form-control">
+                            <input id="altura" name="altura" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="5" placeholder="Altura en metros" required class="form-control">
                             <p id="error10" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return justNumbers(event);" required id="peso" maxlength="7" placeholder="Peso" value="">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return justNumbers(event);" required id="peso" maxlength="5" placeholder="Peso en kilogramos" value="">
                             <p id="error11" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -184,6 +184,17 @@ $login->ValidateSession();
                 return true;
 
             return /\d/.test(String.fromCharCode(keynum));
+        }
+
+        function Justtelefono(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+               console.log('no numero');
+               console.log(charCode);
+                return false
+            }
+            return true
         }
 
         function justCorreo(e) {

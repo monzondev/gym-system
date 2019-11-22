@@ -19,12 +19,13 @@ $(document).ready(function () {
 
         //MENSAJES PARA LAS VALIDACIONES
         var imagen = "<img src='img/errorr.png'width='22' alt='Error' >"
-        var requerido = imagen +"     Este campo es requerido";
-        var espacios = imagen +"    Espacios vacios no permitidos";
-        var notEmail = imagen +"     Formato de correo no permitido";
-        var image = imagen +"     Solo imagenes jpg permitidas";
-        var fecha = imagen +"    La fecha es muy reciente";
-
+        var requerido = imagen + "     Este campo es requerido";
+        var espacios = imagen + "    Espacios vacios no permitidos";
+        var notEmail = imagen + "     Formato de correo no permitido";
+        var image = imagen + "     Solo imagenes jpg permitidas";
+        var fecha = imagen + "    La fecha es muy reciente";
+        var decimal = imagen + "    Formato no permitido";
+        var caracteres  = imagen + "    Mínimo 3 caracteres";
         //CAMPOS A VALIDAR
         var name1 = document.getElementById("nombre1");
         var name2 = document.getElementById("nombre2");
@@ -56,7 +57,7 @@ $(document).ready(function () {
         var error10 = document.getElementById("error10");
         var error11 = document.getElementById("error11");
         var error12 = document.getElementById("error12");
-       // var error13 = document.getElementById("error13");
+        // var error13 = document.getElementById("error13");
 
         //VALIDACION FECHA DE NACIMIENTO
         n = new Date();
@@ -72,12 +73,18 @@ $(document).ready(function () {
             status12 = true;
         }
 
+        const decimalValid = /^(\d+)$|^(\d+\.{1}\d{2})$/;
+        const decimalValid2 = /^(\d+)$|^(\d+\.{1}\d{1})$/;
+
         //VALIDACION PESO
         if (peso.value.length > 0) {
             if (peso.value.trim() == "") {
                 peso.focus();
                 error11.innerHTML = espacios;
-            }else {
+            } else if (!decimalValid.test(peso.value) && !decimalValid2.test(peso.value)) {
+                peso.focus();
+                error11.innerHTML = decimal;
+            } else {
                 error11.innerHTML = "";
                 status11 = true;
             }
@@ -86,12 +93,16 @@ $(document).ready(function () {
             status11 = true;
         }
 
+
         //VALIDACION ALTURA
         if (altura.value.length > 0) {
             if (altura.value.trim() == "") {
                 altura.focus();
                 error10.innerHTML = espacios;
-            }else {
+            } else if (!decimalValid.test(altura.value) && !decimalValid2.test(altura.value)) {
+                altura.focus();
+                error10.innerHTML = decimal;
+            } else {
                 error10.innerHTML = "";
                 status10 = true;
             }
@@ -138,7 +149,7 @@ $(document).ready(function () {
             if (!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(email.value))) {
                 email.focus();
                 error6.innerHTML = notEmail;
-            }else {
+            } else {
                 error6.innerHTML = "";
                 status6 = true;
             }
@@ -154,6 +165,9 @@ $(document).ready(function () {
         } else if (user.value.trim() == "") {
             user.focus();
             error5.innerHTML = espacios;
+        } else if (user.value.length < 3) {
+            user.focus();
+            error5.innerHTML = caracteres;
         } else {
             error5.innerHTML = "";
             status5 = true;
@@ -183,17 +197,17 @@ $(document).ready(function () {
             status3 = true;
         }
 
-       /* //VALIDACION NOMBRE2
-        if (name2.value == "") {
-            name2.focus();
-            error2.innerHTML = requerido;
-        } else if (name2.value.trim() == "") {
-            name2.focus();
-            error2.innerHTML = espacios;
-        } else {
-            error2.innerHTML = "";
-            status2 = true;
-        }*/
+        /* //VALIDACION NOMBRE2
+         if (name2.value == "") {
+             name2.focus();
+             error2.innerHTML = requerido;
+         } else if (name2.value.trim() == "") {
+             name2.focus();
+             error2.innerHTML = espacios;
+         } else {
+             error2.innerHTML = "";
+             status2 = true;
+         }*/
 
 
 
@@ -211,7 +225,7 @@ $(document).ready(function () {
 
 
         //VALIDACION DE ESTADOS DE LOS CAMPOS
-        if (status1 && status4 && status3  && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12 ) {
+        if (status1 && status4 && status3 && status5 && status6 && status7 && status8 && status9 && status10 && status11 && status12) {
 
             var username = $.trim($("#usuario").val());
 

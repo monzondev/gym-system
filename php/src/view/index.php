@@ -452,7 +452,12 @@ $login->ValidateSession();
         function createTableRowWith(value) {
             var tr = document.createElement("tr");
             tr.id = value.id_miembro;
-            tr.setAttribute("title", value.primer_nombre +' ' + value.segundo_nombre+' ' + value.primer_apellido);
+            if (value.segundo_nombre !=null) {
+                tr.setAttribute("title", value.primer_nombre +' ' + value.segundo_nombre+' ' + value.primer_apellido);
+            }else{
+                tr.setAttribute("title", value.primer_nombre +' '+ value.primer_apellido);
+            }
+           
             tr.classList.add("filas");
             var td1 = document.createElement("th");
             var img = document.createElement("img");

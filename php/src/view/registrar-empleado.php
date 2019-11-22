@@ -108,7 +108,7 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
                     <div class="col-md-2 mb-3">
                         <div class="form-group">
                             <label>Telefono</label>
-                            <input type="tel" class="form-control" autocomplete="off" required id="telefono" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="telefono" onkeypress="return justNumbers(event);" minlength="8" maxlength="8" placeholder="Telefono">
+                            <input type="tel" class="form-control" autocomplete="off" required id="telefono" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" name="telefono" onkeypress="return Justtelefono(event);" minlength="8" maxlength="8" placeholder="Telefono">
                             <p id="error6" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -173,6 +173,17 @@ $tipos =  $tipoEmpleado->getAllTipoEmpleado();
 
 
     <script>
+        function Justtelefono(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                console.log('no numero');
+                console.log(charCode);
+                return false
+            }
+            return true
+        }
+
         function justNumbers(e) {
             var keynum = window.event ? window.event.keyCode : e.which;
             if ((keynum == 8) || (keynum == 46))

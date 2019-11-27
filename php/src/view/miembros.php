@@ -146,15 +146,15 @@ $login->ValidateSession();
                 <div class="col-md-10">
                     <h3>Buscar Miembro:</h3>
                     <input id="buscador" class="form-control basicAutoSelect" style="width: 70%; float: left;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                    <button id="btn_buscar" style="float: left;" class="btn btn-secondary">Filtrar</button>
-                    <div class="btn-group">
+                    <button id="btn_buscar" style="float: left;" class="btn btn-info">Filtrar</button>
+                    <!--div class="btn-group">
                         <button id="btn_estado" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Estado
                         </button>
                         <div id="estado_opciones" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                            <!--button class="dropdown-item" type="button">Action</button-->
+                            <button class="dropdown-item" type="button">Action</button>
                         </div>
-                    </div>
+                    </div-->
                 </div>
                 <div class="col-md-1"></div>
             </div>
@@ -167,7 +167,7 @@ $login->ValidateSession();
                         <th scope="col">Telefono</th>
                         <th scope="col">Membres&iacute;a</th>
                         <th scope="col">Inicio</th>
-                        <th scope="col">Estado</th>
+                        <!--th scope="col">Estado</th-->
                     </tr>
                 </thead>
                 <tbody id="table_body">
@@ -633,7 +633,8 @@ $login->ValidateSession();
             td6.setAttribute("style", "padding-top: 17px;");
             var estado = findEstado(value.id_estado);
             td6.innerText = estado.nombre;
-            tr.append(td1, td2, td3, td4, td5, td6);
+            //tr.append(td1, td2, td3, td4, td5, td6);
+            tr.append(td1, td2, td3, td4, td5);
             return tr;
         }
 

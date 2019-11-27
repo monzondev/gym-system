@@ -168,7 +168,7 @@ if (isset($_GET['pagosEnProceso']) && $_GET['pagosEnProceso']) {
     //Verificar si es administrador el que solicita
     if(isset($empleado) && ($empleado->id_tipo_empleado == 1 || $empleado->id_tipo_empleado == 2)){
         //Buscar todos los miembros con proximos pagos
-        $miembros = $miembro->getMiembrosPagosEnProceso($txt, $all);
+        $miembros = $miembro->getMiembrosPagosEnProceso($txt);
         if($miembros != null){
             echo json_encode($miembros);
         }else{

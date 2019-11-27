@@ -98,7 +98,7 @@ $login->ValidateSession();
                                 <th scope="col">Usuario</th>
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Membres&iacute;a</th>
-                                <th scope="col">Estado</th>
+                                <!--th scope="col">Estado</th-->
                                 <th scope="col">Fin de membres&iacute;a</th>
                             </tr>
                         </thead>
@@ -116,15 +116,15 @@ $login->ValidateSession();
                         <div class="col-md-10">
                             <h3>Miembros en Proceso de pago:</h3>
                             <input id="buscador_pagos_proceso" class="form-control basicAutoSelect" style="width: 70%; display: inline-block;" placeholder="Ingrese nombre del miembro..." onkeypress="return lettersOnly(event);" autocomplete="off" />
-                            <button id="btn_buscar_pagos_proceso" style="display: inline-block;" class="btn btn btn-secondary">Filtrar</button>
-                            <div class="btn-group">
+                            <button id="btn_buscar_pagos_proceso" style="display: inline-block;" class="btn btn btn-info">Filtrar</button>
+                            <!--div class="btn-group">
                                 <button id="btn_estado" type="button" class="btn btn-info dropdown-toggle" style="display: inline-block;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Estado
                                 </button>
                                 <div id="estado_opciones" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                                    <!--button class="dropdown-item" type="button">Action</button-->
+                                    <button class="dropdown-item" type="button">Action</button>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -136,7 +136,7 @@ $login->ValidateSession();
                                 <th scope="col">Usuario</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Membres&iacute;a</th>
-                                <th scope="col">Estado</th>
+                                <!--th scope="col">Estado</th-->
                                 <th scope="col">Fin de membres&iacute;a </th>
                             </tr>
                         </thead>
@@ -419,28 +419,36 @@ $login->ValidateSession();
                 tabla.html("");
                 //Llenar la tabla
                 $.each(listTable, function(key, value) {
-                    if(id_estado == value.id_estado){
-                        var tr = createTableRowWith(value);
-                        var td6 = document.createElement("td");
-                        td6.setAttribute("style", "padding-top: 17px;");
+                    var tr = createTableRowWith(value);
+                    var td6 = document.createElement("td");
+                    td6.setAttribute("style", "padding-top: 17px;");
 
-                        if (value.fin_membresia == null) {
-                            td6.innerText = "Sin membresia";
-                        } else {
-                            <?php
-                            $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
-                            ?>
-                            var hoy = "<?php echo $date->format('Y-m-d'); ?>";
-                            var resultado = restaFechas(value.fin_membresia, hoy);
-                            if (resultado == 1) {
-                                td6.innerText = 'hace '+resultado + ' día';
-                            }else{
-                                td6.innerText = resultado + ' días';
-                            }
+                    if (value.fin_membresia == null) {
+                        td6.innerText = "Sin membresia";
+                    } else {
+                        <?php
+                        $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
+                        ?>
+                        var hoy = "<?php echo $date->format('Y-m-d'); ?>";
+                        var resultado = restaFechas(value.fin_membresia, hoy) + 1;
+                        if (resultado == 0) {
+                            td6.innerText = 'Hoy';
+                        }else if(resultado == 1) {
+                            td6.innerText = 'hace '+resultado + ' día';
+                        }else{
+                            td6.innerText = resultado + ' días';
                         }
-                        tr.append(td6);
+                    }
+                    tr.append(td6);
+                    tabla.append(tr);                    
                         tabla.append(tr);
-                    }                    
+                    tabla.append(tr);                    
+                        tabla.append(tr);
+                    tabla.append(tr);                    
+                        tabla.append(tr);
+                    tabla.append(tr);                    
+                        tabla.append(tr);
+                    tabla.append(tr);                    
                 });
                 eventoSeleccionar();
             } else if (listTable == false) {
@@ -488,7 +496,8 @@ $login->ValidateSession();
             td5.setAttribute("style", "padding-top: 17px;");
             var estado = findEstado(value.id_estado);
             td5.innerText = estado.nombre;
-            tr.append(td1, td2, td3, td4, td5);
+            //tr.append(td1, td2, td3, td4, td5);
+            tr.append(td1, td2, td3, td4);
             return tr;
         }
 

@@ -431,8 +431,10 @@ $login->ValidateSession();
                             $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
                             ?>
                             var hoy = "<?php echo $date->format('Y-m-d'); ?>";
-                            var resultado = restaFechas(value.fin_membresia, hoy);
-                            if (resultado == 1) {
+                            var resultado = restaFechas(value.fin_membresia, hoy) + 1;
+                            if (resultado == 0) {
+                                td6.innerText = 'Hoy';
+                            }else if(resultado == 1) {
                                 td6.innerText = 'hace '+resultado + ' día';
                             }else{
                                 td6.innerText = resultado + ' días';

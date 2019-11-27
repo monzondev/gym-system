@@ -86,7 +86,7 @@ if ($_SESSION['tipoEmpleado'] != 1) {
     </script>
     <script>
         <?php
-        $date = new DateTime("now", new DateTimeZone('America/El_Salvador'));
+            $date = new DateTime();
         ?>
         var date = "<?php echo $date->format('Y-m-d'); ?>";
 

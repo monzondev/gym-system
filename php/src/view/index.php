@@ -550,12 +550,12 @@ $login->ValidateSession();
             } else {
                 error1.innerHTML = "";
                 var precio = document.getElementById("precio").innerText;
-                var f = new Date();
+                //var f = new Date();
                 var dataString = {
                     'miembro': $('#modalPago').attr('data-id'),
                     'membresia': $('#tipomembresia').val(),
-                    'monto': precio,
-                    'fecha': (f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate())
+                    'monto': precio
+                    //'fecha': (f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate())
                 }
 
 

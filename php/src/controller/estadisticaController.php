@@ -12,15 +12,11 @@ if (isset($_GET['ingresosPorDia']) && $_GET['ingresosPorDia']) {
     $id_empleado = (json_decode($json))->id_empleado;
     $empleado = (object) $empleadoFacade->getUserbyId($id_empleado);
     if(isset($empleado) && $empleado->id_tipo_empleado == 1){
-        if($fecha == ''){
-            $end = new DateTime('');
-            $date = $end;
-        }else{
-            $end = DateTime::createFromFormat('Y-m-d', $fecha);
-        }        
+        $end = DateTime::createFromFormat('Y-m-d', $fecha);
+        
         if($end <= new DateTime()){
             $begin = new DateTime($end->format("Y-m-d"));
-            $begin->sub(new DateInterval('P7D'));
+            $begin->sub(new DateInterval('P6D'));
 
             $interval = DateInterval::createFromDateString('1 day');
             $period = new DatePeriod($begin, $interval, $end);
@@ -28,7 +24,7 @@ if (isset($_GET['ingresosPorDia']) && $_GET['ingresosPorDia']) {
             $ingresos->labels = array();
             $ingresos->data = array();
             foreach ($period as $dt) {
-                $dias = array("Lunes","Martes","Miercoles","Jueves","Viernes","Sábado", "Domingo");
+                $dias = array("Lun","Mar","Mie","Jue","Vie","Sab", "Dom");
                 $mes = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
                 $dayName = $dias[$dt->format('N')-1];
                 $dayName = $dayName . " " . $dt->format("d") . " " .$mes[$dt->format("m")-1];

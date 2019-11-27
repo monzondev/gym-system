@@ -10,13 +10,13 @@ $miembro = new miembro();
 $membresia = new tipo_membresia();
 
 if (isset($_GET['realizarPago'])) {
-
+    $fecha = new DateTime();
     //Obteniendo datos para la realizacion del pago
     $arrayPago = [
         "id_miembro" => $_POST['miembro'],
         "id_empleado" => $_SESSION['idEmpleado'],
         "id_tipo_membresia" => $_POST['membresia'],
-        "fecha" => $_POST['fecha'],
+        "fecha" => $fecha->format("Y-m-d"),
         "monto" => $_POST['monto']
 
     ];

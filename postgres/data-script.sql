@@ -43,9 +43,9 @@ INSERT INTO public.tipo_empleado VALUES (2, 'Empleado', NULL);
 -- Data for Name: tipo_membresia; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.tipo_membresia VALUES (1, 'Mensual', 20.00, true, 30, 'Pago de cuota mensual');
-INSERT INTO public.tipo_membresia VALUES (2, 'Quincenal', 15.00, true, 15, 'Pago de cuota quincenal');
-INSERT INTO public.tipo_membresia VALUES (3, 'Semanal', 10.00, true, 7, 'Pago de cuota semanal');
+INSERT INTO public.tipo_membresia VALUES (1, 'Mensual', 12.00, true, 30, 'Pago de cuota mensual');
+INSERT INTO public.tipo_membresia VALUES (2, 'Quincenal', 8.00, true, 15, 'Pago de cuota quincenal');
+INSERT INTO public.tipo_membresia VALUES (3, 'Semanal', 5.00, true, 7, 'Pago de cuota semanal');
 
 --
 -- TOC entry 2168 (class 0 OID 16395)

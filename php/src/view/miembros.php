@@ -528,6 +528,7 @@ $login->ValidateSession();
 
         $('#buscador').autoComplete({
             minLength: 1,
+            noResultsText: "Sin resultados",
             events: {
                 searchPost: function(resultFromServer) {
                     var txt = $('#buscador').val();

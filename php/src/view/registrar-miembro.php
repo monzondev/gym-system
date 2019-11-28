@@ -131,7 +131,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Altura</label>
-                            <input id="altura" name="altura" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="5" placeholder="Altura en metros" required class="form-control">
+                            <input id="altura" name="altura" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" onkeypress="return justNumbers(event);" maxlength="3" min="100" max="999" placeholder="Altura en centimentos" required class="form-control">
                             <p id="error10" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ $login->ValidateSession();
                     <div class="col-md-3 mb-3">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return justNumbers(event);" required id="peso" maxlength="5" placeholder="Peso en kilogramos" value="">
+                            <input class="form-control" onCopy="return false" autocomplete="off" onDrag="return false" onDrop="return false" onPaste="return false" name="peso" onkeypress="return justNumbers(event);" required id="peso" maxlength="3" min="100" max="999" placeholder="Peso en libras" value="">
                             <p id="error11" class="text-danger error"> </p>
                         </div>
                     </div>
@@ -179,11 +179,10 @@ $login->ValidateSession();
 
     <script>
         function justNumbers(e) {
-            var keynum = window.event ? window.event.keyCode : e.which;
-            if ((keynum == 8) || (keynum == 46))
+            if (String.fromCharCode(e.which).match(/^[0-9\x08]$/)) {
                 return true;
-
-            return /\d/.test(String.fromCharCode(keynum));
+            }
+            return false;
         }
 
         function Justtelefono(evt) {

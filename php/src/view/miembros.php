@@ -435,13 +435,13 @@ $login->ValidateSession();
                     $("#fecha_inicio").html(selected.fecha_inicio);
 
                     if (selected.altura != 0) {
-                        $("#altura").html(selected.altura + ' m');
+                        $("#altura").html(selected.altura + ' cm');
                     } else {
                         $("#altura").html('No registrada');
                     }
 
                     if (selected.peso != 0) {
-                        $("#peso").html(selected.peso + ' kg');
+                        $("#peso").html(selected.peso + ' lb');
                     } else {
                         $("#peso").html('No registrado');
                     }
